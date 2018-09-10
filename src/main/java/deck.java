@@ -7,6 +7,8 @@ public class deck {
     List<card> deck = new ArrayList<card>(); //Stores the deck of cards
     List<card> discarded = new ArrayList<card>(); //Stores the discarded cards traded in
 
+
+
     public deck(int numOfTerritories){
         //TODO Deck generation based on numOfTerritories + 3 wild cards
         //generates the 3 wild cards
@@ -15,12 +17,11 @@ public class deck {
             deck.add(currentCard);
         } //ends for
         //Generates rest of the deck
-        for (int n = 0; n < numOfTerritories; n++){
-            //Needs rest of the deck generation fleshed out
-        }//ends for
+        initializeDeck();
         //randomizes the deck order
         Collections.shuffle(deck);
     }//ends constructor
+
 
     public int cardsInDeck(){
         return this.deck.size();
@@ -37,4 +38,93 @@ public class deck {
     public void discardCard(card discardedCard){
         this.discarded.add(discardedCard);
     }//ends discardCard
+
+    //Finishes creating the deck from the offical Risk deck
+    private void initializeDeck(){
+        card af = new card('c', "Afghanistan");
+        card al = new card('i', "Alaska");
+        card alb = new card('c', "Alberta");
+        card ar = new card('i', "Argentina");
+        card br = new card('a', "Brazil");
+        card ca = new card('i', "Central Africa");
+        card cam = new card('a', "Central America");
+        card ch = new card('i', "China");
+        card ea = new card('i', "East Africa");
+        card eau = new card('a', "Eastern Australia");
+        card ec = new card('c', "Eastern Canada");
+        card eus = new card('a', "Eastern United States");
+        card eg = new card('i', "Egypt");
+        card gb = new card('a', "Great Britain");
+        card gr = new card('c', "Greenland");
+        card ic = new card('i', "Iceland");
+        card indi = new card('c', "India");
+        card indo = new card('a', "Indonesia");
+        card ir = new card('c', "Irkutsk");
+        card ja = new card('a', "Japan");
+        card ka = new card('i', "Kamchatka");
+        this.deck.add(af);
+        this.deck.add(al);
+        this.deck.add(alb);
+        this.deck.add(ar);
+        this.deck.add(br);
+        this.deck.add(ca);
+        this.deck.add(cam);
+        this.deck.add(ch);
+        this.deck.add(ea);
+        this.deck.add(eau);
+        this.deck.add(ec);
+        this.deck.add(eus);
+        this.deck.add(eg);
+        this.deck.add(gb);
+        this.deck.add(gr);
+        this.deck.add(ic);
+        this.deck.add(indi);
+        this.deck.add(indo);
+        this.deck.add(ir);
+        this.deck.add(ja);
+        this.deck.add(ka);
+        card ma = new card('c', "Madagascar");
+        card me = new card('i', "Middle East");
+        card mo = new card('i', "Mongolia");
+        card ne = new card('i', "New Guinea");
+        card na = new card('c', "North Africa");
+        card neu = new card('a', "Northern Europe");
+        card nw = new card('a', "Northwest Territory");
+        card on = new card('c', "Ontario");
+        card pe = new card('i', "Peru");
+        card ru = new card('c', "Russia");
+        card sc = new card('c', "Scandinavia");
+        card si = new card('c', "Siberia");
+        card sa = new card('a', "South Africa");
+        card sea = new card('i', "Southeast Asia");
+        card se = new card('a', "Southern Europe");
+        this.deck.add(ma);
+        this.deck.add(me);
+        this.deck.add(mo);
+        this.deck.add(ne);
+        this.deck.add(na);
+        this.deck.add(neu);
+        this.deck.add(nw);
+        this.deck.add(on);
+        this.deck.add(pe);
+        this.deck.add(ru);
+        this.deck.add(sc);
+        this.deck.add(si);
+        this.deck.add(sa);
+        this.deck.add(sea);
+        this.deck.add(se);
+        card ur = new card('c', "Ural");
+        card ve = new card('i', "Venezuela");
+        card wa = new card('a', "Western Australia");
+        card we = new card('a', "Western Europe");
+        card wus = new card('a', "Western United States");
+        card ya = new card('c', "Yakutsk");
+        this.deck.add(ur);
+        this.deck.add(ve);
+        this.deck.add(wa);
+        this.deck.add(we);
+        this.deck.add(wus);
+        this.deck.add(ya);
+    }//ends initializeDeck
+
 }//ends class deck

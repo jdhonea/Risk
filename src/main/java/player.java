@@ -33,7 +33,8 @@ public class player {
 	String[][] playerOptions = new String[2][2];
 	//List<territory> adjTerr = new ArrayList<territory>();
 	adjacentTerritoriesLists adjTL = new adjacentTerritoriesLists();
-	List<Object> cardsHeld = new ArrayList<Object>();
+	//Contains the cards in the players hand
+	List<card>  hand = new ArrayList<card>();
 	public List<territory> territoriesOwned = new ArrayList<territory>();
 	
 	//////////CONSTRUCTORS//////////////////
