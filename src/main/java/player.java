@@ -278,7 +278,10 @@ public class player {
 			System.out.println("]");
 		}
 	}
-	
+	/**
+	* METHOD TO DISPLAY PLAYER'S OPTIONS BEFORE EACH TURN
+	* TODO: ADD MORE OPTIONS (TRADE CARDS, PICK CARDS, etc)
+	*/
 	public void getPlayerOptions() {
 		/**
 		 * If adjacent territory is owned by someone else
