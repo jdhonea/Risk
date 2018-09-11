@@ -1,10 +1,11 @@
+package com.risktakers.Risk;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
-	 * CONSTRUCTOR
-	 */
+ * CONSTRUCTOR
+ */
 public class playerTurn{
 	public playerTurn(player p, territory[] tList) {
 		String optionNumber = new String();
@@ -36,6 +37,4 @@ public class playerTurn{
 			}
 		}
 	}
-
-
 }
