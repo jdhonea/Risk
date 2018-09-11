@@ -1,3 +1,4 @@
+package com.risktakers.Risk;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -269,7 +270,11 @@ public class player {
 	public void printTerritories() {
 		System.out.println("\n"+playerName+" owns: ");
 		for(int x = 0; x < territoriesOwned.size(); x++) {
-			System.out.println("["+territoriesOwned.get(x).territoryNumber+"]"+territoriesOwned.get(x).name+", ");
+			System.out.print("["+territoriesOwned.get(x).territoryNumber+"]"+territoriesOwned.get(x).name+" (has "+territoriesOwned.get(x).getnumofarmies()+" armies.) \t------>  Adjacent territories: [");
+			for(territory t : territoriesOwned.get(x).adj_territories) {
+				System.out.print(" "+t.name+",");
+			}
+			System.out.println("]");
 		}
 	}
 	
@@ -330,11 +335,27 @@ public class player {
 						System.out.println("Which territory would you like to attack? *CHOOSE NUMBER*");
 						int count = 0;
 						while(count < t.adj_territories.size()) {
-							//check ownership, again
-							//if(this.getplayernumber() != t.adj_territories.get(count).isOwnedBy) {
-								System.out.print("["+t.adj_territories.get(count).territoryNumber+"]"+t.adj_territories.get(count).name+" ");
-								System.out.print("");
-							//}
+							
+							//check ownership again, so to only display territories you can attack
+							territory nameCheck = new territory();
+							for(territory n : tList) {
+								if(t.adj_territories.get(count).name.equals(n.name)) {
+									nameCheck = n;
+									break;
+								}
+							}
+							
+							if(this.getplayernumber() != nameCheck.isOwnedBy+1) {
+								System.out.print("["+t.adj_territories.get(count).territoryNumber+"]"+t.adj_territories.get(count).name+"\t(There are ");
+
+									for(territory r : tList) {
+										if(r.territoryNumber == t.adj_territories.get(count).territoryNumber) {
+											System.out.print(r.numofArmiesHere);
+											break;
+										}
+									}
+								System.out.println(" armies here.)");
+							}
 							count++;
 						}
 						//Enter data using BufferReader
@@ -350,7 +371,7 @@ public class player {
 								if(tr.territoryNumber == result2 && this.playerNo != tr.isOwnedBy) {
 									System.out.println("\nATTACKING "+tr.name+"!!");
 									//COMPLETE THIS METHOD WITH APPROPRIATE ACTIONS
-									
+									//TODO: ROLL DICE NEXT
 									break;
 								}
 							}
