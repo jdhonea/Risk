@@ -270,7 +270,7 @@ public class Risk_Game {
 		boolean weHaveAWinner = false;
 		while(weHaveAWinner == false) {
 			for(player p : pList) {
-				playerTurn pT = new playerTurn(p, tList);
+				playerTurn pT = new playerTurn(p, tList, pList);
 
 			}
 		}
