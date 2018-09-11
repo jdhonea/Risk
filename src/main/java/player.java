@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -295,8 +296,57 @@ public class player {
 		}
 	}
 	
-	public void rolldice() {
+	/**
+     * Returns an integer array of values between 1 and 6 representing the
+     * outcome of rolling the dice.  The number of values in the array should be
+     * between 1 and 3, depending on the number of dice rolled by the player.  The 
+     * number of dice rolled by the player is determined by the argument diceDeterminant
+     **/
+	public int[] rolldice(int diceDeterminant) {
+		String input = null;
+		int numberOfDiceRolls = 0;
+		int[] playerDice;
+		int max = 1;
+		if(diceDeterminant == 1) {
+			max = 1;
+		}
+		if(diceDeterminant == 2) {
+			max = 2;
+		}
+		if(diceDeterminant > 2) {
+			max = 3;
+		}
+		boolean check = true;
+		while(check) {
+			System.out.println(this.playerName+", you have "+diceDeterminant+" armies here.");
+			System.out.println("You may roll up to "+max+" dice. How many dice do you want to roll?");
+			//Enter data using BufferReader
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			// Reading data using readLine
+			try {
+				input = reader.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			numberOfDiceRolls = Integer.parseInt(input);
+			if(numberOfDiceRolls < 1 || numberOfDiceRolls > 3) {
+				check = true;
+				System.out.println("Invalid input. TRY AGAIN.");
+				//break;
+			} else check = false;
+		}
 		
+		System.out.println(this.playerName+" is rolling "+numberOfDiceRolls+" dice...");
+		Dice dice = new Dice();	
+		playerDice = dice.roll(numberOfDiceRolls);	
+		Arrays.sort(playerDice);
+		System.out.print("Dice Results = [ ");
+		for(int i : playerDice) {
+			System.out.print(i+" ");
+		}
+		System.out.print("]");
+		return playerDice;
 	}
 	
 	public void placeArmy() {
@@ -310,11 +360,30 @@ public class player {
 	public void pickCard() {
 
 	}
+	
+	/**
+	 * Comparing dice rolls to determine outcome of battle
+	 */
+	public void compareDiceRolls(player p1,int[] p1Dice,player p2,int[] p2Dice) {
+		System.out.print("\n\nCOMPARING RESULTS....");
+		System.out.print("\n"+p1.getPlayerName()+": [");
+		for(int p : p1Dice) {
+			System.out.print(p+" ");
+		}
+		System.out.print("]");
+		
+		System.out.print("\n"+p2.getPlayerName()+": [");
+		for(int p : p2Dice) {
+			System.out.print(p+" ");
+		}
+		System.out.println("]");
+		
+	}
 
 	/**
 	 * 
 	 */
-	public void attack(territory[] tList) {
+	public void attack(territory[] tList, List<player> players) {
 		String from;
 		System.out.println("FROM which territory would you like to attack? *CHOOSE NUMBER*");
 		this.printTerritories();
@@ -345,7 +414,7 @@ public class player {
 								}
 							}
 							
-							if(this.getplayernumber() != nameCheck.isOwnedBy+1) {
+							if(this.getplayernumber() != nameCheck.isOwnedBy) {
 								System.out.print("["+t.adj_territories.get(count).territoryNumber+"]"+t.adj_territories.get(count).name+"\t(There are ");
 
 									for(territory r : tList) {
@@ -366,12 +435,30 @@ public class player {
 							int result2 = Integer.parseInt(to);	
 							for(territory tr : tList) {
 								//ATTACK
-								//TODO: THROW EXCEPTION IF PLAYER ALREADY OWNS THE TERRITORY
-								//      HE IS TRYING TO ATTACK, & PROMPT FOR ANOTHER CHOICE
+								//TODO: THROW EXCEPTION IF INPUT IS INVALID & PROMPT FOR ANOTHER CHOICE
 								if(tr.territoryNumber == result2 && this.playerNo != tr.isOwnedBy) {
-									System.out.println("\nATTACKING "+tr.name+"!!");
 									//COMPLETE THIS METHOD WITH APPROPRIATE ACTIONS
 									//TODO: ROLL DICE NEXT
+									territory diceTerr = new territory();
+									diceTerr = tList[result-1];
+									int[] attackingP = this.rolldice(diceTerr.getnumofarmies());
+									System.out.println("\nATTACKING "+tr.name+"!!");
+									boolean tryagain = true;
+									int next = 0;
+									while(tryagain) {
+										if(tr.isOwnedBy == players.get(next).playerNo) {
+											System.out.println(players.get(next).playerName+", you must DEFEND your territory!");
+											tryagain = false;
+											break;
+										}
+										next++;
+									}
+									//DEFENDING PLAYER ROLLS HIS DICE
+									int[] defendingP = players.get(next).rolldice(tr.getnumofarmies());
+									
+									//TODO: COMPARE RESULTS TO SEE WHO WINS THE BATTLE
+									compareDiceRolls(this,attackingP,players.get(next),defendingP);
+									
 									break;
 								}
 							}
@@ -381,7 +468,7 @@ public class player {
 						}
 					} else {
 						System.out.println("You don't have enough armies to attack from this territory.");
-						attack(tList);
+						attack(tList,players);
 					}
 					break;
 				}
