@@ -1,3 +1,4 @@
+package com.risktakers.Risk;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -240,13 +241,13 @@ public class Risk_Game {
 			playerOrder.add(pList.get(x));
 		}
 		System.out.println("*ROLLING DICE TO DETERMINE ORDER OF PLAY.*"+"\nPLEASE WAIT...");
-		TimeUnit.SECONDS.sleep(3);
+		//TimeUnit.SECONDS.sleep(3);
 		System.out.print("\nThe order of play is: ");
 		for(int x = 0; x < players; x++) {
 			System.out.print(playerOrder.get(x).getPlayerName() + " ");
 		}
 		System.out.println("\n");
-		TimeUnit.SECONDS.sleep(3);
+		//TimeUnit.SECONDS.sleep(3);
 		/**
 		 * PLAYERS ARE CHOOSING THEIR TERRITORIES
 		 * CURRENTLY, THIS IS SIMULATING THE PLAYERS CHOOSING
@@ -278,4 +279,3 @@ public class Risk_Game {
 	}
 
 }
-
