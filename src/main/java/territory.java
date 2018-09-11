@@ -1,3 +1,4 @@
+package com.risktakers.Risk;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +103,4 @@ public class territory {
 		}
 		return dummy;
 	}
-	
-	
 }
