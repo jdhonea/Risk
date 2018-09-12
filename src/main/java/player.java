@@ -1,4 +1,4 @@
-package com.risktakers.Risk;
+//package com.risktakers.Risk;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
