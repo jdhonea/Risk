@@ -356,12 +356,13 @@ public class player {
 		
 	}
 	
-	public void tradeCards() {
-		
+	public void tradeCards(deck deck) {
+
 	}
 
-	public void pickCard() {
-
+	//Player draws top card of deck
+	public void drawCard(deck deck) {
+		hand.add(deck.drawCard());
 	}
 	
 	/**

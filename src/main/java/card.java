@@ -11,10 +11,10 @@ public class card {
 
     //Returns 'i' for infantry, 'c' for cavalry, 'a' for artillery, or 'w' for wild
     public char getDesign() {
-        return design;
+        return this.design;
     }
     //Returns territory name or "wild"
     public String getTerritory(){
-        return territory;
+        return this.territory;
     }
 }

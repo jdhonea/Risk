@@ -4,9 +4,9 @@ import java.util.List;
 
 public class deck {
     //Would use a deque, but shuffling is important and Collections.shuffle cannot be used on a Deque
-    List<card> deck = new ArrayList<card>(); //Stores the deck of cards
-    List<card> discarded = new ArrayList<card>(); //Stores the discarded cards traded in
-
+    private List<card> deck = new ArrayList<card>(); //Stores the deck of cards
+    private List<card> discarded = new ArrayList<card>(); //Stores the discarded cards traded in
+    private int setsTradedIn = 0;
 
 
     public deck(int numOfTerritories){
@@ -33,6 +33,38 @@ public class deck {
         this.deck.remove(0);
         return currentCard;
     }//ends drawCard
+
+    //Accepts a sublist of the players hand as cards traded in and returns the number of armies the player is awarded
+    public int cardsTradedIn(List<card> tradedIn){
+        int count = 0; //stores the count of the design
+        char first = 'n'; // stores the first design of the sublist unless it is a wild card
+        //checks for a complete set
+        for (card n : tradedIn) {
+            if (n.getDesign() == 'w') {
+                count++;
+            }
+            else if (first == 'n') {
+                first = n.getDesign();
+                count++;
+            }
+            else if (first == n.getDesign()) {
+                count++;
+            }
+            this.discarded.add(n);
+            //tradedIn.remove(n);
+        }
+        if (count == 3){
+            setsTradedIn+=1;
+            //System.out.println((setsTradedIn-1)*2+4);
+            if(setsTradedIn >= 1 && setsTradedIn < 6)
+                return ((setsTradedIn - 1) * 2 + 4);
+            else if(setsTradedIn == 6)
+                return 15;
+            else if(setsTradedIn >= 7)
+                return (setsTradedIn - 6) * 5 + 15;
+        }
+        return 0;
+    }
 
     //Adds a discarded / traded in card to the discarded List
     public void discardCard(card discardedCard){
