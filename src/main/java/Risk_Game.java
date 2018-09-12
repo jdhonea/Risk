@@ -157,7 +157,7 @@ public class Risk_Game {
 	}
 
 	public static void main(String[] args) throws Exception{
-		
+		text();
 		//ESTABLISH MAIN VARIABLES
 		String numOfPlayers;
 		int players = 0;
@@ -276,6 +276,21 @@ public class Risk_Game {
 		}
 
 
+	}
+	public static void text(){
+		System.out.print("\n" +
+				" _______   ______   ______   __    __ \n" +
+				"|       \\ |      \\ /      \\ |  \\  /  \\\n" +
+				"| $$$$$$$\\ \\$$$$$$|  $$$$$$\\| $$ /  $$\n" +
+				"| $$__| $$  | $$  | $$___\\$$| $$/  $$ \n" +
+				"| $$    $$  | $$   \\$$    \\ | $$  $$  \n" +
+				"| $$$$$$$\\  | $$   _\\$$$$$$\\| $$$$$\\  \n" +
+				"| $$  | $$ _| $$_ |  \\__| $$| $$ \\$$\\ \n" +
+				"| $$  | $$|   $$ \\ \\$$    $$| $$  \\$$\\\n" +
+				" \\$$   \\$$ \\$$$$$$  \\$$$$$$  \\$$   \\$$\n" +
+				"                                      \n" +
+				"                                      \n" +
+				"                                      \n");
 	}
 
 }
