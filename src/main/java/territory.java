@@ -10,6 +10,7 @@ public class territory {
 	int num_of_territories = 42;
 	int territoryNumber;
 	String name;
+	String ownerName;
 	int numofArmiesHere = 0;
 	boolean isTaken = false;
 	int isOwnedBy;
