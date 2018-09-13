@@ -292,7 +292,23 @@ public class Risk_Game {
 
 
 	}
-	public static void text(){
+	public static void text() throws Exception{
+		System.out.println("Authors: Derrick Ellis, Jason Honea, Ian Voorhies");
+		System.out.print("\n" +
+				"                                                                                           \n" +
+				"              ,,                                                                           \n" +
+				"`7MM\"\"\"Mq.    db         `7MM          MMP\"\"MM\"\"YMM      `7MM                              \n" +
+				"  MM   `MM.                MM          P'   MM   `7        MM                              \n" +
+				"  MM   ,M9  `7MM  ,pP\"Ybd  MM  ,MP'         MM   ,6\"Yb.    MM  ,MP'.gP\"Ya `7Mb,od8 ,pP\"Ybd \n" +
+				"  MMmmdM9     MM  8I   `\"  MM ;Y            MM  8)   MM    MM ;Y  ,M'   Yb  MM' \"' 8I   `\" \n" +
+				"  MM  YM.     MM  `YMMMa.  MM;Mm            MM   ,pm9MM    MM;Mm  8M\"\"\"\"\"\"  MM     `YMMMa. \n" +
+				"  MM   `Mb.   MM  L.   I8  MM `Mb.          MM  8M   MM    MM `Mb.YM.    ,  MM     L.   I8 \n" +
+				".JMML. .JMM..JMML.M9mmmP'.JMML. YA.       .JMML.`Moo9^Yo..JMML. YA.`Mbmmd'.JMML.   M9mmmP' \n" +
+				"                                                                                           \n" +
+				"                                                                                           \n");
+		System.out.println(String.format("%50s","Proudly presents..."));
+		TimeUnit.SECONDS.sleep(5);
+		System.out.println(new String(new char[50]).replace("\0", "\r\n"));
 		System.out.print("\n" +
 				" _______   ______   ______   __    __ \n" +
 				"|       \\ |      \\ /      \\ |  \\  /  \\\n" +
@@ -307,5 +323,25 @@ public class Risk_Game {
 				"                                      \n" +
 				"                                      \n");
 	}
+	/*public final static void clearConsole()
+	{
+		try
+		{
+			final String os = System.getProperty("os.name");
+
+			if (os.contains("Windows"))
+			{
+				Runtime.getRuntime().exec("cls");
+			}
+			else
+			{
+				Runtime.getRuntime().exec("clear");
+			}
+		}
+		catch (final Exception e)
+		{
+			//  Handle any exceptions.
+		}
+	}*/
 
 }
