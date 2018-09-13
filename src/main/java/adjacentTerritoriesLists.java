@@ -52,9 +52,9 @@ public class adjacentTerritoriesLists {
 	public adjacentTerritoriesLists() {
 		alaskaList.add(new territory("Kamchatka",32));
 		alaskaList.add(new territory("Northwest Territory",6));
-		alaskaList.add(new territory("Alberta,2"));
+		alaskaList.add(new territory("Alberta",2));
 		
-		albertaList.add(new territory("Alaska",1,1));
+		albertaList.add(new territory("Alaska",1));
 		albertaList.add(new territory("Northwest Territory",6));
 		albertaList.add(new territory("Ontario",7));
 		albertaList.add(new territory("Western United States",9));
