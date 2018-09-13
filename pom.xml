@@ -15,4 +15,11 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+         
+          <repositories>
+        <repository>
+            <id>cloudera-repo-releases</id>
+            <url>https://repository.cloudera.com/artifactory/public/</url>
+        </repository>
+    </repositories>
 </project>
