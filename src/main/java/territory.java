@@ -73,6 +73,14 @@ public class territory {
 		return this.isOwnedBy;
 	}
 	
+	//owner
+	public void setOwnerName(String owner) {
+		this.ownerName = owner;
+	}
+	public String getOwnerName() {
+		return this.ownerName;
+	}
+	
 	//number of armies
 	public void setnumberofarmies(int armies) {
 		this.numofArmiesHere = armies;
