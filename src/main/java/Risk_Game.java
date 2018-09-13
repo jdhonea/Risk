@@ -70,7 +70,8 @@ public class Risk_Game {
 			System.out.print("\n" + pList.get(currentPlayer).getPlayerName() +":\n");
 			for(int n = 0; n < numOfTerritories; n++){
 				if(!tList[n].isTaken()){
-					System.out.print(n+1 + ": " + tList[n].getnameofterritory() + "\n");
+					System.out.printf("%-4s", n+1 + ": ");
+					System.out.print(tList[n].getnameofterritory() + "\n");
 				}
 			}
 			System.out.print("\nPlease choose a territory: (number or name) ");
@@ -114,7 +115,7 @@ public class Risk_Game {
 			List<territory> randomTerritory = new ArrayList<territory>();
 			for (int n = 0; n < numOfTerritories; n++){
 				if(tList[n].getOwner() == (currentPlayer+1)){
-					System.out.printf("%-30s %-30d", tList[n].getTerritoryNumber() + ": " + tList[n].getnameofterritory(), tList[n].getnumofarmies());
+					System.out.printf("%-4s %-30s %-30d", tList[n].getTerritoryNumber() + ": ", tList[n].getnameofterritory(), tList[n].getnumofarmies());
 					System.out.print("\n");
 					//Used for randomizing only!
 					randomTerritory.add(tList[n]);
