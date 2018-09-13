@@ -277,7 +277,8 @@ public class player {
 	public void printTerritories() {
 		System.out.println("\n"+playerName+" owns: ");
 		for(int x = 0; x < territoriesOwned.size(); x++) {
-			System.out.print("["+territoriesOwned.get(x).territoryNumber+"]"+territoriesOwned.get(x).name+" (has "+territoriesOwned.get(x).getnumofarmies()+" armies.) \t------>  Adjacent territories: [");
+			System.out.printf("%-5s", "[" + territoriesOwned.get(x).territoryNumber + "] ");
+			System.out.print(territoriesOwned.get(x).name+" (has "+territoriesOwned.get(x).getnumofarmies()+" armies.) \t------>  Adjacent territories: [");
 			for(territory t : territoriesOwned.get(x).adj_territories) {
 				System.out.print(" "+t.name+",");
 			}
@@ -373,9 +374,10 @@ public class player {
 		
 	}
 
-	public void pickCard() {
-
-	}
+	//Player draws top card of deck
+		public void drawCard(deck deck) {
+			hand.add(deck.drawCard());
+		}
 	
 	/**
 	 * Updating number of armies on each territory after battle
@@ -488,8 +490,9 @@ public class player {
 							}
 							
 							if(this.getplayernumber() != nameCheck.isOwnedBy) {
-								System.out.print("["+t.adj_territories.get(count).territoryNumber+"]"+t.adj_territories.get(count).name+"\t(There are ");
-
+								System.out.printf("%-5s", "["+t.adj_territories.get(count).territoryNumber+"] " );
+								System.out.print(t.adj_territories.get(count).name+"\t(There are ");
+								
 									for(territory r : tList) {
 										if(r.territoryNumber == t.adj_territories.get(count).territoryNumber) {
 											System.out.print(r.numofArmiesHere);
