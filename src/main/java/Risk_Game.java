@@ -284,26 +284,7 @@ public class Risk_Game {
 				//new playerTurn object
 				playerTurn pT = new playerTurn();
 				if(!p.wonWholeGame) {
-					/**
-					 * A Player Turn consists of 3 main steps
-					 * 1) Get & place new armies
-					 * 2) Attacking, if decided
-					 * 3) Fortifying territory
-					 */
-					//STEP 1
-					//At the beginning of each turn, calculate how many new armies you’ll add
-					//     to your territories
-					pT.getNewArmies();
-					
-					//STEP 2 (attacking is optional)
 					pT.chooseOption(p, tList, pList);
-					
-					//STEP 3 (only if you attacked someone)
-					//If you conquered a territory on your turn, draw a card.
-					
-					//STEP 4
-					//Fortify your position
-					
 				}
 
 			}
