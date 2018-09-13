@@ -51,8 +51,8 @@ public class playerTurn{
 		}
 	}
 
-	public void getNewArmies() {
+	//public void getNewArmies() {
 
-	}
+	//}
 	
 }
