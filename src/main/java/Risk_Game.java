@@ -156,6 +156,38 @@ public class Risk_Game {
 		}
 	}
 
+	/**
+	 * METHOD THAT DETERMINES NUMBER OF ARMIES EACH PLAYERS RECEIVES
+	 * AND GIVES THE ARMIES TO EACH PLAYER
+	 */
+	public static void newArmies(int players, List<player> pList) {
+		if(players == 2) {
+			for(int x = 1; x <= players; x++) {
+				pList.add(new player(x,40));
+			}
+		}
+		else if(players == 3) {
+			for(int x = 1; x <= players; x++) {
+				pList.add(new player(x,35));
+			}
+		}
+		else if(players == 4) {
+			for(int x = 1; x <= players; x++) {
+				pList.add(new player(x,30));
+			}
+		}
+		else if(players == 5) {
+			for(int x = 1; x <= players; x++) {
+				pList.add(new player(x,25));
+			}
+		}
+		else if(players == 6) {
+			for(int x = 1; x <= players; x++) {
+				pList.add(new player(x,20));
+			}
+		}
+	}
+	
 	public static void main(String[] args) throws Exception{
 		text();
 		//ESTABLISH MAIN VARIABLES
@@ -198,32 +230,7 @@ public class Risk_Game {
 		board gameBoard = new board();
 
 		//GIVE OUT ARMIES BASED ON NUMBER OF PLAYERS
-		//WE CAN/SHOULD PROBABLY CREATE A METHOD FOR THIS
-		if(players == 2) {
-			for(int x = 1; x <= players; x++) {
-				pList.add(new player(x,40));
-			}
-		}
-		else if(players == 3) {
-			for(int x = 1; x <= players; x++) {
-				pList.add(new player(x,35));
-			}
-		}
-		else if(players == 4) {
-			for(int x = 1; x <= players; x++) {
-				pList.add(new player(x,30));
-			}
-		}
-		else if(players == 5) {
-			for(int x = 1; x <= players; x++) {
-				pList.add(new player(x,25));
-			}
-		}
-		else if(players == 6) {
-			for(int x = 1; x <= players; x++) {
-				pList.add(new player(x,20));
-			}
-		}
+		newArmies(players,pList);
 		
 		//Update pList after entering names
 		for(int p = 0; p < playersN.size(); p++) {
