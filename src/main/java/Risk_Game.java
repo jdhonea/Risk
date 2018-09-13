@@ -54,7 +54,7 @@ public class Risk_Game {
 	}
 	//Handles the entire territory draft
 	public static void territoryDraft(List<player> pList, territory[] tList, int numOfTerritories){
-		//TODO: Final build needs to be "De-randombized"
+		//TODO: Final build needs to be "De-randomized"
 		int players = pList.size();
 		int currentPlayer = 0;
 		int territoriesClaimed = 0;
@@ -70,8 +70,7 @@ public class Risk_Game {
 			System.out.print("\n" + pList.get(currentPlayer).getPlayerName() +":\n");
 			for(int n = 0; n < numOfTerritories; n++){
 				if(!tList[n].isTaken()){
-					System.out.printf("%-4s", n+1 + ": ");
-					System.out.print(tList[n].getnameofterritory() + "\n");
+					System.out.print(n+1 + ": " + tList[n].getnameofterritory() + "\n");
 				}
 			}
 			System.out.print("\nPlease choose a territory: (number or name) ");
@@ -115,7 +114,7 @@ public class Risk_Game {
 			List<territory> randomTerritory = new ArrayList<territory>();
 			for (int n = 0; n < numOfTerritories; n++){
 				if(tList[n].getOwner() == (currentPlayer+1)){
-					System.out.printf("%-4s %-30s %-30d", tList[n].getTerritoryNumber() + ": ", tList[n].getnameofterritory(), tList[n].getnumofarmies());
+					System.out.printf("%-30s %-30d", tList[n].getTerritoryNumber() + ": " + tList[n].getnameofterritory(), tList[n].getnumofarmies());
 					System.out.print("\n");
 					//Used for randomizing only!
 					randomTerritory.add(tList[n]);
@@ -158,14 +157,6 @@ public class Risk_Game {
 		}
 	}
 
-	/**
-	 * METHOD THAT DETERMINES NUMBER OF ARMIES EACH PLAYERS RECEIVES
-	 * AND GIVES THE ARMIES TO EACH PLAYER
-	 */
-	//public static void newArmies(int players, List<player> pList) {
-		
-	//}
-
 	public static void main(String[] args) throws Exception{
 		text();
 		//ESTABLISH MAIN VARIABLES
@@ -207,8 +198,10 @@ public class Risk_Game {
 		@SuppressWarnings("unused")
 		board gameBoard = new board();
 
-		//GIVE OUT ARMIES BASED ON NUMBER OF PLAYERS
-		//newArmies(players,pList);
+		/**
+		 * DETERMINE NUMBER OF ARMIES EACH PLAYERS RECEIVES
+		 * AND GIVE THE ARMIES TO EACH PLAYER
+		 */
 		if(players == 2) {
 			for(int x = 1; x <= players; x++) {
 				pList.add(new player(x,40));
@@ -234,7 +227,6 @@ public class Risk_Game {
 				pList.add(new player(x,20));
 			}
 		}
-		
 		
 		//Update pList after entering names
 		for(int p = 0; p < playersN.size(); p++) {
@@ -284,7 +276,26 @@ public class Risk_Game {
 				//new playerTurn object
 				playerTurn pT = new playerTurn();
 				if(!p.wonWholeGame) {
+					/**
+					 * A Player Turn consists of 3 main steps
+					 * 1) Get & place new armies
+					 * 2) Attacking, if decided
+					 * 3) Fortifying territory
+					 */
+					//STEP 1
+					//TODO:At the beginning of each turn, calculate how many new armies you’ll add
+					//     to your territories
+					pT.getNewArmies();
+					
+					//STEP 2 (attacking is optional)
 					pT.chooseOption(p, tList, pList);
+					
+					//STEP 3 (only if you attacked someone)
+					//If you conquered a territory on your turn, draw a card.
+					
+					//STEP 4
+					//Fortify your position
+					
 				}
 
 			}
@@ -292,23 +303,7 @@ public class Risk_Game {
 
 
 	}
-	public static void text() throws Exception{
-		System.out.println("Authors: Derrick Ellis, Jason Honea, Ian Voorhies");
-		System.out.print("\n" +
-				"                                                                                           \n" +
-				"              ,,                                                                           \n" +
-				"`7MM\"\"\"Mq.    db         `7MM          MMP\"\"MM\"\"YMM      `7MM                              \n" +
-				"  MM   `MM.                MM          P'   MM   `7        MM                              \n" +
-				"  MM   ,M9  `7MM  ,pP\"Ybd  MM  ,MP'         MM   ,6\"Yb.    MM  ,MP'.gP\"Ya `7Mb,od8 ,pP\"Ybd \n" +
-				"  MMmmdM9     MM  8I   `\"  MM ;Y            MM  8)   MM    MM ;Y  ,M'   Yb  MM' \"' 8I   `\" \n" +
-				"  MM  YM.     MM  `YMMMa.  MM;Mm            MM   ,pm9MM    MM;Mm  8M\"\"\"\"\"\"  MM     `YMMMa. \n" +
-				"  MM   `Mb.   MM  L.   I8  MM `Mb.          MM  8M   MM    MM `Mb.YM.    ,  MM     L.   I8 \n" +
-				".JMML. .JMM..JMML.M9mmmP'.JMML. YA.       .JMML.`Moo9^Yo..JMML. YA.`Mbmmd'.JMML.   M9mmmP' \n" +
-				"                                                                                           \n" +
-				"                                                                                           \n");
-		System.out.println(String.format("%50s","Proudly presents..."));
-		TimeUnit.SECONDS.sleep(5);
-		System.out.println(new String(new char[50]).replace("\0", "\r\n"));
+	public static void text(){
 		System.out.print("\n" +
 				" _______   ______   ______   __    __ \n" +
 				"|       \\ |      \\ /      \\ |  \\  /  \\\n" +
@@ -323,25 +318,5 @@ public class Risk_Game {
 				"                                      \n" +
 				"                                      \n");
 	}
-	/*public final static void clearConsole()
-	{
-		try
-		{
-			final String os = System.getProperty("os.name");
-
-			if (os.contains("Windows"))
-			{
-				Runtime.getRuntime().exec("cls");
-			}
-			else
-			{
-				Runtime.getRuntime().exec("clear");
-			}
-		}
-		catch (final Exception e)
-		{
-			//  Handle any exceptions.
-		}
-	}*/
 
 }
