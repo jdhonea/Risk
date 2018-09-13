@@ -15,7 +15,7 @@ public class playerTurn{
 	}
 
 	/**
-	 * METHODS
+	 *************** METHODS ***********************
 	 */
 	public void chooseOption(player p, territory[] tList, List<player> players) {
 		String optionNumber = new String();
@@ -50,4 +50,9 @@ public class playerTurn{
 			}
 		}
 	}
+
+	public void getNewArmies() {
+
+	}
+	
 }
