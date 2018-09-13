@@ -381,7 +381,7 @@ public class player {
 	 * Updating number of armies on each territory after battle
 	 * 
 	 */
-	public static void updateTerritoriesAfterBattle(territory attackingFrom, int attackerLost, territory defendingFrom, int defenderLost) {
+	public void updateTerritoriesAfterBattle(territory attackingFrom, int attackerLost, territory defendingFrom, int defenderLost) {
 		attackingFrom.setnumberofarmies(attackingFrom.getnumofarmies()-attackerLost);
 		defendingFrom.setnumberofarmies(defendingFrom.getnumofarmies()-defenderLost);
 		
