@@ -35,6 +35,7 @@ public class Risk_Game {
 	 * 			
 	 * 			
 	 */
+	
 	//Generates the territory array
 	public static void initializeTerritories(territory[] tList) throws Exception{
 		//TODO: 3. Territories file should have the neighboring territories listed, prevents having to hard-code neighbors, possibly continents too?
@@ -187,7 +188,7 @@ public class Risk_Game {
 			}
 		}
 	}
-	
+
 	public static void main(String[] args) throws Exception{
 		text();
 		//ESTABLISH MAIN VARIABLES
@@ -231,6 +232,7 @@ public class Risk_Game {
 
 		//GIVE OUT ARMIES BASED ON NUMBER OF PLAYERS
 		newArmies(players,pList);
+		
 		
 		//Update pList after entering names
 		for(int p = 0; p < playersN.size(); p++) {
@@ -277,7 +279,11 @@ public class Risk_Game {
 		boolean weHaveAWinner = false;
 		while(weHaveAWinner == false) {
 			for(player p : pList) {
-				playerTurn pT = new playerTurn(p, tList, pList);
+				//new playerTurn object
+				playerTurn pT = new playerTurn();
+				if(!p.wonWholeGame) {
+					pT.chooseOption(p, tList, pList);
+				}
 
 			}
 		}
