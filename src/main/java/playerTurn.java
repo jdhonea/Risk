@@ -4,14 +4,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-/**
- * CONSTRUCTOR
- */
 public class playerTurn{
-	public playerTurn(player p, territory[] tList, List<player> players) {
+	boolean valid = true;
+
+	/**
+	 * CONSTRUCTOR
+	 */
+	public playerTurn() {
+
+	}
+
+	/**
+	 * METHODS
+	 */
+	public void chooseOption(player p, territory[] tList, List<player> players) {
 		String optionNumber = new String();
-		
-		boolean valid = true;
+		valid = true;
 		while(valid) {
 			System.out.println("\n"+p.getPlayerName()+", what would you like to do? CHOOSE NUMBER\n");
 			p.getPlayerOptions();
