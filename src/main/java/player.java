@@ -381,17 +381,17 @@ public class player {
 	 * Updating number of armies on each territory after battle
 	 * 
 	 */
-	public void updateTerritoriesAfterBattle(territory attackingFrom, int attackerLost, territory defendingFrom, int defenderLost) {
-		attackingFrom.setnumberofarmies(attackingFrom.getnumofarmies()-attackerLost);
-		defendingFrom.setnumberofarmies(defendingFrom.getnumofarmies()-defenderLost);
+// 	public void updateTerritoriesAfterBattle(territory attackingFrom, int attackerLost, territory defendingFrom, int defenderLost) {
+// 		attackingFrom.setnumberofarmies(attackingFrom.getnumofarmies()-attackerLost);
+// 		defendingFrom.setnumberofarmies(defendingFrom.getnumofarmies()-defenderLost);
 		
-		//TODO: FIGURE OUT HOW TO SWITCH OWNERSHIP OF TERRITORY WHEN NEEDED
-		if(defendingFrom.getnumofarmies() < 1) {
-			defendingFrom.setOwner(attackingFrom.isOwnedBy);
-			defendingFrom.setOwnerName(attackingFrom.ownerName);
-			System.out.print("***"+defendingFrom.name+" has been conquered by "+attackingFrom.ownerName+"!!**\n");
-		}
-	}
+// 		//TODO: FIGURE OUT HOW TO SWITCH OWNERSHIP OF TERRITORY WHEN NEEDED
+// 		if(defendingFrom.getnumofarmies() < 1) {
+// 			defendingFrom.setOwner(attackingFrom.isOwnedBy);
+// 			defendingFrom.setOwnerName(attackingFrom.ownerName);
+// 			System.out.print("***"+defendingFrom.name+" has been conquered by "+attackingFrom.ownerName+"!!**\n");
+// 		}
+// 	}
 	
 	/**
 	 * Comparing dice rolls to determine outcome of battle
@@ -535,7 +535,7 @@ public class player {
 									int[] armiesLost = compareDiceRolls(this,attackingP,players.get(next),defendingP);
 									
 									//update territories after battle
-									this.updateTerritoriesAfterBattle(t,armiesLost[0],tr,armiesLost[1]);
+									//this.updateTerritoriesAfterBattle(t,armiesLost[0],tr,armiesLost[1]);
 									System.out.println(t.name+" has "+t.getnumofarmies()+" armies left.");
 									System.out.println(tr.name+" has "+tr.getnumofarmies()+" armies left.");
 									
