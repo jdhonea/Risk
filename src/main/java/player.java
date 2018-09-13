@@ -529,10 +529,10 @@ public class player {
 										next++;
 									}
 									//DEFENDING PLAYER ROLLS HIS DICE
-									int[] defendingP = players.get(next).rolldice(tr.getnumofarmies());
+									//int[] defendingP = players.get(next).rolldice(tr.getnumofarmies());
 
 									//COMPARE RESULTS TO SEE OUTCOME OF THE BATTLE
-									int[] armiesLost = compareDiceRolls(this,attackingP,players.get(next),defendingP);
+									//int[] armiesLost = compareDiceRolls(this,attackingP,players.get(next),defendingP);
 									
 									//update territories after battle
 									//this.updateTerritoriesAfterBattle(t,armiesLost[0],tr,armiesLost[1]);
