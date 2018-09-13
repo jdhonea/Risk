@@ -381,17 +381,17 @@ public class player {
 	 * Updating number of armies on each territory after battle
 	 * 
 	 */
-// 	public void updateTerritoriesAfterBattle(territory attackingFrom, int attackerLost, territory defendingFrom, int defenderLost) {
-// 		attackingFrom.setnumberofarmies(attackingFrom.getnumofarmies()-attackerLost);
-// 		defendingFrom.setnumberofarmies(defendingFrom.getnumofarmies()-defenderLost);
+	public void updateTerritoriesAfterBattle(territory attackingFrom, int attackerLost, territory defendingFrom, int defenderLost) {
+		attackingFrom.setnumberofarmies(attackingFrom.getnumofarmies()-attackerLost);
+		defendingFrom.setnumberofarmies(defendingFrom.getnumofarmies()-defenderLost);
 		
-// 		//TODO: FIGURE OUT HOW TO SWITCH OWNERSHIP OF TERRITORY WHEN NEEDED
-// 		if(defendingFrom.getnumofarmies() < 1) {
-// 			defendingFrom.setOwner(attackingFrom.isOwnedBy);
-// 			defendingFrom.setOwnerName(attackingFrom.ownerName);
-// 			System.out.print("***"+defendingFrom.name+" has been conquered by "+attackingFrom.ownerName+"!!**\n");
-// 		}
-// 	}
+		//TODO: FIGURE OUT HOW TO SWITCH OWNERSHIP OF TERRITORY WHEN NEEDED
+		if(defendingFrom.getnumofarmies() < 1) {
+			defendingFrom.setOwner(attackingFrom.isOwnedBy);
+			defendingFrom.setOwnerName(attackingFrom.ownerName);
+			System.out.print("***"+defendingFrom.name+" has been conquered by "+attackingFrom.ownerName+"!!**\n");
+		}
+	}
 	
 	/**
 	 * Comparing dice rolls to determine outcome of battle
@@ -510,34 +510,34 @@ public class player {
 								//ATTACK
 								//TODO: THROW EXCEPTION IF INPUT IS INVALID & PROMPT FOR ANOTHER CHOICE
 								if(tr.territoryNumber == result2 && this.playerNo != tr.isOwnedBy) {
-// 									//COMPLETE THIS METHOD WITH APPROPRIATE ACTIONS
-// 									this.setAttackMode(true);
-// 									territory diceTerr = new territory();
-// 									diceTerr = tList[result-1];
-// 									int[] attackingP = this.rolldice(diceTerr.getnumofarmies());
-// 									System.out.println("\n\n***ATTACKING "+tr.name+"!!***\n");
-// 									boolean tryagain = true;
-// 									int next = 0;
-// 									tr.setOwnerName(players.get(next).playerName);
-// 									while(tryagain) {
-// 										if(tr.isOwnedBy == players.get(next).playerNo) {
-// 											System.out.println(players.get(next).playerName+", you must DEFEND your territory!");
-// 											players.get(next).setDefenseMode(true);
-// 											tryagain = false;
-// 											break;
-// 										}
-// 										next++;
-// 									}
-// 									//DEFENDING PLAYER ROLLS HIS DICE
-// 									//int[] defendingP = players.get(next).rolldice(tr.getnumofarmies());
+									//COMPLETE THIS METHOD WITH APPROPRIATE ACTIONS
+									this.setAttackMode(true);
+									territory diceTerr = new territory();
+									diceTerr = tList[result-1];
+									int[] attackingP = this.rolldice(diceTerr.getnumofarmies());
+									System.out.println("\n\n***ATTACKING "+tr.name+"!!***\n");
+									boolean tryagain = true;
+									int next = 0;
+									tr.setOwnerName(players.get(next).playerName);
+									while(tryagain) {
+										if(tr.isOwnedBy == players.get(next).playerNo) {
+											System.out.println(players.get(next).playerName+", you must DEFEND your territory!");
+											players.get(next).setDefenseMode(true);
+											tryagain = false;
+											break;
+										}
+										next++;
+									}
+									//DEFENDING PLAYER ROLLS HIS DICE
+									int[] defendingP = players.get(next).rolldice(tr.getnumofarmies());
 
-// 									//COMPARE RESULTS TO SEE OUTCOME OF THE BATTLE
-// 									//int[] armiesLost = compareDiceRolls(this,attackingP,players.get(next),defendingP);
+									//COMPARE RESULTS TO SEE OUTCOME OF THE BATTLE
+									int[] armiesLost = compareDiceRolls(this,attackingP,players.get(next),defendingP);
 									
-// 									//update territories after battle
-// 									//this.updateTerritoriesAfterBattle(t,armiesLost[0],tr,armiesLost[1]);
-// 									System.out.println(t.name+" has "+t.getnumofarmies()+" armies left.");
-// 									System.out.println(tr.name+" has "+tr.getnumofarmies()+" armies left.");
+									//update territories after battle
+									this.updateTerritoriesAfterBattle(t,armiesLost[0],tr,armiesLost[1]);
+									System.out.println(t.name+" has "+t.getnumofarmies()+" armies left.");
+									System.out.println(tr.name+" has "+tr.getnumofarmies()+" armies left.");
 									
 									//TODO:Prompt user to continue attacking or fortify territory. 
 									
