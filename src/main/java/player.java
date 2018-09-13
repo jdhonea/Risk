@@ -535,7 +535,7 @@ public class player {
 									int[] armiesLost = compareDiceRolls(this,attackingP,players.get(next),defendingP);
 									
 									//update territories after battle
-									updateTerritoriesAfterBattle(t,armiesLost[0],tr,armiesLost[1]);
+									this.updateTerritoriesAfterBattle(t,armiesLost[0],tr,armiesLost[1]);
 									System.out.println(t.name+" has "+t.getnumofarmies()+" armies left.");
 									System.out.println(tr.name+" has "+tr.getnumofarmies()+" armies left.");
 									
