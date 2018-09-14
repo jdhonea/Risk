@@ -1,4 +1,4 @@
 language: java
 jvm:
         -oraclejdk8
-mvn test
+script: mvn test
