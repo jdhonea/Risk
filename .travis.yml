@@ -1,3 +1,5 @@
 language: java
 jvm:
         -oraclejdk8
+install:
+        -mvn install -DskipTests=false -Dmaven.javadoc.skip=true -B -V
