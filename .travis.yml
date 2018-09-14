@@ -2,23 +2,3 @@ sudo: false
 
 language: java
 jdk: oraclejdk8
-
-before_install:
-  - unset _JAVA_OPTIONS
-
-jobs:
-  include:
-# starter
-    - stage: starter
-      name: "Jupiter Starter Sample: Maven"
-      script: cd $TRAVIS_BUILD_DIR/junit5-jupiter-starter-maven && ./mvnw test
-# snapshot -- use current junit master branch
-    - stage: snapshot
-      name: "JUnit 5 SNAPSHOT build: Maven"
-      jdk: openjdk8
-      script: cd $TRAVIS_BUILD_DIR/junit5-jupiter-starter-maven && ./mvnw test --file pom-SNAPSHOT.xml
-# all samples, one-shot
-#    - stage: all
-#      name: "Build all samples"
-#      jdk: openjdk-ea
-#      script: ./build-all-samples.jsh
