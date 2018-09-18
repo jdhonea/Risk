@@ -32,7 +32,9 @@ public class player {
 	boolean isDefending;
 	boolean canDefend;
 	
-	String[][] playerOptions = new String[2][2];
+	boolean conquered = false; //variable to check & see if player can pull a card
+	
+	String[][] playerOptions = new String[3][2];
 	//List<territory> adjTerr = new ArrayList<territory>();
 	adjacentTerritoriesLists adjTL = new adjacentTerritoriesLists();
 	//Contains the cards in the players hand
@@ -277,7 +279,7 @@ public class player {
 	public void printTerritories() {
 		System.out.println("\n"+playerName+" owns: ");
 		for(int x = 0; x < territoriesOwned.size(); x++) {
-			System.out.printf("%-5s", "[" + territoriesOwned.get(x).territoryNumber + "] ");
+			System.out.print("[" + territoriesOwned.get(x).territoryNumber + "] ");
 			System.out.print(territoriesOwned.get(x).name+" (has "+territoriesOwned.get(x).getnumofarmies()+" armies.) \t------>  Adjacent territories: [");
 			for(territory t : territoriesOwned.get(x).adj_territories) {
 				System.out.print(" "+t.name+",");
@@ -291,14 +293,24 @@ public class player {
 		 * If adjacent territory is owned by someone else
 		 */
 		playerOptions[0][0] = "1";
-		playerOptions[0][1] = "Attack enemy";
+		playerOptions[0][1] = "Reinforce territory";
 		
 		playerOptions[1][0] = "2";
-		playerOptions[1][1] = "Reinforce territory";
+		playerOptions[1][1] = "Attack enemy";
+		
+		playerOptions[2][0] = "3";
+		playerOptions[2][1] = "End Turn";
 		
 		for(int i = 0; i < playerOptions.length; i++) {
 			System.out.println(playerOptions[i][0]+": "+playerOptions[i][1]);
 		}
+	}
+	
+	public void endturn() {
+		/**
+		 * If player decides to end turn
+		 */
+		System.out.println(this.playerName+"'s turn is over. NEXT PLAYER...");
 	}
 	
 	/**
@@ -383,17 +395,19 @@ public class player {
 	 * Updating number of armies on each territory after battle
 	 * 
 	 */
-//	public void updateTerritoriesAfterBattle(territory attackingFrom, int attackerLost, territory defendingFrom, int defenderLost) {
-//		attackingFrom.setnumberofarmies(attackingFrom.getnumofarmies()-attackerLost);
-//		defendingFrom.setnumberofarmies(defendingFrom.getnumofarmies()-defenderLost);
-//		
-//		//TODO: FIGURE OUT HOW TO SWITCH OWNERSHIP OF TERRITORY WHEN NEEDED
-//		if(defendingFrom.getnumofarmies() < 1) {
-//			defendingFrom.setOwner(attackingFrom.isOwnedBy);
-//			defendingFrom.setOwnerName(attackingFrom.ownerName);
-//			System.out.print("***"+defendingFrom.name+" has been conquered by "+attackingFrom.ownerName+"!!**\n");
-//		}
-//	}
+	public void updateTerritoriesAfterBattle(territory attackingFrom, int attackerLost, territory defendingFrom, int defenderLost, int fortifyNum) {
+		attackingFrom.setnumberofarmies(attackingFrom.getnumofarmies()-attackerLost);
+		defendingFrom.setnumberofarmies(defendingFrom.getnumofarmies()-defenderLost);
+		
+		//TODO: FIGURE OUT HOW TO SWITCH OWNERSHIP OF TERRITORY WHEN NEEDED
+		if(defendingFrom.getnumofarmies() < 1) {
+			conquered = true;
+			defendingFrom.setOwner(attackingFrom.isOwnedBy);
+			defendingFrom.setOwnerName(attackingFrom.ownerName);
+			System.out.println("\n***"+defendingFrom.name+" has been conquered by "+attackingFrom.ownerName+"!!**\n");
+			this.fortify(attackingFrom,defendingFrom,fortifyNum);
+		}
+	}
 	
 	/**
 	 * Comparing dice rolls to determine outcome of battle
@@ -401,7 +415,7 @@ public class player {
 	 * RETURN int[] outcome[numberOfArmiesLostByAttacker, numberOfArmiesLostByDefender]
 	 */
 	public int[] compareDiceRolls(player p1,int[] p1Dice,player p2,int[] p2Dice) {
-		int[] outcome = new int[2];
+		int[] outcome = new int[3];
 		int defenderLosses = 0;
 		int attackerLosses = 0;
 		System.out.print("\n\nCOMPARING RESULTS....");
@@ -452,6 +466,7 @@ public class player {
 		System.out.println(p2.getPlayerName()+" lost "+defenderLosses+" armies.");
 		outcome[0] = attackerLosses;
 		outcome[1] = defenderLosses;
+		outcome[2] = p1Dice.length;
 		return outcome;
 		
 	}
@@ -490,7 +505,7 @@ public class player {
 							}
 							
 							if(this.getplayernumber() != nameCheck.isOwnedBy) {
-								System.out.printf("%-5s", "["+t.adj_territories.get(count).territoryNumber+"] " );
+								System.out.print("["+t.adj_territories.get(count).territoryNumber+"] " );
 								System.out.print(t.adj_territories.get(count).name+"\t(There are ");
 								
 									for(territory r : tList) {
@@ -522,6 +537,7 @@ public class player {
 									boolean tryagain = true;
 									int next = 0;
 									tr.setOwnerName(players.get(next).playerName);
+									
 									while(tryagain) {
 										if(tr.isOwnedBy == players.get(next).playerNo) {
 											System.out.println(players.get(next).playerName+", you must DEFEND your territory!");
@@ -531,20 +547,21 @@ public class player {
 										}
 										next++;
 									}
+									
+									//*****************CAN BE PUT INTO defend() METHOD******************
 									//DEFENDING PLAYER ROLLS HIS DICE
 									int[] defendingP = players.get(next).rolldice(tr.getnumofarmies());
 
 									//COMPARE RESULTS TO SEE OUTCOME OF THE BATTLE
-									//int[] armiesLost = compareDiceRolls(this,attackingP,players.get(next),defendingP);
-									compareDiceRolls(this,attackingP,players.get(next),defendingP);
-
+									int[] armiesLost = compareDiceRolls(this,attackingP,players.get(next),defendingP);
 									
 									//update territories after battle
-									//updateTerritoriesAfterBattle(t,armiesLost[0],tr,armiesLost[1]);
-									//System.out.println(t.name+" has "+t.getnumofarmies()+" armies left.");
-									//System.out.println(tr.name+" has "+tr.getnumofarmies()+" armies left.");
+									updateTerritoriesAfterBattle(t,armiesLost[0],tr,armiesLost[1],armiesLost[2]);
+									System.out.println(t.name+" has "+t.getnumofarmies()+" armies left.");
+									System.out.println(tr.name+" has "+tr.getnumofarmies()+" armies left.");
 									
-									//TODO:Prompt user to continue attacking or fortify territory. 
+									//TODO:Prompt user to continue attacking, pick card or fortify territory. 
+									//************^^^^CAN BE PUT INTO defend() METHOD^^^^**************
 									
 									break;
 								}
@@ -567,6 +584,25 @@ public class player {
 		//System.out.println(this.playerName+", do you want to keep attacking?\n");
 	}
 
+	public void fortify(territory t1,territory t, int fortifyNum) {
+		String input = "";
+		int fortify = 0;
+			System.out.println(t.ownerName+", how many armies do you want to move into "+t.name+"?\n****You may move up to "+fortifyNum+" armies here.****");
+			//Enter data using BufferReader
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+			// Reading data using readLine
+			try {
+				input = reader.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			fortify = Integer.parseInt(input);
+			t.addTokensToTerritory(fortify);
+			t1.numofArmiesHere = t1.numofArmiesHere - fortify;
+	}
+	
 	public void defend() {
 
 	}
