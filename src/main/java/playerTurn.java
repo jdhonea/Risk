@@ -33,16 +33,17 @@ public class playerTurn{
 				e.printStackTrace();
 			}
 			if(optionNumber.equals("1")) {
-				valid = false;
+				//TODO:REINFORCE (getting and placing new armies)
+				p.reinforce();
+			}
+			else if(optionNumber.equals("2")) {
 				//ATTACK
 				p.attack(tList,players);
-				break;
 			}
-			if(optionNumber.equals("2")) {
+			else if(optionNumber.equals("3")) {
 				valid = false;
 				//REINFORCE
-				p.reinforce();
-				break;
+				p.endturn();
 			}
 			else {
 				System.out.println("Invalid choice. Try again....");
@@ -51,8 +52,8 @@ public class playerTurn{
 		}
 	}
 
-	//public void getNewArmies() {
+	public void getNewArmies() {
 
-	//}
+	}
 	
 }
