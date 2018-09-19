@@ -13,7 +13,7 @@ public class card {
     public char getDesign() {
         return this.design;
     }
-    //Returns territory name or "wild"
+    //Returns territory name or "wild" for wild cards
     public String getTerritory(){
         return this.territory;
     }

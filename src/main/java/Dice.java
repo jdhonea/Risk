@@ -31,10 +31,10 @@ public class Dice {
 			roll = die.nextInt(5) + 1;
 			diceArray[i] = roll;
 		}
-		
-		Arrays.sort(diceArray);
-		Collections.reverse(Arrays.asList(diceArray));
-		
+		if(numberOfDice > 0) {
+			Arrays.sort(diceArray);
+			Collections.reverse(Arrays.asList(diceArray));
+		}
 		return diceArray;
     }
 }

@@ -34,7 +34,8 @@ public class playerTurn{
 			}
 			if(optionNumber.equals("1")) {
 				//TODO:REINFORCE (getting and placing new armies)
-				p.reinforce();
+				//p.reinforce();
+				valid = false;
 			}
 			else if(optionNumber.equals("2")) {
 				//ATTACK

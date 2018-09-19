@@ -22,7 +22,7 @@ public class deck {
         Collections.shuffle(deck);
     }//ends constructor
 
-
+    //returns the number of cards left in the deck
     public int cardsInDeck(){
         return this.deck.size();
     }//ends cardsInDeck
