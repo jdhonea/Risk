@@ -505,7 +505,7 @@ public class player {
 							}
 							
 							if(this.getplayernumber() != nameCheck.isOwnedBy) {
-								System.out.printf("%-5s %-20s", "["+t.adj_territories.get(count).territoryNumber+"] ",t.adj_territories.get(count).name );
+								System.out.printf("%-5s %-23s", "["+t.adj_territories.get(count).territoryNumber+"] ",t.adj_territories.get(count).name );
 								System.out.print("(There are ");
 								
 									for(territory r : tList) {
