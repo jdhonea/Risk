@@ -279,8 +279,8 @@ public class player {
 	public void printTerritories() {
 		System.out.println("\n"+playerName+" owns: ");
 		for(int x = 0; x < territoriesOwned.size(); x++) {
-			System.out.print("[" + territoriesOwned.get(x).territoryNumber + "] ");
-			System.out.print(territoriesOwned.get(x).name+" (has "+territoriesOwned.get(x).getnumofarmies()+" armies.) \t------>  Adjacent territories: [");
+			System.out.printf("%-5s %-35s","[" + territoriesOwned.get(x).territoryNumber + "] ", territoriesOwned.get(x).name+" (has "+territoriesOwned.get(x).getnumofarmies()+" armies.)");
+			System.out.print("------>  Adjacent territories: [");
 			for(territory t : territoriesOwned.get(x).adj_territories) {
 				System.out.print(" "+t.name+",");
 			}
@@ -505,8 +505,8 @@ public class player {
 							}
 							
 							if(this.getplayernumber() != nameCheck.isOwnedBy) {
-								System.out.print("["+t.adj_territories.get(count).territoryNumber+"] " );
-								System.out.print(t.adj_territories.get(count).name+"\t(There are ");
+								System.out.printf("%-5s %-20s", "["+t.adj_territories.get(count).territoryNumber+"] ",t.adj_territories.get(count).name );
+								System.out.print("(There are ");
 								
 									for(territory r : tList) {
 										if(r.territoryNumber == t.adj_territories.get(count).territoryNumber) {
