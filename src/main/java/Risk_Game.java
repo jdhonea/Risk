@@ -1,3 +1,4 @@
+//package com.risktakers.Risk;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.io.InputStreamReader;
 
 
 /**
- * @author Derrick Ellis, Jason
+ * @author Derrick Ellis, Jason Honea, Ian Voorhies
  *
  */
 
@@ -34,6 +35,7 @@ public class Risk_Game {
 	 * 			
 	 * 			
 	 */
+	
 	//Generates the territory array
 	public static void initializeTerritories(territory[] tList) throws Exception{
 		//TODO: 3. Territories file should have the neighboring territories listed, prevents having to hard-code neighbors, possibly continents too?
@@ -68,7 +70,8 @@ public class Risk_Game {
 			System.out.print("\n" + pList.get(currentPlayer).getPlayerName() +":\n");
 			for(int n = 0; n < numOfTerritories; n++){
 				if(!tList[n].isTaken()){
-					System.out.print(n+1 + ": " + tList[n].getnameofterritory() + "\n");
+					System.out.printf("%-4s", n+1 + ": ");
+					System.out.print(tList[n].getnameofterritory() + "\n");
 				}
 			}
 			System.out.print("\nPlease choose a territory: (number or name) ");
@@ -112,7 +115,7 @@ public class Risk_Game {
 			List<territory> randomTerritory = new ArrayList<territory>();
 			for (int n = 0; n < numOfTerritories; n++){
 				if(tList[n].getOwner() == (currentPlayer+1)){
-					System.out.printf("%-30s %-30d", tList[n].getTerritoryNumber() + ": " + tList[n].getnameofterritory(), tList[n].getnumofarmies());
+					System.out.printf("%-4s %-30s %-30d", tList[n].getTerritoryNumber() + ": ", tList[n].getnameofterritory(), tList[n].getnumofarmies());
 					System.out.print("\n");
 					//Used for randomizing only!
 					randomTerritory.add(tList[n]);
@@ -155,8 +158,16 @@ public class Risk_Game {
 		}
 	}
 
-	public static void main(String[] args) throws Exception{
+	/**
+	 * METHOD THAT DETERMINES NUMBER OF ARMIES EACH PLAYERS RECEIVES
+	 * AND GIVES THE ARMIES TO EACH PLAYER
+	 */
+	//public static void newArmies(int players, List<player> pList) {
 		
+	//}
+
+	public static void main(String[] args) throws Exception{
+		text();
 		//ESTABLISH MAIN VARIABLES
 		String numOfPlayers;
 		int players = 0;
@@ -197,7 +208,7 @@ public class Risk_Game {
 		board gameBoard = new board();
 
 		//GIVE OUT ARMIES BASED ON NUMBER OF PLAYERS
-		//WE CAN/SHOULD PROBABLY CREATE A METHOD FOR THIS
+		//newArmies(players,pList);
 		if(players == 2) {
 			for(int x = 1; x <= players; x++) {
 				pList.add(new player(x,40));
@@ -224,6 +235,7 @@ public class Risk_Game {
 			}
 		}
 		
+		
 		//Update pList after entering names
 		for(int p = 0; p < playersN.size(); p++) {
 			pList.get(p).playerName = playersN.get(p);
@@ -240,13 +252,13 @@ public class Risk_Game {
 			playerOrder.add(pList.get(x));
 		}
 		System.out.println("*ROLLING DICE TO DETERMINE ORDER OF PLAY.*"+"\nPLEASE WAIT...");
-		TimeUnit.SECONDS.sleep(3);
+		//TimeUnit.SECONDS.sleep(3);
 		System.out.print("\nThe order of play is: ");
 		for(int x = 0; x < players; x++) {
 			System.out.print(playerOrder.get(x).getPlayerName() + " ");
 		}
 		System.out.println("\n");
-		TimeUnit.SECONDS.sleep(3);
+		//TimeUnit.SECONDS.sleep(3);
 		/**
 		 * PLAYERS ARE CHOOSING THEIR TERRITORIES
 		 * CURRENTLY, THIS IS SIMULATING THE PLAYERS CHOOSING
@@ -269,13 +281,47 @@ public class Risk_Game {
 		boolean weHaveAWinner = false;
 		while(weHaveAWinner == false) {
 			for(player p : pList) {
-				playerTurn pT = new playerTurn(p, tList);
+				//new playerTurn object
+				playerTurn pT = new playerTurn();
+				if(!p.wonWholeGame) {
+					pT.chooseOption(p, tList, pList);
+				}
 
 			}
 		}
 
 
 	}
+	public static void text() throws Exception{
+		System.out.println("Authors: Derrick Ellis, Jason Honea, Ian Voorhies");
+		System.out.print("\n" +
+				"                                                                                           \n" +
+				"              ,,                                                                           \n" +
+				"`7MM\"\"\"Mq.    db         `7MM          MMP\"\"MM\"\"YMM      `7MM                              \n" +
+				"  MM   `MM.                MM          P'   MM   `7        MM                              \n" +
+				"  MM   ,M9  `7MM  ,pP\"Ybd  MM  ,MP'         MM   ,6\"Yb.    MM  ,MP'.gP\"Ya `7Mb,od8 ,pP\"Ybd \n" +
+				"  MMmmdM9     MM  8I   `\"  MM ;Y            MM  8)   MM    MM ;Y  ,M'   Yb  MM' \"' 8I   `\" \n" +
+				"  MM  YM.     MM  `YMMMa.  MM;Mm            MM   ,pm9MM    MM;Mm  8M\"\"\"\"\"\"  MM     `YMMMa. \n" +
+				"  MM   `Mb.   MM  L.   I8  MM `Mb.          MM  8M   MM    MM `Mb.YM.    ,  MM     L.   I8 \n" +
+				".JMML. .JMM..JMML.M9mmmP'.JMML. YA.       .JMML.`Moo9^Yo..JMML. YA.`Mbmmd'.JMML.   M9mmmP' \n" +
+				"                                                                                           \n" +
+				"                                                                                           \n");
+		System.out.println(String.format("%50s","Proudly presents..."));
+		TimeUnit.SECONDS.sleep(5);
+		System.out.println(new String(new char[50]).replace("\0", "\r\n"));
+		System.out.print("\n" +
+				" _______   ______   ______   __    __ \n" +
+				"|       \\ |      \\ /      \\ |  \\  /  \\\n" +
+				"| $$$$$$$\\ \\$$$$$$|  $$$$$$\\| $$ /  $$\n" +
+				"| $$__| $$  | $$  | $$___\\$$| $$/  $$ \n" +
+				"| $$    $$  | $$   \\$$    \\ | $$  $$  \n" +
+				"| $$$$$$$\\  | $$   _\\$$$$$$\\| $$$$$\\  \n" +
+				"| $$  | $$ _| $$_ |  \\__| $$| $$ \\$$\\ \n" +
+				"| $$  | $$|   $$ \\ \\$$    $$| $$  \\$$\\\n" +
+				" \\$$   \\$$ \\$$$$$$  \\$$$$$$  \\$$   \\$$\n" +
+				"                                      \n" +
+				"                                      \n" +
+				"                                      \n");
+	}
 
 }
-
