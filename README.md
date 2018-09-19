@@ -8,4 +8,4 @@ Team Risk Takers
 -Derrick Ellis
 -Ian Voorhies
 
-This is team Risk Taker's Risk project created for COSC 4353.
+This is team Risk Takers' Risk project created for COSC 4353.
