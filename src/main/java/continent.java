@@ -5,7 +5,7 @@ import java.util.Objects;
 public class continent {
 
 	String name;
-	List<String> has;	
+	List<String> has;
 	List<String> terrs;
 	
 	
@@ -37,6 +37,13 @@ public class continent {
 		System.out.println(name + " includes the following territories:");
 		for(int i = 0; i < has.size(); i++) {
 			System.out.println(has.get(i));
+		}
+	}
+	public String getOwner(){
+		String owner = has.get(0).get;
+
+		for(int n = 1; n < has.size(); n++){
+
 		}
 	}
 	

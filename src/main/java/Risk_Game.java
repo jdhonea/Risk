@@ -282,7 +282,7 @@ public class Risk_Game {
 		while(weHaveAWinner == false) {
 			for(player p : pList) {
 				//new playerTurn object
-				playerTurn pT = new playerTurn(p);
+				playerTurn pT = new playerTurn(p, gameBoard);
 				if(!p.wonWholeGame) {
 					pT.chooseOption(p, tList, pList);
 				}

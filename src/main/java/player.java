@@ -132,7 +132,7 @@ public class player {
 	}
 
 	public int getnumofterritories() {
-		return this.terrOwned;
+		return this.territoriesOwned.size();
 	}
 	
 	//dice rolls
