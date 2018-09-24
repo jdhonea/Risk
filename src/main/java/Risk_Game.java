@@ -167,7 +167,7 @@ public class Risk_Game {
 	//}
 
 	public static void main(String[] args) throws Exception{
-		text();
+		//text();
 		//ESTABLISH MAIN VARIABLES
 		String numOfPlayers;
 		int players = 0;
@@ -282,7 +282,7 @@ public class Risk_Game {
 		while(weHaveAWinner == false) {
 			for(player p : pList) {
 				//new playerTurn object
-				playerTurn pT = new playerTurn();
+				playerTurn pT = new playerTurn(p);
 				if(!p.wonWholeGame) {
 					pT.chooseOption(p, tList, pList);
 				}

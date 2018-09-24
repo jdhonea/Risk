@@ -6,12 +6,15 @@ import java.util.List;
 
 public class playerTurn{
 	boolean valid = true;
-
+	player currentPlayer;
 	/**
 	 * CONSTRUCTOR
 	 */
 	public playerTurn() {
 
+	}
+	public playerTurn(player p){
+		this.currentPlayer = p;
 	}
 
 	/**
@@ -34,7 +37,7 @@ public class playerTurn{
 			}
 			if(optionNumber.equals("1")) {
 				//TODO:REINFORCE (getting and placing new armies)
-				//p.reinforce();
+				reinforce();
 				valid = false;
 			}
 			else if(optionNumber.equals("2")) {
@@ -55,6 +58,9 @@ public class playerTurn{
 
 	public void getNewArmies() {
 
+	}
+	private void reinforce(){
+		
 	}
 	
 }
