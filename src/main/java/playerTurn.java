@@ -23,39 +23,55 @@ public class playerTurn{
 	 *************** METHODS ***********************
 	 */
 	public void chooseOption(player p, territory[] tList, List<player> players) {
-		String optionNumber = new String();
+		String attack = "";
 		valid = true;
 		while(valid) {
+			//STEP 1 REINFORCE
 			getNewArmies();
-			System.out.println("\n"+p.getPlayerName()+", what would you like to do? CHOOSE NUMBER\n");
-			p.getPlayerOptions();
-			//Enter data using BufferReader
+			//STEP 2 ATTACK (IF DESIRED)
+			System.out.println("\n"+p.getPlayerName()+", would you like to attack a territory? (Y or N)");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			// Reading data using readLine
 			try {
-				optionNumber = reader.readLine();
+				attack = reader.readLine();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(optionNumber.equals("1")) {
-				//TODO:REINFORCE (getting and placing new armies)
-				reinforce();
-				valid = false;
-			}
-			else if(optionNumber.equals("2")) {
-				//ATTACK
+			if(attack.equalsIgnoreCase("Y")) {
 				p.attack(tList,players);
 			}
-			else if(optionNumber.equals("3")) {
-				valid = false;
-				//REINFORCE
-				p.endturn();
-			}
+			//STEP 3
+			//TODO: EXECUTE FORTIFY HERE!
 			else {
-				System.out.println("Invalid choice. Try again....");
-				valid = true;
+				p.fortify();
 			}
+			//END TURN
+			p.endturn();
+			// Reading data using readLine
+//			try {
+//				optionNumber = reader.readLine();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			if(optionNumber.equals("1")) {
+//				//TODO:REINFORCE (getting and placing new armies)
+//				reinforce();
+//				valid = false;
+//			}
+//			else if(optionNumber.equals("2")) {
+//				//ATTACK
+//				p.attack(tList,players);
+//			}
+//			else if(optionNumber.equals("3")) {
+//				valid = false;
+//				//REINFORCE
+//				p.endturn();
+//			}
+//			else {
+//				System.out.println("Invalid choice. Try again....");
+//				valid = true;
+//			}
 		}
 	}
 	//driver method for the player getting and receiving new armies at the beginning of the turn
@@ -63,22 +79,23 @@ public class playerTurn{
 		int newArmies = 0;
 		newArmies += countTerritories();
 		//newArmies+= valueOfContinents();
-		System.out.print("At the beginning of the turn, " + player.getPlayerName() + "receives " + newArmies + " new armies to be placed.");
+		System.out.print("At the beginning of the turn, " + player.getPlayerName() + " receives " + newArmies + " new armies to be placed.");
+		player.reinforce(newArmies);
 	}
-	//driver method for the fortifying portion of the player turn
-	private void reinforce(){
-
-	}
+	
+//	//driver method for the reinforce portion of the player turn
+//	private void reinforce(){
+//		player.reinforce();
+//	}
 	//counts the number of territories and returns the number of armies the player is supposed to receive
 	private int countTerritories(){
+		//TODO: *ALSO CALCULATE WHAT CONTINENTS THIS PLAYERS OWNS
 		int armiesReturned = player.getnumofterritories() / 3;
 		if(armiesReturned < 3)
 			return 3;
 		else
 			return armiesReturned;
 	}
-	//private int valueOfContinents(){
 
-	//}
 	
 }
