@@ -115,14 +115,20 @@ public class playerTurn{
 						System.out.println("\n[" + n.territoryNumber + "] " + n.getnameofterritory() + " (Currently " + n.getnumofarmies() + " armies here.)");
 						System.out.println("You currently have " + armies + " to place. Choose a number from 1 to " + armies + " to place that many armies here or 0 to choose another territory.");
 						option = input.nextInt();
+						if(option > armies){
+							valid = false;
+							break;
+						}
 						armies = armies - option;
 						n.addTokensToTerritory(option);
 
 						valid = true;
 					}
 				}
-				if(!valid)
+				if(!valid) {
 					System.out.println("\nNot a valid input. Try again...");
+					player.printTerritories();
+				}
 			}
 
 		}
