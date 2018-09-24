@@ -39,12 +39,12 @@ public class continent {
 			System.out.println(has.get(i));
 		}
 	}
-	public String getOwner(){
-		String owner = has.get(0).get;
+	/*public String getOwner(){
+		//String owner = has.get(0);
 
 		for(int n = 1; n < has.size(); n++){
 
 		}
-	}
+	}*/
 	
 }

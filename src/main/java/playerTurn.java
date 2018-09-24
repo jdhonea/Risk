@@ -62,7 +62,7 @@ public class playerTurn{
 	private void getNewArmies() {
 		int newArmies = 0;
 		newArmies += countTerritories();
-		newArmies+= valueOfContinents();
+		//newArmies+= valueOfContinents();
 		System.out.print("At the beginning of the turn, " + player.getPlayerName() + "receives " + newArmies + " new armies to be placed.");
 	}
 	//driver method for the fortifying portion of the player turn
@@ -77,8 +77,8 @@ public class playerTurn{
 		else
 			return armiesReturned;
 	}
-	private int valueOfContinents(){
+	//private int valueOfContinents(){
 
-	}
+	//}
 	
 }
