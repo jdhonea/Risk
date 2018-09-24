@@ -91,6 +91,7 @@ public class Risk_Game {
 					if((tList[n].getnameofterritory().equals(selection) || Integer.toString(tList[n].getTerritoryNumber()).equals(selection)) && !tList[n].isTaken()){
 						tList[n].setTaken(true);
 						tList[n].setOwner(currentPlayer);
+						tList[n].setOwnerName(pList.get(currentPlayer).getPlayerName());
 						tList[n].addTokenToTerritory();
 						pList.get(currentPlayer).chooseTerritory(tList[n]);
 						noTerritorySelected = false;
@@ -205,7 +206,7 @@ public class Risk_Game {
 
 		//INITIALIZE GAME BOARD
 		@SuppressWarnings("unused")
-		board gameBoard = new board();
+		board gameBoard = new board(tList);
 
 		//GIVE OUT ARMIES BASED ON NUMBER OF PLAYERS
 		//newArmies(players,pList);

@@ -61,7 +61,7 @@ public class deck {
             else if(setsTradedIn == 6)
                 return 15;
             else if(setsTradedIn >= 7)
-                return (setsTradedIn - 6) * 5 + 15;
+                return ((setsTradedIn - 6) * 5 + 15);
         }
         return 0;
     }

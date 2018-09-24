@@ -58,5 +58,14 @@ public class continent {
 	public List<territory> getTerritories(){
 		return this.has;
 	}
+	public String getOwner(){
+		String owner = has.get(0).getOwnerName();
+		for (int n = 1; n < has.size(); n++){
+			if (!has.get(n).getOwnerName().equals(owner))
+				return "";
+			//System.out.println(has.get(n).getnameofterritory());
+		}
+		return owner;
+	}
 	
 }

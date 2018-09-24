@@ -169,6 +169,12 @@ public class player {
 	public int getnumofcards() {
 		return this.numOfCards;
 	}
+	//Displays the players current hand of cards
+	public void printHand(){
+		for(int n = 0; n < hand.size(); n++){
+			System.out.println(n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory());
+		}
+	}
 	
 	//set "can trade" status
 	public void setCanTrade(boolean trade) {
@@ -274,12 +280,21 @@ public class player {
 		t.setOwner(playerNo);
 		t.setTaken(true);
 	}
-	
-	//PRINT TERRITORIES THAT THE PLAYER OWNS
-	public void printTerritories() {
+
+	public void printTerritories(){
 		System.out.println("\n"+playerName+" owns: ");
 		for(int x = 0; x < territoriesOwned.size(); x++) {
-			System.out.printf("%-5s %-35s","[" + territoriesOwned.get(x).territoryNumber + "] ", territoriesOwned.get(x).name+" (has "+territoriesOwned.get(x).getnumofarmies()+" armies.)");
+			System.out.printf("%-5s","[" + territoriesOwned.get(x).territoryNumber + "] ");
+			System.out.println(territoriesOwned.get(x).name+" (has "+territoriesOwned.get(x).getnumofarmies()+" armies.)");
+
+		}
+	}
+
+	//PRINT TERRITORIES AND ADJACENT TERRITORIES THAT THE PLAYER OWNS
+	public void printTerritoriesAndAdjacencies() {
+		System.out.println("\n"+playerName+" owns: ");
+		for(int x = 0; x < territoriesOwned.size(); x++) {
+			System.out.printf("%-5s %-40s","[" + territoriesOwned.get(x).territoryNumber + "] ", territoriesOwned.get(x).name+" (has "+territoriesOwned.get(x).getnumofarmies()+" armies.)");
 			System.out.print("------>  Adjacent territories: [");
 			for(territory t : territoriesOwned.get(x).adj_territories) {
 				System.out.print(" "+t.name+",");
@@ -482,7 +497,7 @@ public class player {
 		boolean repeat = true;
 		while(repeat) {
 		System.out.println("FROM which territory would you like to attack? *CHOOSE NUMBER*");
-		this.printTerritories();
+		this.printTerritoriesAndAdjacencies();
 		//Enter data using BufferReader
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		// Reading data using readLine
@@ -638,7 +653,7 @@ public class player {
 		System.out.println(tr.name+" now has "+tr.getnumofarmies()+" armies.");
 	}
 
-	public void reinforce(int numOfArmies) {
+	/*public void reinforce(int numOfArmies) {
 		System.out.println("\n"+this.getPlayerName()+", let's REINFORCE your territories!\n");
 		//TODO; COMPLETE THIS!!!
 	}
@@ -646,5 +661,5 @@ public class player {
 	public void fortify() {
 		System.out.println("\n"+this.getPlayerName()+", let's FORTIFY your territories!\n");
 		//TODO: COMPLETE THIS!!!
-	}
+	}*/
 }

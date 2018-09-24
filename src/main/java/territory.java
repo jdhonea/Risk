@@ -81,6 +81,11 @@ public class territory {
 	public String getOwnerName() {
 		return this.ownerName;
 	}
+
+	public void changeOwner(player p){
+		this.setOwner(p.playerNo);
+		this.setOwnerName(p.getPlayerName());
+	}
 	
 	//number of armies
 	public void setnumberofarmies(int armies) {
