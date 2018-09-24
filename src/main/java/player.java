@@ -406,6 +406,7 @@ public class player {
 			defendingFrom.setOwnerName(attackingFrom.ownerName);
 			System.out.println("\n***"+defendingFrom.name+" has been conquered by "+attackingFrom.ownerName+"!!**\n");
 			this.advance(attackingFrom,defendingFrom,advanceNum);
+			this.territoriesOwned.add(defendingFrom);
 		}
 	}
 	
