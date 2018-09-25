@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 
@@ -303,8 +304,16 @@ public class player {
 			System.out.println("]");
 		}
 	}
-	
-	public void endturn() {
+
+	//PRINT TERRITORIES AND ADJACENT TERRITORIES THAT THE PLAYER OWNS
+	public void printTerritoriesOwned() {
+		System.out.println("\n"+playerName+" owns: ");
+		for(int x = 0; x < territoriesOwned.size(); x++) {
+			System.out.println("[" + territoriesOwned.get(x).territoryNumber + "]\t"+ territoriesOwned.get(x).name+" (has "+territoriesOwned.get(x).getnumofarmies()+" armies.)");
+		}
+	}
+
+		public void endturn() {
 		/**
 		 * If player decides to end turn
 		 */
@@ -635,10 +644,77 @@ public class player {
 	/*public void reinforce(int numOfArmies) {
 		System.out.println("\n"+this.getPlayerName()+", let's REINFORCE your territories!\n");
 		//TODO; COMPLETE THIS!!!
-	}
-	
-	public void fortify() {
-		System.out.println("\n"+this.getPlayerName()+", let's FORTIFY your territories!\n");
-		//TODO: COMPLETE THIS!!!
 	}*/
+	
+	public void fortify(territory[] tList) {
+		String input = "";
+		int advance = 0;
+		String input2 = "";
+		int advance2 = 0;
+		String input3 = "";
+		int numOfTroops = 0;
+		System.out.println("\n"+this.getPlayerName()+", let's FORTIFY a territory!");
+	
+		this.printTerritoriesOwned();
+		System.out.println("\nWhich territory would you like to fortify? **CHOOSE NUMBER**");
+		//Enter data using BufferReader
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		// Reading data using readLine
+		try {
+			input = reader.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		advance = Integer.parseInt(input);
+
+		for(territory t : this.territoriesOwned) {
+			if(t.territoryNumber == advance) {
+				for(territory aT : t.adj_territories) {
+					for(territory nT : this.territoriesOwned) {
+						if(nT.name.equalsIgnoreCase(aT.name)) {
+							System.out.println("[" + aT.territoryNumber + "] "+ aT.name + " (has "+ nT.numofArmiesHere +" armies.)");
+						}
+					}
+				}
+			}
+		}
+
+		System.out.println("FROM which territory would you like to move your troops? **CHOOSE NUMBER**");
+		//Enter data using BufferReader
+		BufferedReader reader2 = new BufferedReader(new InputStreamReader(System.in));
+		// Reading data using readLine
+		try {
+			input2 = reader2.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		advance2 = Integer.parseInt(input2);
+		
+		System.out.println("**"+tList[advance2-1].name+" has "+tList[advance2-1].numofArmiesHere+" armies here.**");
+		System.out.println("How many armies would you like to move?");
+		//Enter data using BufferReader
+		BufferedReader reader3 = new BufferedReader(new InputStreamReader(System.in));
+		// Reading data using readLine
+		try {
+			input3 = reader3.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		numOfTroops = Integer.parseInt(input3);
+		
+		tList[advance2-1].numofArmiesHere = tList[advance2-1].numofArmiesHere - numOfTroops;
+		tList[advance-1].numofArmiesHere = tList[advance-1].numofArmiesHere + numOfTroops;
+		
+		System.out.println("***"+this.playerName+" has FORTIFIED "+tList[advance-1].name+"***");
+		System.out.println(tList[advance2-1].name+" now has "+tList[advance2-1].numofArmiesHere+" armies and "+tList[advance-1].name+" has "+tList[advance-1].numofArmiesHere+" armies.\n");
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
