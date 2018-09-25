@@ -23,7 +23,7 @@ public class playerTurn{
 	/**
 	 *************** METHODS ***********************
 	 */
-	public void chooseOption(player p, territory[] tList, List<player> players) {
+	public void chooseOption(player p, territory[] tList, List<player> players, deck deck) {
 		String attack = "";
 		valid = true;
 		while(valid) {
@@ -39,40 +39,17 @@ public class playerTurn{
 				e.printStackTrace();
 			}
 			if(attack.equalsIgnoreCase("Y")) {
-				p.attack(tList,players);
+				p.attack(tList,players,deck);
+				valid = false;
 			}
 			//STEP 3
 			//TODO: EXECUTE FORTIFY HERE!
 			else {
+				valid = false;
 				fortify();
 			}
 			//END TURN
 			p.endturn();
-			// Reading data using readLine
-//			try {
-//				optionNumber = reader.readLine();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			if(optionNumber.equals("1")) {
-//				//TODO:REINFORCE (getting and placing new armies)
-//				reinforce();
-//				valid = false;
-//			}
-//			else if(optionNumber.equals("2")) {
-//				//ATTACK
-//				p.attack(tList,players);
-//			}
-//			else if(optionNumber.equals("3")) {
-//				valid = false;
-//				//REINFORCE
-//				p.endturn();
-//			}
-//			else {
-//				System.out.println("Invalid choice. Try again....");
-//				valid = true;
-//			}
 		}
 	}
 	//driver method for the player getting and receiving new armies at the beginning of the turn
