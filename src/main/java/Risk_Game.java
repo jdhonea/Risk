@@ -276,6 +276,7 @@ public class Risk_Game {
 
 		//************************TERRITORY DRAFT END*****************
 
+		deck deck = new deck(42);
 		System.out.println("\n\nAll armies have been placed.\nNow let's begin!");
 
 		//********************GAMEPLAY BEGINS****************************
@@ -285,7 +286,7 @@ public class Risk_Game {
 				//new playerTurn object
 				playerTurn pT = new playerTurn(p, gameBoard);
 				if(!p.wonWholeGame) {
-					pT.chooseOption(p, tList, pList);
+					pT.chooseOption(p, tList, pList,deck);
 				}
 
 			}
