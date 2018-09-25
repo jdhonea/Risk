@@ -40,14 +40,10 @@ public class playerTurn{
 			}
 			if(attack.equalsIgnoreCase("Y")) {
 				p.attack(tList,players,deck);
-				valid = false;
 			}
 			//STEP 3
-			//TODO: EXECUTE FORTIFY HERE!
-			else {
-				valid = false;
-				fortify();
-			}
+			valid = false;
+			p.fortify(tList);
 			//END TURN
 			p.endturn();
 		}
@@ -111,11 +107,6 @@ public class playerTurn{
 		}
 	}
 	
-	//driver method for the reinforce portion of the player turn
-	private void fortify(){
-
-	}
-
 	//counts the number of territories and returns the number of armies the player is supposed to receive
 	private int countTerritories(){
 		int armiesReturned = player.getnumofterritories() / 3;
