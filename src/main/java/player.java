@@ -673,13 +673,44 @@ public class player {
 		System.out.println("\n"+this.getPlayerName()+", let's REINFORCE your territories!\n");
 		//TODO; COMPLETE THIS!!!
 	}*/
+
+		private int readInputToInt() {
+		String input = "";
+		int advance = 0;
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			input = reader.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		advance = Integer.parseInt(input);
+		return advance;
+	}
 	
-		public void fortify(territory[] tList) {
+	private String getTerritoriesToFortifyFrom(int advance) {
+		String output = "";
+		/* -------- LOOP THROUGH OWNED TERRITORIES LIST... -------- */
+		for(territory t : this.territoriesOwned) {
+/* -------- ...AND IF TERRITORY NUMBER MATCHES THE NUMBER THE PLAYER CHOSE... -------- */
+			if(t.territoryNumber == advance) {
+	/* -------- ...FOR EACH ADJACENT TERRITORY *THAT THE PLAYER OWNS*... -------- */
+				for(territory aT : t.adj_territories) {
+					for(territory nT : this.territoriesOwned) {
+		/* -------- ...ADD IT TO THE OUTPUT STRING. -------- */
+						if(nT.name.equalsIgnoreCase(aT.name)) {
+							output = "[" + aT.territoryNumber + "] "+ aT.name + " (has "+ nT.numofArmiesHere +" armies.)";
+						}
+					}
+				}
+			}
+		}
+		return output;
+	}
+	
+	public void fortify(territory[] tList) {
 		
 	/* method variables */
-		String input = "";
-		String input2 = "";
-		String input3 = "";
 		int advance = 0;
 		int advance2 = 0;
 		int numOfTroops = 0;
@@ -690,30 +721,10 @@ public class player {
 		while(keep) {
 			this.printTerritoriesOwned();
 			System.out.println("\nWhich territory would you like to fortify? **CHOOSE NUMBER**");
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			try {
-				input = reader.readLine();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			advance = Integer.parseInt(input);
+			advance = readInputToInt();
 
-/* -------- LOOP THROUGH OWNED TERRITORIES LIST... -------- */
-			for(territory t : this.territoriesOwned) {
-	/* -------- ...AND IF TERRITORY NUMBER MATCHES THE NUMBER THE PLAYER CHOSE... -------- */
-				if(t.territoryNumber == advance) {
-		/* -------- ...FOR EACH ADJACENT TERRITORY *THAT THE PLAYER OWNS*... -------- */
-					for(territory aT : t.adj_territories) {
-						for(territory nT : this.territoriesOwned) {
-			/* -------- ...ADD IT TO THE OUTPUT STRING. -------- */
-							if(nT.name.equalsIgnoreCase(aT.name)) {
-								output = "[" + aT.territoryNumber + "] "+ aT.name + " (has "+ nT.numofArmiesHere +" armies.)";
-							}
-						}
-					}
-				}
-			}
+			output = getTerritoriesToFortifyFrom(advance);
+			
 /* -------- IF OUTPUT IS EMPTY, THEN THERE ARE NO ADJACENT TERRITORIES THAT PLAYER CAN MOVE ARMIES FROM -------- */
 			if(output == "") {
 				System.out.println("You cannot fortify this position! **TRY AGAIN**");
@@ -725,27 +736,13 @@ public class player {
 			}
 		}
 		System.out.println("FROM which territory would you like to move your troops? **CHOOSE NUMBER**");
-		BufferedReader reader2 = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			input2 = reader2.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		advance2 = Integer.parseInt(input2);
+		advance2 = readInputToInt();
 		
 /* -------- DISPLAY STATUS OF TERRITORY THAT PLAYER CHOSE -------- */
 		System.out.println("**"+tList[advance2-1].name+" has "+tList[advance2-1].numofArmiesHere+" armies here.**");
 		
 		System.out.println("How many armies would you like to move?");
-		BufferedReader reader3 = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			input3 = reader3.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		numOfTroops = Integer.parseInt(input3);
+		numOfTroops = readInputToInt();
 		
 /* -------- ADJUST NUMBER OF ARMIES IN EACH TERRITORY, AFTER FORTIFICATION -------- */
 		tList[advance2-1].numofArmiesHere = tList[advance2-1].numofArmiesHere - numOfTroops;
