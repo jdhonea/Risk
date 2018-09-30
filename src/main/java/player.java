@@ -751,12 +751,12 @@ public class player {
 /* -------- DISPLAY STATUS OF TERRITORIES AFTER FORTIFICATION -------- */
 		System.out.println("***"+this.playerName+" has FORTIFIED "+tList[advance-1].name+"***");
 		System.out.println(tList[advance2-1].name+" now has "+tList[advance2-1].numofArmiesHere+" armies and "+tList[advance-1].name+" has "+tList[advance-1].numofArmiesHere+" armies.\n");
-		try {
-			TimeUnit.SECONDS.sleep(2);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+// 		try {
+// 			TimeUnit.SECONDS.sleep(2);
+// 		} catch (InterruptedException e) {
+// 			// TODO Auto-generated catch block
+// 			e.printStackTrace();
+// 		}
 /* ------------------------------------------------------------------- */
 		
 	}
