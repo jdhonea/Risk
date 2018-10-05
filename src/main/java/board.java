@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class board {
+public class board implements Serializable{
 		territory[] tList;
 		continent europe;
 		continent europewithTerr;
@@ -16,9 +17,12 @@ public class board {
 		continent australia;
 		continent auswithTerr;
 		List<continent> map;
+		deck deck;
+		List<player>pList;
 	
 	//constructor
-		public board(territory[] tList) {
+		public board(){};
+		public board(territory[] tList, deck deck) {
 			//ADD CONTINENTS TO BOARD
 			this.europe = new continent("Europe");
 			this.europe.setContinentValue(5);
@@ -41,7 +45,28 @@ public class board {
 			else
 				return new continent("Error");
 		}
+
 		public int getNumOfContinents(){return map.size();};
+
+		//sets the player list to board
+		public void setPlayerList(List<player> pList){
+			this.pList = pList;
+		}
+
+		//returns the player list
+		public List<player> getPlayerList(){
+			return this.pList;
+		}
+
+		//sets the deck to the board
+		public void setDeck(deck deck){
+			this.deck = deck;
+		}
+
+		//returns the deck
+		public deck getDeck(){
+			return this.deck;
+		}
 
 		private void initializeBoard() {
 			//LIST OF CONTINENTS

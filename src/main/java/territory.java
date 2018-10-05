@@ -1,11 +1,12 @@
 //package com.risktakers.Risk;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class territory {
+public class territory implements Serializable{
 
 	int num_of_territories = 42;
 	int territoryNumber;

@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class adjacentTerritoriesLists {
+public class adjacentTerritoriesLists implements Serializable {
 
 	public List<territory> alaskaList = new ArrayList<territory>();
 	public List<territory> albertaList = new ArrayList<territory>();

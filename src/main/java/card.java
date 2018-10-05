@@ -1,5 +1,7 @@
+import java.io.Serializable;
+
 //Class for the Risk cards
-public class card {
+public class card implements Serializable {
   private char design;
   private String territory;
 

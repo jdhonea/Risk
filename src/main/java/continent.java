@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class continent {
+public class continent implements Serializable {
 
 	String name;
 	List<territory> has; //TERRITORIES THAT MAKE UP THE CONTINENT

@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class deck {
+public class deck implements Serializable{
     //Would use a deque, but shuffling is important and Collections.shuffle cannot be used on a Deque
     private List<card> deck = new ArrayList<card>(); //Stores the deck of cards
     private List<card> discarded = new ArrayList<card>(); //Stores the discarded cards traded in

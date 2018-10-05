@@ -1,13 +1,11 @@
 //package com.risktakers.Risk;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 
-//TODO: 1. Breakdown unwieldy main function into smaller, more handy functions.
 
 
 
@@ -173,6 +171,8 @@ public class Risk_Game {
 		String numOfPlayers;
 		int players = 0;
 		boolean valid = true;
+		board savedBoard;
+		byte[] boardData; //stores the board state for the undo feature
 		territory[] tList = new territory[numOfTerritories]; //list of all territories
 		List<String> playerNames = new ArrayList<String>();
 		// CALLING METHOD THAT PUTS THE PLAYERS INTO A STRING ARRAY.
@@ -205,8 +205,9 @@ public class Risk_Game {
 		initializeTerritories(tList);
 
 		//INITIALIZE GAME BOARD
+		deck deck = new deck(42);
 		@SuppressWarnings("unused")
-		board gameBoard = new board(tList);
+		board gameBoard = new board(tList, deck);
 
 		//GIVE OUT ARMIES BASED ON NUMBER OF PLAYERS
 		//newArmies(players,pList);
@@ -276,25 +277,93 @@ public class Risk_Game {
 
 		//************************TERRITORY DRAFT END*****************
 
-		deck deck = new deck(42);
 		System.out.println("\n\nAll armies have been placed.\nNow let's begin!");
+		gameBoard.setPlayerList(pList);
+		gameBoard.setDeck(deck);
 
 		//********************GAMEPLAY BEGINS****************************
 		boolean weHaveAWinner = false;
+		int currentplayer = 0;
 		while(weHaveAWinner == false) {
-			for(player p : pList) {
-				//new playerTurn object
-				playerTurn pT = new playerTurn(p, gameBoard);
-				if(!p.wonWholeGame) {
-					pT.chooseOption(p, tList, pList,deck);
-				}
+			boardData = saveState(gameBoard);
+			player p = pList.get(currentplayer);
+			//new playerTurn object
+			playerTurn pT = new playerTurn(p, gameBoard);
 
+			if(!p.wonWholeGame) {
+				pT.chooseOption(p, tList, pList,deck);
 			}
+			//if end returns true, ie player ends turn
+			if(end())
+				p.endturn();
+			else{
+				System.out.println("Undoing current turn...");
+				currentplayer--;
+				gameBoard = restoreData(boardData);
+				deck = gameBoard.getDeck();
+				pList = gameBoard.getPlayerList();
+			}
+			currentplayer = ++currentplayer % pList.size();
 		}
 
-
 	}
-	public static void text() throws Exception{
+
+	//saves the current board state using serialization
+	private static byte[] saveState(board gameBoard){
+		byte[] boardData;
+		try {
+			//Breaks down the object gameBoard into an array of bytes, stores it in the boardData array and returns it.
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			ObjectOutputStream output = new ObjectOutputStream(stream);
+			output.writeObject(gameBoard);
+			boardData = stream.toByteArray();
+			output.flush();
+			output.close();
+			stream.close();
+		}
+		catch(IOException exception){
+			System.out.println("Exception caught");
+			return new byte[0];
+		}
+		return boardData;
+	}
+	//TODO: Looks like the adjacent territories lists do not get updated upon the restore. Needs to be figured out and fixed.
+	//reads the boardData byte array and restores the board state to the previous state.
+	private static board restoreData(byte[] boardData){
+		board restoredBoard = new board();
+		try {
+			ByteArrayInputStream input = new ByteArrayInputStream(boardData);
+			ObjectInputStream in = new ObjectInputStream(input);
+			restoredBoard = (board)in.readObject();
+		}
+		catch(IOException exception){
+			System.out.println("IOException found!");
+		}
+		catch(ClassNotFoundException exception){
+			System.out.println("ClassNotFoundException caught");
+		}
+		return restoredBoard;
+	}
+
+	//Prompts the player to end their turn
+	private static boolean end(){
+		System.out.println("Would you like to end your turn 'Y' or undo changes 'U'?");
+		Scanner in = new Scanner(System.in);
+		boolean valid = false;
+		while(!valid) {
+			String option = in.next();
+			if (option.equalsIgnoreCase("Y"))
+				return true;
+			else if (option.equalsIgnoreCase("U"))
+				return false;
+			else
+				System.out.println("Not a correct option.");
+		}
+		return true;
+	}
+
+	//Displays the "Splash Screen and game text"
+	private static void text() throws Exception{
 		System.out.println("Authors: Derrick Ellis, Jason Honea, Ian Voorhies");
 		System.out.print("\n" +
 				"                                                                                           \n" +

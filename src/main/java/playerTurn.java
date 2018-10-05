@@ -9,6 +9,7 @@ public class playerTurn{
 	boolean valid = true;
 	private player player;
 	private board board;
+	private board savedBoard;
 	/**
 	 * CONSTRUCTOR
 	 */
@@ -25,29 +26,26 @@ public class playerTurn{
 	 */
 	public void chooseOption(player p, territory[] tList, List<player> players, deck deck) {
 		String attack = "";
-		valid = true;
-		while(valid) {
-			//STEP 1 REINFORCE
-			getNewArmies();
-			//STEP 2 ATTACK (IF DESIRED)
-			System.out.println("\n"+p.getPlayerName()+", would you like to attack a territory? (Y or N)");
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			try {
-				attack = reader.readLine();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(attack.equalsIgnoreCase("Y")) {
-				p.attack(tList,players,deck);
-			}
-			//STEP 3
-			valid = false;
-			p.fortify(tList);
-			//END TURN
-			p.endturn();
+		System.out.println(p.getPlayerName() + "'s turn:");
+		//STEP 1 REINFORCE
+		getNewArmies();
+		//STEP 2 ATTACK (IF DESIRED)
+		System.out.println("\n"+p.getPlayerName()+", would you like to attack a territory? (Y or N)");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			attack = reader.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		if(attack.equalsIgnoreCase("Y")) {
+			p.attack(tList,players,deck);
+		}
+		//STEP 3
+		p.fortify(tList);
+		//END TURN
 	}
+
 	//driver method for the player getting and receiving new armies at the beginning of the turn
 	private void getNewArmies() {
 		int newArmies = 0;
@@ -73,6 +71,7 @@ public class playerTurn{
 
 	//Has the player place the new armies they just received into territories they own, loops until all armies are placed.
 	private void placeNewArmies(int armies){
+		//Loops until all new armies are placed
 		while (armies > 0){
 			player.printTerritories();
 //			for(territory n: player.territoriesOwned){
@@ -121,11 +120,10 @@ public class playerTurn{
 		int value = 0;
 		for(int n = 0; n < board.getNumOfContinents(); n++){
 			continent curr = board.getContinentByNum(n);
-			if(!curr.getOwner().equals(""))
+			if(curr.getOwner().equals(player.getPlayerName()))
 				value += curr.getContinentValue();
 			//curr.printContinentTerritories();
 		}
 		return value;
 	}
-
 }
