@@ -99,11 +99,12 @@ public class deckTest {
         tradedIn.add(card1);
         tradedIn.add(card2);
         tradedIn.add(card3);
-        for (int n = 1; n <= 6; n++) {
+        for (int n = 1; n <= 15; n++) {
             //System.out.println(((n-1) * 2 + 4));
-            deck.cardsTradedIn((tradedIn));
             if(n > 6)
-                assertEquals((n - 6) * 5 + 15, deck.cardsTradedIn(tradedIn));
+                assertEquals(((n - 6) * 5 + 15), deck.cardsTradedIn(tradedIn));
+            else
+                deck.cardsTradedIn((tradedIn));
         }
 
     }

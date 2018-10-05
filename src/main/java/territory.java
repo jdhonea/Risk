@@ -1,11 +1,12 @@
 //package com.risktakers.Risk;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class territory {
+public class territory implements Serializable{
 
 	int num_of_territories = 42;
 	int territoryNumber;
@@ -80,6 +81,11 @@ public class territory {
 	}
 	public String getOwnerName() {
 		return this.ownerName;
+	}
+
+	public void changeOwner(player p){
+		this.setOwner(p.playerNo);
+		this.setOwnerName(p.getPlayerName());
 	}
 	
 	//number of armies

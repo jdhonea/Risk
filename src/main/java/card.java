@@ -1,20 +1,26 @@
+import java.io.Serializable;
+
 //Class for the Risk cards
+public class card implements Serializable {
+  private char design;
+  private String territory;
 
-public class card {
-    private char design;
-    private String territory;
+  public card(char design, String territory){
+      this.design = design;
+      this.territory = territory;
+  }
 
-    public card(char design, String territory){
-        this.design = design;
-        this.territory = territory;
-    }
-
-    //Returns 'i' for infantry, 'c' for cavalry, 'a' for artillery, or 'w' for wild
-    public char getDesign() {
-        return this.design;
-    }
-    //Returns territory name or "wild" for wild cards
-    public String getTerritory(){
-        return this.territory;
-    }
+  //Returns 'i' for infantry, 'c' for cavalry, 'a' for artillery, or 'w' for wild
+  public char getDesign() {
+      return design;
+  }
+  //Returns territory name or "wild"
+  public String getTerritory(){
+      return territory;
+  }
+  
+  public String getCardType(){
+	  String output = getDesign()+" "+this.getTerritory();
+     return output;
+  }
 }

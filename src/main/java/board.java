@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class board {
-
+public class board implements Serializable{
+		territory[] tList;
 		continent europe;
 		continent europewithTerr;
 		continent N_Amer;
@@ -15,138 +16,120 @@ public class board {
 		continent sawithTerr;
 		continent australia;
 		continent auswithTerr;
+		List<continent> map;
+		deck deck;
+		List<player>pList;
 	
 	//constructor
-		public board() {
+		public board(){};
+		public board(territory[] tList, deck deck) {
 			//ADD CONTINENTS TO BOARD
 			this.europe = new continent("Europe");
+			this.europe.setContinentValue(5);
 			this.N_Amer = new continent("North America");
+			this.N_Amer.setContinentValue(5);
 			this.asia = new continent("Asia");
+			this.asia.setContinentValue(7);
 			this.africa = new continent("Africa");
+			this.africa.setContinentValue(3);
 			this.S_Amer = new continent("South America");
+			this.S_Amer.setContinentValue(2);
 			this.australia = new continent("Australia");
-
+			this.australia.setContinentValue(2);
+			this.tList = tList;
+			initializeBoard();
 		}
-	
-	//LIST OF CONTINENTS
-	List<continent> continent = new ArrayList<continent>(6);{
-	continent.add(europe);
-	continent.add(N_Amer);
-	continent.add(asia);
-	continent.add(africa);
-	continent.add(S_Amer);
-	continent.add(australia);
-	
-	//ADD TERRITORIES TO EACH CONTINENT
-	List<String> europeList = new ArrayList<String>(7);
-	territory gb = new territory("GB");
-	territory ice = new territory("Iceland");
-	territory ne = new territory("Northern Europe");
-	territory s = new territory("Scandinavia");
-	territory se = new territory("Southern Europe");
-	territory u = new territory("Ukraine");
-	territory we = new territory("Western Europe");
-	europeList.add(gb.getnameofterritory());
-	europeList.add(ice.getnameofterritory());
-	europeList.add(ne.getnameofterritory());
-	europeList.add(s.getnameofterritory());
-	europeList.add(se.getnameofterritory());
-	europeList.add(u.getnameofterritory());
-	europeList.add(we.getnameofterritory());
-	europewithTerr = new continent("Europe",europeList);
-	//europewithTerr.getTerritories();
-	
-	List<String> naList = new ArrayList<String>(9);
-	territory al = new territory("Alaska");
-	territory alb = new territory("Alberta");
-	territory ca = new territory("Central America");
-	territory eus = new territory("Eastern U.S.");
-	territory gl = new territory("Greenland");
-	territory nt = new territory("Northwest Territory");
-	territory o = new territory("Ontario");
-	territory q = new territory("Quebec");
-	territory wus = new territory("Western U.S.");
-	naList.add(al.getnameofterritory());
-	naList.add(alb.getnameofterritory());
-	naList.add(ca.getnameofterritory());
-	naList.add(eus.getnameofterritory());
-	naList.add(gl.getnameofterritory());
-	naList.add(nt.getnameofterritory());
-	naList.add(o.getnameofterritory());
-	naList.add(q.getnameofterritory());
-	naList.add(wus.getnameofterritory());
-	nawithTerr = new continent("North America",naList);
-	//nawithTerr.getTerritories();
-	
-	List<String> asiaList = new ArrayList<String>(12);
-	territory af = new territory("Afghanistan");
-	territory ch = new territory("China");
-	territory in = new territory("India");
-	territory irk = new territory("Irkutsk");
-	territory j = new territory("Japan");
-	territory kam = new territory("Kamchatka");
-	territory me = new territory("Middle East");
-	territory mon = new territory("Mongolia");
-	territory si = new territory("Siam");
-	territory sib = new territory("Siberia");
-	territory ur = new territory("Ural");
-	territory ya = new territory("Yakutsk");
-	asiaList.add(af.getnameofterritory());
-	asiaList.add(ch.getnameofterritory());
-	asiaList.add(in.getnameofterritory());
-	asiaList.add(irk.getnameofterritory());
-	asiaList.add(j.getnameofterritory());
-	asiaList.add(kam.getnameofterritory());
-	asiaList.add(me.getnameofterritory());
-	asiaList.add(mon.getnameofterritory());
-	asiaList.add(si.getnameofterritory());
-	asiaList.add(sib.getnameofterritory());
-	asiaList.add(ur.getnameofterritory());
-	asiaList.add(ya.getnameofterritory());
-	asiawithTerr = new continent("Asia",asiaList);
-	//asiawithTerr.getTerritories();
-	
-	List<String> saList = new ArrayList<String>(4);
-	territory ar = new territory("Argentina");
-	territory br = new territory("Brazil");
-	territory pe = new territory("Peru");
-	territory ven = new territory("Venezuela");
-	saList.add(ar.getnameofterritory());
-	saList.add(br.getnameofterritory());
-	saList.add(pe.getnameofterritory());
-	saList.add(ven.getnameofterritory());
-	sawithTerr = new continent("South America",saList);
-	//sawithTerr.getTerritories();
-	
-	List<String> afrList = new ArrayList<String>(6);
-	territory co = new territory("Congo");
-	territory ea = new territory("East Africa");
-	territory egy = new territory("Egypt");
-	territory mad = new territory("Madagascar");
-	territory nafr = new territory("North Africa");
-	territory safr = new territory("South Africa");
-	afrList.add(co.getnameofterritory());
-	afrList.add(ea.getnameofterritory());
-	afrList.add(egy.getnameofterritory());
-	afrList.add(mad.getnameofterritory());
-	afrList.add(nafr.getnameofterritory());
-	afrList.add(safr.getnameofterritory());
-	afrwithTerr = new continent("Africa",afrList);
-	//afrwithTerr.getTerritories();
-	
-	List<String> ausList = new ArrayList<String>(4);
-	territory eaus = new territory("Eastern Australia");
-	territory ind = new territory("Indonesia");
-	territory ng = new territory("New Guinea");
-	territory wa = new territory("Western Australia");
-	ausList.add(eaus.getnameofterritory());
-	ausList.add(ind.getnameofterritory());
-	ausList.add(ng.getnameofterritory());
-	ausList.add(wa.getnameofterritory());
-	auswithTerr = new continent("Australia",ausList);
-	//auswithTerr.getTerritories();
-	
-	//METHODS
+		public continent getContinentByNum(int n){
+			if(n > -1 && n < map.size())
+				return map.get(n);
+			else
+				return new continent("Error");
+		}
+
+		public int getNumOfContinents(){return map.size();};
+
+		//sets the player list to board
+		public void setPlayerList(List<player> pList){
+			this.pList = pList;
+		}
+
+		//returns the player list
+		public List<player> getPlayerList(){
+			return this.pList;
+		}
+
+		//sets the deck to the board
+		public void setDeck(deck deck){
+			this.deck = deck;
+		}
+
+		//returns the deck
+		public deck getDeck(){
+			return this.deck;
+		}
+
+		private void initializeBoard() {
+			//LIST OF CONTINENTS
+			List<continent> continent = new ArrayList<continent>(6);
+			{
+				continent.add(europe);
+				continent.add(N_Amer);
+				continent.add(asia);
+				continent.add(africa);
+				continent.add(S_Amer);
+				continent.add(australia);
+
+				//ADD TERRITORIES TO EACH CONTINENT
+				List<territory> europeList = new ArrayList<territory>(7);
+				for (int n = 13; n < 20; n++) {
+					europeList.add(tList[n]);
+				}
+				this.europewithTerr = new continent("Europe", europeList);
+				this.europewithTerr.setContinentValue(5);
+
+				List<territory> naList = new ArrayList<territory>(9);
+				for (int n = 0; n < 9; n++) {
+					naList.add(tList[n]);
+				}
+				this.nawithTerr = new continent("North America", naList);
+				this.nawithTerr.setContinentValue(5);
+
+				List<territory> asiaList = new ArrayList<territory>(12);
+				for (int n = 26; n < 38; n++) {
+					asiaList.add(tList[n]);
+				}
+				this.asiawithTerr = new continent("Asia", asiaList);
+				this.asiawithTerr.setContinentValue(7);
+
+				List<territory> saList = new ArrayList<territory>(4);
+				for (int n = 9; n < 13; n++) {
+					saList.add(tList[n]);
+				}
+				this.sawithTerr = new continent("South America", saList);
+				this.sawithTerr.setContinentValue(2);
+
+				List<territory> afrList = new ArrayList<territory>(6);
+				for (int n = 20; n < 26; n++) {
+					afrList.add(tList[n]);
+				}
+				this.afrwithTerr = new continent("Africa", afrList);
+				this.afrwithTerr.setContinentValue(3);
+
+				List<territory> ausList = new ArrayList<territory>(4);
+				for (int n = 38; n < 42; n++) {
+					ausList.add(tList[n]);
+				}
+				this.auswithTerr = new continent("Australia", ausList);
+				this.auswithTerr.setContinentValue(2);
+				//METHODS
+			}
+			map = new ArrayList<continent>();
+			map.add(europewithTerr);
+			map.add(nawithTerr);
+			map.add(asiawithTerr);
+			map.add(sawithTerr);
+			map.add(afrwithTerr);
+			map.add(auswithTerr);
 	}
 	
 	
