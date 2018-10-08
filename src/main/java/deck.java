@@ -37,6 +37,29 @@ public class deck implements Serializable{
 
     //Accepts a sublist of the players hand as cards traded in and returns the number of armies the player is awarded
     public int cardsTradedIn(List<card> tradedIn){
+        boolean setFound;
+        setFound = checkForSet(tradedIn);
+        if(!setFound){
+            setFound = checkForOneEach(tradedIn);
+        }
+        for(card n : tradedIn){
+            this.discarded.add(n);
+        }
+        if (setFound){
+            setsTradedIn+=1;
+            //System.out.println((setsTradedIn-1)*2+4);
+            if(setsTradedIn >= 1 && setsTradedIn < 6)
+                return ((setsTradedIn - 1) * 2 + 4);
+            else if(setsTradedIn == 6)
+                return 15;
+            else if(setsTradedIn >= 7)
+                return ((setsTradedIn - 6) * 5 + 15);
+        }
+        return 0;
+    }
+
+    //Checks cards traded in for complete sets
+    private boolean checkForSet(List<card> tradedIn){
         int count = 0; //stores the count of the design
         char first = 'n'; // stores the first design of the sublist unless it is a wild card
         //checks for a complete set
@@ -51,20 +74,39 @@ public class deck implements Serializable{
             else if (first == n.getDesign()) {
                 count++;
             }
-            this.discarded.add(n);
             //tradedIn.remove(n);
         }
-        if (count == 3){
-            setsTradedIn+=1;
-            //System.out.println((setsTradedIn-1)*2+4);
-            if(setsTradedIn >= 1 && setsTradedIn < 6)
-                return ((setsTradedIn - 1) * 2 + 4);
-            else if(setsTradedIn == 6)
-                return 15;
-            else if(setsTradedIn >= 7)
-                return ((setsTradedIn - 6) * 5 + 15);
+        if(count == 3)
+            return true;
+        else
+            return false;
+    }
+
+    //Checks cards traded in for sets of one of each kind
+    private boolean checkForOneEach(List<card> tradedIn){
+        int count = 0;
+        char first = 'n';
+        char second = 'n';
+        for(card n : tradedIn){
+            if(n.getDesign() == 'w')
+                count++;
+            else if (first == 'n'){
+                first = n.getDesign();
+                count++;
+            }
+            else{
+                if(second == 'n' && n.getDesign() != first){
+                    count++;
+                    second = n.getDesign();
+                }
+                else if(second != 'n' && n.getDesign() != first && n.getDesign() != second)
+                    count++;
+            }
         }
-        return 0;
+        if(count == 3)
+            return true;
+        else
+            return false;
     }
 
     //Adds a discarded / traded in card to the discarded List

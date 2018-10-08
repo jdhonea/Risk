@@ -10,7 +10,7 @@ public class deckTest {
         List<card> tradedIn = new ArrayList<card>();
         card card1 = new card('a', "TEST");
         card card2 = new card('i', "TEST");
-        card card3 = new card('w', "TESTWILD");
+        card card3 = new card('i', "TEST");
         tradedIn.add(card1);
         tradedIn.add(card2);
         tradedIn.add(card3);
