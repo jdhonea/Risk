@@ -39,6 +39,8 @@ public class player implements Serializable{
 	
 	boolean conquered = false; //variable to check & see if player can pull a card
 	
+	AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
+	
 	String[][] playerOptions = new String[3][2];
 	//List<territory> adjTerr = new ArrayList<territory>();
 	adjacentTerritoriesLists adjTL = new adjacentTerritoriesLists();
@@ -181,6 +183,8 @@ public class player implements Serializable{
 	public void printHand(){
 		for(int n = 0; n < hand.size(); n++){
 			System.out.println(n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory());
+			s3object.writeToFile("game_replay.txt",n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory()); 
+			
 		}
 	}
 	public void resetCardsContainedOwnedTerritory(){
