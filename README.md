@@ -7,6 +7,6 @@ Team Risk Takers
 **Members**
 -Jason Honea
 -Derrick Ellis
--Brandon
+-Brandon Hurrington
 
 This is team Risk Takers' Risk project created for COSC 4353.
