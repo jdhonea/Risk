@@ -10,6 +10,7 @@ public class playerTurn{
 	private player player;
 	private board board;
 	private board savedBoard;
+	AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
 	/**
 	 * CONSTRUCTOR
 	 */
@@ -28,6 +29,8 @@ public class playerTurn{
 		String attack = "";
 		player.resetCardsContainedOwnedTerritory();
 		System.out.println(p.getPlayerName() + "'s turn:");
+		s3object.writeToFile("game_replay.txt",p.getPlayerName() + "'s turn:\n"); //write output to file & to Amazon S3 bucket
+
 		//STEP 1 REINFORCE
 		getNewArmies();
 		//STEP 2 ATTACK (IF DESIRED)
@@ -53,6 +56,7 @@ public class playerTurn{
 		newArmies += countTerritories();
 		newArmies+= valueOfContinents();
 		System.out.println("Your hand is currently: ");
+		s3object.writeToFile("game_replay.txt","Your hand is currently: "); 
 		player.printHand();
 		//As long as the user controls 3 cards or more, the game will prompt them to trade in a set unless they decline
 		while(player.getnumofcards() >= 3){
