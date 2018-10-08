@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.io.BufferedReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 
 
@@ -167,6 +171,11 @@ public class Risk_Game {
 
 	public static void main(String[] args) throws Exception{
 		//text();
+		//ESTABLISH MAIN VARIABLES
+		
+		AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
+		s3object.clearFileContents(); //make sure file contents are cleared
+		
 		//ESTABLISH MAIN VARIABLES
 		String numOfPlayers;
 		int players = 0;
