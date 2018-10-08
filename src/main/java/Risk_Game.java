@@ -171,7 +171,6 @@ public class Risk_Game {
 		String numOfPlayers;
 		int players = 0;
 		boolean valid = true;
-		board savedBoard;
 		byte[] boardData; //stores the board state for the undo feature
 		territory[] tList = new territory[numOfTerritories]; //list of all territories
 		List<String> playerNames = new ArrayList<String>();
@@ -280,6 +279,9 @@ public class Risk_Game {
 		System.out.println("\n\nAll armies have been placed.\nNow let's begin!");
 		gameBoard.setPlayerList(pList);
 		gameBoard.setDeck(deck);
+		for (player n : pList){
+			n.setBoard(gameBoard);
+		}
 
 		//********************GAMEPLAY BEGINS****************************
 		boolean weHaveAWinner = false;

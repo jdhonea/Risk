@@ -26,6 +26,7 @@ public class playerTurn{
 	 */
 	public void chooseOption(player p, territory[] tList, List<player> players, deck deck) {
 		String attack = "";
+		player.resetCardsContainedOwnedTerritory();
 		System.out.println(p.getPlayerName() + "'s turn:");
 		//STEP 1 REINFORCE
 		getNewArmies();
@@ -62,6 +63,7 @@ public class playerTurn{
 				break;
 			else{
 				//TODO:Handle the user trading in cards
+				newArmies += player.tradeCards();
 			}
 
 		}
@@ -126,4 +128,6 @@ public class playerTurn{
 		}
 		return value;
 	}
+
+	//
 }

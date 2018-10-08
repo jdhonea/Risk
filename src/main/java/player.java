@@ -22,7 +22,9 @@ public class player implements Serializable{
 	int numOfDiceRolls;
 	int numOfArmies;
 	int numOfCards;
-	
+	board board;
+
+	private boolean cardsContainedOwnedTerritory;
 	boolean canTrade;
 	boolean wonWholeGame;
 	boolean eliminated;
@@ -103,6 +105,9 @@ public class player implements Serializable{
 	 * METHODS
 	 * 
 	 */
+	public void setBoard(board board){
+		this.board = board;
+	}
 	public int getplayernumber() {
 		return this.playerNo;
 	}
@@ -177,6 +182,75 @@ public class player implements Serializable{
 		for(int n = 0; n < hand.size(); n++){
 			System.out.println(n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory());
 		}
+	}
+	public void resetCardsContainedOwnedTerritory(){
+		cardsContainedOwnedTerritory = false;
+	}
+	//Processes the player input for trading cards and then passes the entries along to processCards to handle calculating the number of armies to return.
+	//Will only be called if the player's hand is already > 3 cards
+	public int tradeCards(){
+		int newArmies = 0;
+		boolean cancelled = false;
+		List <Integer> entries = new ArrayList();
+		while(entries.size() < 3) {
+			System.out.print("Select the number of a card to trade in or enter 'C' to cancel: ");
+			Scanner in = new Scanner(System.in);
+			String entry = in.nextLine();
+			if(entry.equalsIgnoreCase("C")){
+				System.out.println("Canceling trade in...");
+				cancelled = true;
+				break;
+			}
+			else if(Integer.parseInt(entry) <= hand.size() && Integer.parseInt(entry) > 0){
+				//Check for duplicate entries
+				boolean duplicateFound = false;
+				for(int n: entries){
+					if (Integer.parseInt(entry) == n){
+						System.out.println("That card has already been selected...");
+						duplicateFound = true;
+						break;
+					}
+				}
+				//If no duplicates found, adds entry to entries list
+				if(!duplicateFound){
+					entries.add(Integer.parseInt(entry));
+				}
+			}
+			else{
+				//Not valid entry
+				System.out.println("Entry not valid, please try again.");
+			}
+		}
+		if(!cancelled)
+			newArmies = processCards(entries);
+		return newArmies;
+	}
+
+	//Processes the traded in cards and returns the number of new armies the player is supposed to receive
+	private int processCards(List<Integer> entries) {
+		int newArmies = 0;
+		List<card> cardsToBeProcessed = new ArrayList<>();
+		for (int n : entries) {
+			//adds card from hand to be processed and removes it from the player's hand
+			cardsToBeProcessed.add(hand.get(n - 1));
+			hand.remove(n - 1);
+		}
+		//checks the flag to see if player already traded in a set of cards containing a territory they owned
+		if (!cardsContainedOwnedTerritory) {
+			//checks for ownership of a territory on the set of cards
+			for (card card : cardsToBeProcessed) {
+				for (territory territory : territoriesOwned) {
+					if (card.getTerritory().equalsIgnoreCase(territory.getnameofterritory())) {
+						cardsContainedOwnedTerritory = true;
+					}
+				}
+			}
+		}
+		if(cardsContainedOwnedTerritory)
+			newArmies += 2;
+		deck deck = board.getDeck();
+		newArmies += deck.cardsTradedIn(cardsToBeProcessed);
+		return newArmies;
 	}
 	
 	//set "can trade" status
@@ -387,10 +461,6 @@ public class player implements Serializable{
 	
 	
 	public void placeArmy() {
-		
-	}
-	
-	public void tradeCards() {
 		
 	}
 
