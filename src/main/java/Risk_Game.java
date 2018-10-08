@@ -14,7 +14,7 @@ import java.nio.file.StandardOpenOption;
 
 
 /**
- * @author Derrick Ellis, Jason Honea, Ian Voorhies
+ * @author Derrick Ellis, Jason Honea, Brandon Hurrington
  *
  */
 
@@ -40,6 +40,7 @@ public class Risk_Game {
 	
 	//Generates the territory array
 	public static void initializeTerritories(territory[] tList) throws Exception{
+		//AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
 		//TODO: 3. Territories file should have the neighboring territories listed, prevents having to hard-code neighbors, possibly continents too?
 		//READ IN LIST OF TERRITORIES FROM FILE
 		adjacentTerritoriesLists adjTL = new adjacentTerritoriesLists();
@@ -47,6 +48,7 @@ public class Risk_Game {
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 		String strLine;
 		System.out.println("");
+		//s3object.writeToFile("game_replay.txt","");
 		int count = 0;
 		while ((strLine = br.readLine()) != null)   {
 			tList[count] = new territory(strLine, count + 1, adjTL.get(count));
@@ -56,6 +58,7 @@ public class Risk_Game {
 	}
 	//Handles the entire territory draft
 	public static void territoryDraft(List<player> pList, territory[] tList, int numOfTerritories){
+		//AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
 		//TODO: Final build needs to be "De-randombized"
 		int players = pList.size();
 		int currentPlayer = 0;
@@ -70,13 +73,17 @@ public class Risk_Game {
 
 		while(territoriesClaimed < numOfTerritories){
 			System.out.print("\n" + pList.get(currentPlayer).getPlayerName() +":\n");
+			//s3object.writeToFile("game_replay.txt","\n" + pList.get(currentPlayer).getPlayerName() +":\n");
 			for(int n = 0; n < numOfTerritories; n++){
 				if(!tList[n].isTaken()){
 					System.out.printf("%-4s", n+1 + ": ");
+					//s3object.writeToFile("game_replay.txt","%-4s"+ n+1 + ": ");
 					System.out.print(tList[n].getnameofterritory() + "\n");
+					//s3object.writeToFile("game_replay.txt",tList[n].getnameofterritory() + "\n");
 				}
 			}
 			System.out.print("\nPlease choose a territory: (number or name) ");
+			//s3object.writeToFile("game_replay.txt","\nPlease choose a territory: (number or name) ");
 			boolean noTerritorySelected = true;
 			while(noTerritorySelected){
 				String selection;
@@ -103,6 +110,7 @@ public class Risk_Game {
 				}
 				if(noTerritorySelected){
 					System.out.print("Not a valid selection. Please Try again: ");
+					//s3object.writeToFile("game_replay.txt","Not a valid selection. Please Try again: ");
 				}
 			}
 			currentPlayer = (currentPlayer + 1) % players;
@@ -110,16 +118,21 @@ public class Risk_Game {
 		}
 		//Placing Remaining Armies Begin
 		System.out.print("\nAll territories claimed!\n");
+		//s3object.writeToFile("game_replay.txt","\nAll territories claimed!\n");
 		int playersWithArmiesRemaining = 0;
 		while(playersWithArmiesRemaining != players){
 			System.out.print("\n" + pList.get(currentPlayer).getPlayerName() + "\'s owned territories: (Remaining Armies " + pList.get(currentPlayer).getUnplacedArmies() + ")\n");
+			//s3object.writeToFile("game_replay.txt","\n" + pList.get(currentPlayer).getPlayerName() + "\'s owned territories: (Remaining Armies " + pList.get(currentPlayer).getUnplacedArmies() + ")\n");
 			System.out.print("Territory \t\t\t Number of Armies\n------------------------------------------------------------------\n");
+			//s3object.writeToFile("game_replay.txt","Territory \t\t\t Number of Armies\n------------------------------------------------------------------\n");
 			//Used for randomizing only!
 			List<territory> randomTerritory = new ArrayList<territory>();
 			for (int n = 0; n < numOfTerritories; n++){
 				if(tList[n].getOwner() == (currentPlayer+1)){
 					System.out.printf("%-4s %-30s %-30d", tList[n].getTerritoryNumber() + ": ", tList[n].getnameofterritory(), tList[n].getnumofarmies());
+					//s3object.writeToFile("game_replay.txt","%-4s %-30s %-30d"+ tList[n].getTerritoryNumber() + ": "+ tList[n].getnameofterritory() +" "+ tList[n].getnumofarmies());
 					System.out.print("\n");
+					//s3object.writeToFile("game_replay.txt","\n");
 					//Used for randomizing only!
 					randomTerritory.add(tList[n]);
 
@@ -128,6 +141,7 @@ public class Risk_Game {
 			//Used for randomizing only!
 			Collections.shuffle(randomTerritory);
 			System.out.print("Choose a territory to add an army to: ");
+			//s3object.writeToFile("game_replay.txt","Choose a territory to add an army to: ");
 			boolean noTerritorySelected = true;
 			while(noTerritorySelected){
 				String selection;
@@ -147,6 +161,7 @@ public class Risk_Game {
 				}
 				if(noTerritorySelected){
 					System.out.print("Not a valid selection. Please Try again: ");
+					//s3object.writeToFile("game_replay.txt","Not a valid selection. Please Try again: ");
 				}
 				//in.close();
 			}
@@ -187,14 +202,19 @@ public class Risk_Game {
 		List<player> pList = new ArrayList<player>(players);
 		//*****************START GAME. PROMPT USER FOR NUMBER OF PLAYERS***************
 		while(valid) {
-			System.out.println("WELCOME TO RISK! LET'S PLAY!");
-			System.out.print("How many players? ");
+			String welcome = "WELCOME TO RISK! LET'S PLAY!\n";
+			System.out.println(welcome);
+			s3object.writeToFile("game_replay.txt",welcome); //write output to file & to Amazon S3 bucket
+			String howmany = "How many players? \n";
+			System.out.print(howmany);
+			s3object.writeToFile("game_replay.txt",howmany);
 
 			//Enter data using BufferReader
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 			// Reading data using readLine
 			numOfPlayers = reader.readLine();
+			s3object.writeToFile("game_replay.txt",numOfPlayers);
 			players = Integer.parseInt(numOfPlayers);
 
 			//CHECK IF NUMBER OF PLAYERS IS VALID
@@ -203,10 +223,13 @@ public class Risk_Game {
 			} else {
 				if(players < 2) {
 					System.out.println(numOfPlayers + " is not enough players. Need at least 2.");
+					s3object.writeToFile("game_replay.txt",numOfPlayers + " is not enough players. Need at least 2.");
 				} else {
 					System.out.println(numOfPlayers + " is too many players. Can only have up to 6.");
+					s3object.writeToFile("game_replay.txt",numOfPlayers + " is too many players. Can only have up to 6.");
 				}
 				System.out.println("");
+				s3object.writeToFile("game_replay.txt","");
 			}
 		}
 
@@ -253,21 +276,27 @@ public class Risk_Game {
 		
 		//FOR REFERENCE
 		System.out.println("\nAll players get " + pList.get(0).getnumofarmies() + " armies.");
+		s3object.writeToFile("game_replay.txt","\nAll players get " + pList.get(0).getnumofarmies() + " armies.");
 
 		//DETERMINE THE ORDER OF PLAY
 		Collections.shuffle(pList);
 		System.out.println("");
+		s3object.writeToFile("game_replay.txt","");
 		List<player> playerOrder = new ArrayList<player>(players);
 		for(int x = 0; x < players; x++) {
 			playerOrder.add(pList.get(x));
 		}
 		System.out.println("*ROLLING DICE TO DETERMINE ORDER OF PLAY.*"+"\nPLEASE WAIT...");
+		//s3object.writeToFile("game_replay.txt","\n*ROLLING DICE TO DETERMINE ORDER OF PLAY.*"+"\nPLEASE WAIT...");
 		//TimeUnit.SECONDS.sleep(3);
 		System.out.print("\nThe order of play is: ");
+		s3object.writeToFile("game_replay.txt","\nThe order of play is: ");
 		for(int x = 0; x < players; x++) {
 			System.out.print(playerOrder.get(x).getPlayerName() + " ");
+			s3object.writeToFile("game_replay.txt",playerOrder.get(x).getPlayerName() + " "); 
 		}
 		System.out.println("\n");
+		s3object.writeToFile("game_replay.txt","\n");
 		//TimeUnit.SECONDS.sleep(3);
 		/**
 		 * PLAYERS ARE CHOOSING THEIR TERRITORIES
@@ -276,7 +305,7 @@ public class Risk_Game {
 		 * 
 		 */
 		System.out.println("*PLAYERS, CLAIM YOUR TERRITORIES!*");
-		
+		s3object.writeToFile("game_replay.txt","\n*PLAYERS, CLAIM YOUR TERRITORIES!*");
 		//************************TERRITORY DRAFT BEGIN***************
 		/*****************************KNOWN ISSUES!!!!!
 		 * During Draft phase, empty strings throws an exception at the parseInt
@@ -286,6 +315,7 @@ public class Risk_Game {
 		//************************TERRITORY DRAFT END*****************
 
 		System.out.println("\n\nAll armies have been placed.\nNow let's begin!");
+		s3object.writeToFile("game_replay.txt","\n\nAll armies have been placed.\nNow let's begin!\n");
 		gameBoard.setPlayerList(pList);
 		gameBoard.setDeck(deck);
 		for (player n : pList){
