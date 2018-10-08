@@ -18,6 +18,35 @@ public class deckTest {
         assertEquals(0, deck.cardsTradedIn(tradedIn));
 
     }
+
+    @Test
+    public void oneOfEach(){
+        List<card> tradedIn = new ArrayList<card>();
+        card card1 = new card('a', "TEST");
+        card card2 = new card('i', "TEST");
+        card card3 = new card('c', "TEST");
+        tradedIn.add(card1);
+        tradedIn.add(card2);
+        tradedIn.add(card3);
+        deck deck = new deck(42);
+        assertEquals(4, deck.cardsTradedIn(tradedIn));
+
+    }
+
+    @Test
+    public void oneOfEachWild(){
+        List<card> tradedIn = new ArrayList<card>();
+        card card1 = new card('a', "TEST");
+        card card2 = new card('i', "TEST");
+        card card3 = new card('w', "TEST");
+        tradedIn.add(card1);
+        tradedIn.add(card2);
+        tradedIn.add(card3);
+        deck deck = new deck(42);
+        assertEquals(4, deck.cardsTradedIn(tradedIn));
+
+    }
+
     @Test
     public void matchingSet(){
         List<card> tradedIn = new ArrayList<card>();
