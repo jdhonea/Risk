@@ -25,9 +25,6 @@ public class AmazonS3ObjectTest {
 		try {
 			reader = new BufferedReader(new FileReader("test.txt"));
 			line = reader.readLine();
-			while(line != null) {
-				line = reader.readLine();
-			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
