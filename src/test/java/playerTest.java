@@ -141,4 +141,45 @@ public class playerTest {
 		assertEquals(testPlayer.unplacedArmies,9);
 	}
 
+	@Test
+	public void getUnplacedArmiesTest() {
+		player testPlayer = new player();
+		testPlayer.unplacedArmies = 10;
+		assertEquals(testPlayer.getUnplacedArmies(),10);
+	}
+
+	@Test
+	public void getPlayerNameTest() {
+		player testPlayer = new player();
+		testPlayer.playerName = "Derrick";
+		assertEquals(testPlayer.getPlayerName(),"Derrick");
+	}
+	
+	@Test
+	public void setNumberofArmiesTest() {
+		player testPlayer = new player();
+		testPlayer.setnumofarmies(10);
+		assertEquals(testPlayer.getnumofarmies(),10);
+	}
+	
+	@Test
+	public void getNumberofArmiesTest() {
+		player testPlayer = new player();
+		testPlayer.numOfArmies = 10;
+		assertEquals(testPlayer.getnumofarmies(),10);
+	}
+	
+	@Test
+	public void setNumberofCardsTest() {
+		player testPlayer = new player();
+		testPlayer.setnumofcards(3);
+		assertEquals(testPlayer.getnumofcards(),3);
+	}
+	
+	@Test
+	public void getNumberofCardsTest() {
+		player testPlayer = new player();
+		testPlayer.numOfCards = 3;
+		assertEquals(testPlayer.getnumofcards(),3);
+	}
 }
