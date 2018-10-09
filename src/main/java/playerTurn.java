@@ -71,7 +71,8 @@ public class playerTurn{
 			}
 
 		}
-		System.out.print("At the beginning of the turn, " + player.getPlayerName() + " receives " + newArmies + " new armies for the territories and continents they control.");
+		System.out.print("\nAt the beginning of the turn, " + player.getPlayerName() + " receives " + newArmies + " new armies for the territories and continents they control.");
+		s3object.writeToFile("game_replay.txt","\nAt the beginning of the turn, " + player.getPlayerName() + " receives " + newArmies + " new armies for the territories and continents they control.\n"); 
 		placeNewArmies(newArmies);
 	}
 
@@ -132,6 +133,4 @@ public class playerTurn{
 		}
 		return value;
 	}
-
-	//
 }
