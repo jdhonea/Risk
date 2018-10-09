@@ -24,7 +24,7 @@ public class player implements Serializable{
 	int numOfCards;
 	board board;
 
-	private boolean cardsContainedOwnedTerritory;
+	boolean cardsContainedOwnedTerritory;
 	boolean canTrade;
 	boolean wonWholeGame;
 	boolean eliminated;
