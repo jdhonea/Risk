@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Scanner;
 
-public class playerTurn{
+public class playerTurn implements Serializable{
 	boolean valid = true;
 	private player player;
 	private board board;
