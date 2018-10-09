@@ -14,7 +14,7 @@ import java.nio.file.StandardOpenOption;
 
 
 /**
- * @author Derrick Ellis, Jason Honea, Brandon Hurrington
+ * @author Derrick Ellis, Jason Honea, Ian Voorhies
  *
  */
 
@@ -339,6 +339,7 @@ public class Risk_Game {
 				p.endturn();
 			else{
 				System.out.println("Undoing current turn...");
+				s3object.writeToFile("game_replay.txt","Undoing current turn...\n");
 				currentplayer--;
 				gameBoard = restoreData(boardData);
 				deck = gameBoard.getDeck();
