@@ -21,12 +21,8 @@ public class AmazonS3Object {
 	}
 	
 	/* WRITE TO LOCAL TEXT FILE, THEN UPLOAD FILE TO AMAZON S3 SERVICES */
-	public void writeToFile(String FILENAME, String input) {
-		try {
-			Files.write(Paths.get(FILENAME), input.getBytes(), StandardOpenOption.APPEND);
-		}catch (IOException e) {
-			//exception handling left as an exercise for the reader
-		}
+	public void writeToFile(String FILENAME, String input) throws IOException{
+		Files.write(Paths.get(FILENAME), input.getBytes(), StandardOpenOption.APPEND);
 		uploadtoAmazonS3Bucket();
 	}
 	  
@@ -47,14 +43,12 @@ public class AmazonS3Object {
 	}
 	
 	// clear contents of local text file at beginning of game
-	public void clearFileContents() {
+	public void clearFileContents() throws FileNotFoundException{
 		PrintWriter pw = null;
-		try {
-			pw = new PrintWriter("game_replay.txt");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pw = new PrintWriter("game_replay.txt");
+		pw.close();
+		PrintWriter pwTest = null;
+		pwTest = new PrintWriter("test.txt");
 		pw.close();
 	}
 }
