@@ -180,7 +180,7 @@ public class player implements Serializable{
 		return this.numOfCards;
 	}
 	//Displays the players current hand of cards
-	public void printHand(){
+	public void printHand() throws IOException{
 		for(int n = 0; n < hand.size(); n++){
 			System.out.println(n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory());
 			s3object.writeToFile("game_replay.txt",n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory()); 
@@ -192,7 +192,7 @@ public class player implements Serializable{
 	}
 	//Processes the player input for trading cards and then passes the entries along to processCards to handle calculating the number of armies to return.
 	//Will only be called if the player's hand is already > 3 cards
-	public int tradeCards(){
+	public int tradeCards() throws IOException{
 		int newArmies = 0;
 		boolean cancelled = false;
 		List <Integer> entries = new ArrayList();
@@ -478,7 +478,7 @@ public class player implements Serializable{
 	 * Updating number of armies on each territory after battle
 	 * 
 	 */
-	public void updateTerritoriesAfterBattle(territory attackingFrom, int attackerLost, territory defendingFrom, int defenderLost, int advanceNum, deck deck) {
+	public void updateTerritoriesAfterBattle(territory attackingFrom, int attackerLost, territory defendingFrom, int defenderLost, int advanceNum, deck deck) throws IOException{
 		attackingFrom.setnumberofarmies(attackingFrom.getnumofarmies()-attackerLost);
 		defendingFrom.setnumberofarmies(defendingFrom.getnumofarmies()-defenderLost);
 		
@@ -514,7 +514,7 @@ public class player implements Serializable{
 	 * RETURNS INT[] CONTAINING NUMBER OF ARMIES LOST FOR EACH PLAYER'S TERRITORY
 	 * RETURN int[] outcome[numberOfArmiesLostByAttacker, numberOfArmiesLostByDefender]
 	 */
-	public int[] compareDiceRolls(player p1,int[] p1Dice,player p2,int[] p2Dice) {
+	public int[] compareDiceRolls(player p1,int[] p1Dice,player p2,int[] p2Dice) throws IOException{
 		int[] outcome = new int[3];
 		int defenderLosses = 0;
 		int attackerLosses = 0;
@@ -745,7 +745,7 @@ public class player implements Serializable{
 			t1.numofArmiesHere = t1.numofArmiesHere - advance;
 	}
 	
-	public void defend(territory t, List<player> players, territory tr, int next, int[] attackingP,deck deck) {
+	public void defend(territory t, List<player> players, territory tr, int next, int[] attackingP,deck deck) throws IOException{
 		int[] defendingP = players.get(next).rolldice(tr.getnumofarmies());
 
 		//COMPARE RESULTS TO SEE OUTCOME OF THE BATTLE
@@ -798,7 +798,7 @@ public class player implements Serializable{
 		return output;
 	}
 	
-	public void fortify(territory[] tList) {
+	public void fortify(territory[] tList) throws IOException{
 		
 	/* method variables */
 		int advance = 0;
