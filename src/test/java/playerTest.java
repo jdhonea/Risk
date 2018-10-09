@@ -182,4 +182,25 @@ public class playerTest {
 		testPlayer.numOfCards = 3;
 		assertEquals(testPlayer.getnumofcards(),3);
 	}
+	
+	@Test
+	public void getNumberofTerritoriesTest() {
+		player testPlayer = new player();
+		assertEquals(testPlayer.getnumofterritories(),0);
+	}
+	
+	@Test
+	public void getNumberofDiceRollsTest() {
+		player testPlayer = new player();
+		testPlayer.numOfDiceRolls = 3;
+		assertEquals(testPlayer.getnumofdicerolls(),3);
+	}
+	
+	@Test
+	public void resetCardsContainedOwnedTerritoryTest() {
+		player testPlayer = new player();
+		testPlayer.cardsContainedOwnedTerritory = true;
+		testPlayer.resetCardsContainedOwnedTerritory();
+		assertEquals(testPlayer.cardsContainedOwnedTerritory,false);
+	}
 }
