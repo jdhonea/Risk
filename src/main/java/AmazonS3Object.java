@@ -49,6 +49,6 @@ public class AmazonS3Object {
 		pw.close();
 		PrintWriter pwTest = null;
 		pwTest = new PrintWriter("test.txt");
-		pw.close();
+		pwTest.close();
 	}
 }
