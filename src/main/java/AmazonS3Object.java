@@ -15,7 +15,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 /* CLASS THAT HANDLES AMAZON S3 OBJECTS */
-public class AmazonS3Object {
+public class AmazonS3Object implements Serializable{
 
 	public AmazonS3Object() {
 	}
