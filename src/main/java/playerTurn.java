@@ -25,7 +25,7 @@ public class playerTurn{
 	/**
 	 *************** METHODS ***********************
 	 */
-	public void chooseOption(player p, territory[] tList, List<player> players, deck deck) {
+	public void chooseOption (player p, territory[] tList, List<player> players, deck deck) throws IOException{
 		String attack = "";
 		player.resetCardsContainedOwnedTerritory();
 		System.out.println(p.getPlayerName() + "'s turn:");
@@ -51,7 +51,7 @@ public class playerTurn{
 	}
 
 	//driver method for the player getting and receiving new armies at the beginning of the turn
-	private void getNewArmies() {
+	private void getNewArmies() throws IOException{
 		int newArmies = 0;
 		newArmies += countTerritories();
 		newArmies+= valueOfContinents();
@@ -133,4 +133,6 @@ public class playerTurn{
 		}
 		return value;
 	}
+
+	//
 }
