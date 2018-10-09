@@ -35,4 +35,27 @@ public class AmazonS3ObjectTest {
 		assertEquals(input, line);
 	}
 	
+		
+	@Test
+	public void clearFileContentsTest() throws IOException {
+		String input = "XXXTESTINGXXX";
+		AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
+		s3object.writeToFile("test.txt",input); 
+		s3object.clearFileContents(); //make sure file contents are cleared
+		
+		BufferedReader reader = null;
+		String line = null;
+		try {
+			reader = new BufferedReader(new FileReader("test.txt"));
+			line = reader.readLine();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		reader.close();
+		
+		assertEquals(null, line);
+	}
+	
 }
