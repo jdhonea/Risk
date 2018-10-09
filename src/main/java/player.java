@@ -62,7 +62,7 @@ public class player implements Serializable{
 			} 
 		} catch (Exception e) {
 			System.out.println("\nError: " + e.getMessage());
-			System.exit(0);
+			return;
 		}
 		try {
 			if(num < 2) {
@@ -70,7 +70,7 @@ public class player implements Serializable{
 			} 
 		} catch (Exception e) {
 			System.out.println("\nError: " + e.getMessage());
-			System.exit(0);
+			return;
 		}
 
 		this.playerNo = num;
