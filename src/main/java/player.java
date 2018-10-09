@@ -202,6 +202,7 @@ public class player implements Serializable{
 			String entry = in.nextLine();
 			if(entry.equalsIgnoreCase("C")){
 				System.out.println("Canceling trade in...");
+				s3object.writeToFile("game_replay.txt","Canceling trade in...\n"); 
 				cancelled = true;
 				break;
 			}
@@ -487,6 +488,7 @@ public class player implements Serializable{
 			defendingFrom.setOwner(attackingFrom.isOwnedBy);
 			defendingFrom.setOwnerName(attackingFrom.ownerName);
 			System.out.println("\n***"+defendingFrom.name+" has been conquered by "+attackingFrom.ownerName+"!!**\n");
+			s3object.writeToFile("game_replay.txt","***"+defendingFrom.name+" has been conquered by "+attackingFrom.ownerName+"!!**\n");
 			this.advance(attackingFrom,defendingFrom,advanceNum);
 			this.territoriesOwned.add(defendingFrom);
 			if(cardAlreadyPicked == false) {
@@ -494,11 +496,15 @@ public class player implements Serializable{
 				//TODO: PLAYER DRAWS A CARD HERE!!!
 				this.drawCard(deck);
 				System.out.println("***DRAWING CARD FROM DECK***\n"+this.playerName+" drew the "+this.hand.get(this.hand.size()-1).getCardType()+" card.");
+				s3object.writeToFile("game_replay.txt","***DRAWING CARD FROM DECK***\n"+this.playerName+" drew the "+this.hand.get(this.hand.size()-1).getCardType()+" card.\n");
 				System.out.print("You now have cards: [");
+				s3object.writeToFile("game_replay.txt","You now have cards: [");
 				for(card c : this.hand) {
 					System.out.print(" "+ c.getCardType()+", ");
+					s3object.writeToFile("game_replay.txt"," "+ c.getCardType()+", ");
 				}
 				System.out.println("]\n");
+				s3object.writeToFile("game_replay.txt","]\n");
 			}
 		}
 	}
@@ -514,17 +520,21 @@ public class player implements Serializable{
 		int attackerLosses = 0;
 		System.out.print("\n\nCOMPARING RESULTS....");
 		System.out.print("\n"+p1.getPlayerName()+": [");
+		s3object.writeToFile("game_replay.txt",p1.getPlayerName()+": [");
 		for(int p : p1Dice) {
 			System.out.print(p+" ");
+			s3object.writeToFile("game_replay.txt",p+" ");
 		}
 		System.out.print("]");
-
+		s3object.writeToFile("game_replay.txt","]\n");
 		System.out.print("\n"+p2.getPlayerName()+": [");
+		s3object.writeToFile("game_replay.txt",p2.getPlayerName()+": [");
 		for(int p : p2Dice) {
 			System.out.print(p+" ");
+			s3object.writeToFile("game_replay.txt",p+" ");
 		}
 		System.out.println("]");
-
+		s3object.writeToFile("game_replay.txt","]\n");
 		//if defender only rolls one die
 		if(p2Dice.length == 1 || p1Dice.length == 1) {
 			if(p1Dice[p1Dice.length-1] > p2Dice[p2Dice.length-1]) {
@@ -557,7 +567,9 @@ public class player implements Serializable{
 		}
 
 		System.out.println(p1.getPlayerName()+" lost "+attackerLosses+" armies.");
+		s3object.writeToFile("game_replay.txt",p1.getPlayerName()+" lost "+attackerLosses+" armies.\n");
 		System.out.println(p2.getPlayerName()+" lost "+defenderLosses+" armies.");
+		s3object.writeToFile("game_replay.txt",p2.getPlayerName()+" lost "+defenderLosses+" armies.\n");
 		outcome[0] = attackerLosses;
 		outcome[1] = defenderLosses;
 		outcome[2] = p1Dice.length;
@@ -654,7 +666,7 @@ public class player implements Serializable{
 						/* ------------ ARRAY THAT HOLDS THE DICE ROLL RESULT ------------ */
 										int[] attackingP = this.rolldice(diceTerr.getnumofarmies());
 										System.out.println("\n\n***ATTACKING "+tr.name+"!!***\n");
-										
+										s3object.writeToFile("game_replay.txt","***ATTACKING "+tr.name+"!!***\n");
 										boolean tryagain = true;
 										int next = 0;
 						/* ------------ SET TERRITORY OWNER TO THIS PLAYER (THIS MAY BE REDUNDANT) ------------ */
@@ -664,6 +676,7 @@ public class player implements Serializable{
 										while(tryagain) {
 											if(tr.isOwnedBy == players.get(next).playerNo) {
 												System.out.println(players.get(next).playerName+", you must DEFEND your territory!");
+												s3object.writeToFile("game_replay.txt",players.get(next).playerName+", you must DEFEND your territory!\n");
 												players.get(next).setDefenseMode(true);
 												tryagain = false;
 												break;
@@ -741,7 +754,9 @@ public class player implements Serializable{
 		//update territories after battle
 		updateTerritoriesAfterBattle(t,armiesLost[0],tr,armiesLost[1],armiesLost[2],deck);
 		System.out.println(t.name+" now has "+t.getnumofarmies()+" armies.");
+		s3object.writeToFile("game_replay.txt",t.name+" now has "+t.getnumofarmies()+" armies.\n");
 		System.out.println(tr.name+" now has "+tr.getnumofarmies()+" armies.");
+		s3object.writeToFile("game_replay.txt",tr.name+" now has "+tr.getnumofarmies()+" armies.\n");
 	}
 
 	/*public void reinforce(int numOfArmies) {
@@ -825,7 +840,9 @@ public class player implements Serializable{
 
 /* -------- DISPLAY STATUS OF TERRITORIES AFTER FORTIFICATION -------- */
 		System.out.println("***"+this.playerName+" has FORTIFIED "+tList[advance-1].name+"***");
+		s3object.writeToFile("game_replay.txt","***"+this.playerName+" has FORTIFIED "+tList[advance-1].name+"***\n");
 		System.out.println(tList[advance2-1].name+" now has "+tList[advance2-1].numofArmiesHere+" armies and "+tList[advance-1].name+" has "+tList[advance-1].numofArmiesHere+" armies.\n");
+		s3object.writeToFile("game_replay.txt",tList[advance2-1].name+" now has "+tList[advance2-1].numofArmiesHere+" armies and "+tList[advance-1].name+" has "+tList[advance-1].numofArmiesHere+" armies.\n");
 // 		try {
 // 			TimeUnit.SECONDS.sleep(2);
 // 		} catch (InterruptedException e) {
