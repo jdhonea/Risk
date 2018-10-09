@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.io.Serializable;
 import java.util.Scanner;
 
 public class playerTurn implements Serializable{
