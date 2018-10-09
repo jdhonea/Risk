@@ -118,5 +118,13 @@ public class playerTest {
 		assertEquals(testName,testOutput);
 	}
 	
+	@Test
+	public void setBoardTest(){
+		board testBoard = new board();
+		player testPlayer = new player();
+		testPlayer.setBoard(testBoard);
+		assertEquals(testPlayer.board,testBoard);
+	}
+	
 
 }
