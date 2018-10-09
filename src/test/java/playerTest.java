@@ -92,6 +92,22 @@ public class playerTest {
 		assertEquals(false, p.canTrade);
 	}
 
+	@Test
+	public void playerTooManyTest(){
+		int num = 7;
+		player testPlayer = new player(7);
+		assertEquals(testPlayer.playerNo,0);
+	}
+	
+	@Test
+	public void addPlayerNameToListTest() {
+		String testName = "testName";
+		String testOutput = null;
+		List<String> playersN = new ArrayList<String>();
+		playersN.add("testName");
+		testOutput = playersN.get(0);
+		assertEquals(testName,testOutput);
+	}
 	
 
 }
