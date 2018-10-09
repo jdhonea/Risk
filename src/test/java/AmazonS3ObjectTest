@@ -19,19 +19,12 @@ public class AmazonS3ObjectTest {
 		AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
 		s3object.clearFileContents(); //make sure file contents are cleared
 		String input = "XXXTESTINGXXX";
-		s3object.writeToFile("test.txt",input); //write output to file & to Amazon S3 bucket
+		s3object.writeToFile("test.txt",input); 
 		BufferedReader reader = null;
 		String line = null;
-		try {
-			reader = new BufferedReader(new FileReader("test.txt"));
-			line = reader.readLine();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		reader = new BufferedReader(new FileReader("test.txt"));
+		line = reader.readLine();
 		reader.close();
-		
 		assertEquals(input, line);
 	}
 	
@@ -42,19 +35,11 @@ public class AmazonS3ObjectTest {
 		AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
 		s3object.writeToFile("test.txt",input); 
 		s3object.clearFileContents(); //make sure file contents are cleared
-		
 		BufferedReader reader = null;
 		String line = null;
-		try {
-			reader = new BufferedReader(new FileReader("test.txt"));
-			line = reader.readLine();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		reader = new BufferedReader(new FileReader("test.txt"));
+		line = reader.readLine();
 		reader.close();
-		
 		assertEquals(null, line);
 	}
 	
