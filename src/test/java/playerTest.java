@@ -126,5 +126,19 @@ public class playerTest {
 		assertEquals(testPlayer.board,testBoard);
 	}
 	
+	@Test
+	public void getPlayerNumberTest() {
+		player testPlayer = new player();
+		testPlayer.playerNo = 5;
+		assertEquals(testPlayer.getplayernumber(),5);
+	}
+	
+	@Test
+	public void reduceUnplacedArmiesTest() {
+		player testPlayer = new player();
+		testPlayer.unplacedArmies = 10;
+		testPlayer.reduceUnplacedArmies();
+		assertEquals(testPlayer.unplacedArmies,9);
+	}
 
 }
