@@ -97,7 +97,14 @@ public class playerTest {
 	@Test
 	public void playerTooManyTest(){
 		int num = 7;
-		player testPlayer = new player(7);
+		player testPlayer = new player(num);
+		assertEquals(testPlayer.playerNo,0);
+	}
+	
+	@Test
+	public void playerTooFewTest(){
+		int num = 1;
+		player testPlayer = new player(num);
 		assertEquals(testPlayer.playerNo,0);
 	}
 	
