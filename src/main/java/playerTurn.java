@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class playerTurn implements Serializable{
 	boolean valid = true;
-	private player player;
-	private board board;
+	public player player;
+	public board board;
 	private board savedBoard;
 	AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
 	/**
