@@ -30,4 +30,77 @@ public class boardTest {
 		assertEquals(testBoard.tList,tList);
 	}
 	
+	@Test
+	public void getContinentByNumTest() {
+		territory[] tList = new territory[42];
+		deck deck = new deck(42);
+		board testBoard = new board(tList,deck);
+		continent testContinent = testBoard.getContinentByNum(3);
+		continent check = new continent("South America");
+		assertEquals(testContinent.name,check.name);
+	}
+	
+	@Test
+	public void getContinentByNumErrorTest() {
+		territory[] tList = new territory[42];
+		deck deck = new deck(42);
+		board testBoard = new board(tList,deck);
+		continent testContinent = testBoard.getContinentByNum(10);
+		continent check = new continent("Error");
+		assertEquals(testContinent.name,check.name);
+	}
+	
+	@Test
+	public void getContinentByNumErrorTest2() {
+		territory[] tList = new territory[42];
+		deck deck = new deck(42);
+		board testBoard = new board(tList,deck);
+		continent testContinent = testBoard.getContinentByNum(-1);
+		continent check = new continent("Error");
+		assertEquals(testContinent.name,check.name);
+	}
+	
+	@Test
+	public void getNumOfContinentsTest() {
+		territory[] tList = new territory[42];
+		deck deck = new deck(42);
+		board testBoard = new board(tList,deck);
+		assertEquals(testBoard.getNumOfContinents(),6);
+	}
+
+	@Test
+	public void setPlayerListTest() {
+		territory[] tList = new territory[42];
+		deck deck = new deck(42);
+		board testBoard = new board(tList,deck);
+		List<player> testList = new ArrayList<player>(5);
+		testBoard.setPlayerList(testList);
+		assertEquals(testBoard.pList,testList);
+	}
+	
+	@Test
+	public void getPlayerListTest() {
+		territory[] tList = new territory[42];
+		deck deck = new deck(42);
+		board testBoard = new board(tList,deck);
+		List<player> testList = new ArrayList<player>(5);
+		testBoard.setPlayerList(testList);
+		assertEquals(testBoard.getPlayerList(),testList);
+	}
+	
+	@Test
+	public void setDeckTest() {
+		deck deck = new deck(42);
+		board testBoard = new board();
+		testBoard.setDeck(deck);
+		assertEquals(testBoard.deck,deck);
+	}
+	
+	@Test
+	public void getDeckTest() {
+		deck deck = new deck(42);
+		board testBoard = new board();
+		testBoard.setDeck(deck);
+		assertEquals(testBoard.getDeck(),deck);
+	}
 }
