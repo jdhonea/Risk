@@ -21,5 +21,31 @@ public class playerTurnTest {
 		assertEquals(testTurn.player,p);
 		assertEquals(testTurn.board,b);
 	}
+	
+	@Test
+	public void countTerritoriesGreaterThan3Test() {
+		board testBoard = new board();
+		player testPlayer = new player();
+		testPlayer.territoriesOwned = new ArrayList<territory>();
+		for(int n = 0; n < 12; n++) {
+			testPlayer.territoriesOwned.add(new territory());
+		}
+		playerTurn testTurn = new playerTurn(testPlayer,testBoard);
+		int check = testTurn.countTerritories();
+		assertEquals(check,4);		
+	}
+	
+	@Test
+	public void countTerritoriesLessThan3Test() {
+		board testBoard = new board();
+		player testPlayer = new player();
+		testPlayer.territoriesOwned = new ArrayList<territory>();
+		for(int n = 0; n < 7; n++) {
+			testPlayer.territoriesOwned.add(new territory());
+		}
+		playerTurn testTurn = new playerTurn(testPlayer,testBoard);
+		int check = testTurn.countTerritories();
+		assertEquals(check,3);		
+	}
 
 }
