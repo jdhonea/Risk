@@ -2,8 +2,8 @@ import java.io.Serializable;
 
 //Class for the Risk cards
 public class card implements Serializable {
-  private char design;
-  private String territory;
+  public char design;
+  public String territory;
 
   public card(char design, String territory){
       this.design = design;
