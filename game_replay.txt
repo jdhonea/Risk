@@ -1,1 +1,21 @@
 WELCOME TO RISK! LET'S PLAY!
+How many players? 
+11 is not enough players. Need at least 2.WELCOME TO RISK! LET'S PLAY!
+How many players? 
+2
+All players get 40 armies.
+The order of play is: afwf sfsf 
+
+*PLAYERS, CLAIM YOUR TERRITORIES!*
+
+All armies have been placed.
+Now let's begin!
+afwf's turn:
+Your hand is currently: 
+At the beginning of the turn, afwf receives 7 new armies for the territories and continents they control.
+***afwf has FORTIFIED Ontario***
+Quebec now has 1 armies and Ontario has 10 armies.
+Undoing current turn...
+afwf's turn:
+Your hand is currently: 
+At the beginning of the turn, afwf receives 7 new armies for the territories and continents they control.

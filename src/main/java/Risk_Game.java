@@ -344,6 +344,7 @@ public class Risk_Game {
 				gameBoard = restoreData(boardData);
 				deck = gameBoard.getDeck();
 				pList = gameBoard.getPlayerList();
+				tList = gameBoard.tList;
 			}
 			currentplayer = ++currentplayer % pList.size();
 		}
