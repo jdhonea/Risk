@@ -39,4 +39,73 @@ public class territoryTest {
 		assertEquals(testTerritory.territoryNumber,territoryNumber);
 		assertEquals(testTerritory.adj_territories,terrs);
 	}
+	
+	@Test
+	public void getTerritoryNumberTest() {
+		territory testTerritory = new territory();
+		testTerritory.territoryNumber = 5;
+		assertEquals(testTerritory.getTerritoryNumber(),5);
+	}
+
+	@Test
+	public void setnameofterritoryTest() {
+		String territory = "testName";
+		territory testTerritory = new territory();
+		testTerritory.setnameofterritory(territory);
+		assertEquals(testTerritory.name,territory);
+	}
+	
+	@Test
+	public void getnameofterritoryTest() {
+		String territory = "testName";
+		territory testTerritory = new territory();
+		testTerritory.setnameofterritory(territory);
+		assertEquals(testTerritory.getnameofterritory(),territory);
+	}
+	
+	@Test
+	public void setTakenTrueTest() {
+		territory testTerritory = new territory();
+		testTerritory.setTaken(true);
+		assertEquals(testTerritory.isTaken(),true);
+	}
+	
+	@Test
+	public void setTakenFalseTest() {
+		territory testTerritory = new territory();
+		testTerritory.setTaken(false);
+		assertEquals(testTerritory.isTaken(),false);
+	}
+	
+	@Test
+	public void setOwnerTest() {
+		int owner = 1;
+		territory testTerritory = new territory();
+		testTerritory.setOwner(owner);
+		assertEquals(testTerritory.isOwnedBy,owner);
+	}
+	
+	@Test
+	public void getOwnerTest() {
+		int owner = 1;
+		territory testTerritory = new territory();
+		testTerritory.setOwner(owner);
+		assertEquals(testTerritory.getOwner(),owner);
+	}
+	
+	@Test
+	public void setOwnerNameTest() {
+		String owner = "testName";
+		territory testTerritory = new territory();
+		testTerritory.setOwnerName(owner);
+		assertEquals(testTerritory.ownerName,owner);
+	}
+	
+	@Test
+	public void getOwnerNameTest() {
+		String owner = "testName";
+		territory testTerritory = new territory();
+		testTerritory.setOwnerName(owner);
+		assertEquals(testTerritory.getOwnerName(),owner);
+	}
 }
