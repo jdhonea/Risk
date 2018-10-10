@@ -115,7 +115,7 @@ public class playerTurn implements Serializable{
 	}
 	
 	//counts the number of territories and returns the number of armies the player is supposed to receive
-	private int countTerritories(){
+	public int countTerritories(){
 		int armiesReturned = player.getnumofterritories() / 3;
 		if(armiesReturned < 3)
 			return 3;
