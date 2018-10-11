@@ -108,4 +108,52 @@ public class territoryTest {
 		testTerritory.setOwnerName(owner);
 		assertEquals(testTerritory.getOwnerName(),owner);
 	}
+	
+	@Test
+	public void changeOwnerTest() {
+		String owner = "testName";
+		player testPlayer = new player();
+		testPlayer.playerName = owner;
+		territory testTerritory = new territory();
+		testTerritory.setOwnerName("XXXTESTXXX");
+		testTerritory.setOwnerName(owner);
+		testTerritory.changeOwner(testPlayer);
+		assertEquals(testTerritory.getOwnerName(),owner);
+	}
+	
+	@Test
+	public void setnumberofarmiesTest() {
+		int check = 20;
+		territory testTerritory = new territory();
+		testTerritory.numofArmiesHere = 5;
+		testTerritory.setnumberofarmies(check);
+		assertEquals(testTerritory.numofArmiesHere,check);
+	}
+
+	@Test
+	public void getnumofarmiesTest() {
+		int check = 20;
+		territory testTerritory = new territory();
+		testTerritory.numofArmiesHere = 5;
+		testTerritory.setnumberofarmies(check);
+		assertEquals(testTerritory.getnumofarmies(),check);
+	}
+
+	@Test
+	public void addTokenToTerritoryTest() {
+		int check = 6;
+		territory testTerritory = new territory();
+		testTerritory.numofArmiesHere = 5;
+		testTerritory.addTokenToTerritory();
+		assertEquals(testTerritory.getnumofarmies(),check);
+	}
+	
+	@Test
+	public void addTokensToTerritoryTest() {
+		int check = 10;
+		territory testTerritory = new territory();
+		testTerritory.numofArmiesHere = 5;
+		testTerritory.addTokensToTerritory(5);
+		assertEquals(testTerritory.getnumofarmies(),check);
+	}
 }
