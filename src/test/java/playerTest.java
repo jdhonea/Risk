@@ -372,4 +372,36 @@ public class playerTest {
 		testPlayer.setDefenseMode(true);
 		assertEquals(testPlayer.isDefending(),true);
 	}
+	
+	@Test
+	public void continueAttackingTest() {
+		player testPlayer = new player();
+		testPlayer.isAttacking = false;
+		testPlayer.continueAttacking();
+		assertEquals(testPlayer.isAttacking,true);
+	}
+
+	@Test
+	public void addTokenToTerritoryTest() {
+		player testPlayer = new player();
+		testPlayer.playerNo = 5;
+		territory testTerritory = new territory();
+		testTerritory.numofArmiesHere = 0;
+		testPlayer.addTokenToTerritory(testTerritory);
+		assertEquals(testTerritory.numofArmiesHere,1);
+		assertEquals(testTerritory.isOwnedBy,5);
+		assertEquals(testTerritory.isTaken,true);
+	}
+
+	@Test
+	public void addTokensToTerritoryTest() {
+		player testPlayer = new player();
+		testPlayer.playerNo = 5;
+		territory testTerritory = new territory();
+		testTerritory.numofArmiesHere = 2;
+		testPlayer.addTokensToTerritory(testTerritory, 3);
+		assertEquals(testTerritory.numofArmiesHere,5);
+		assertEquals(testTerritory.isOwnedBy,5);
+		assertEquals(testTerritory.isTaken,true);
+	}
 }
