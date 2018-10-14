@@ -34,6 +34,8 @@ public class playerTurn implements Serializable{
 
 		//STEP 1 REINFORCE
 		getNewArmies();
+		//STEP 1.5 PURCHASE CREDIT
+		//TODO: PURCHASE CREDIT
 		//STEP 2 ATTACK (IF DESIRED)
 		System.out.println("\n"+p.getPlayerName()+", would you like to attack a territory? (Y or N)");
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
