@@ -48,6 +48,8 @@ public class player implements Serializable{
 	List<card>  hand = new ArrayList<card>();
 	public List<territory> territoriesOwned = new ArrayList<territory>();
 	
+	credit credits = new credit();
+	
 	//////////CONSTRUCTORS//////////////////
 	public player() {
 		
