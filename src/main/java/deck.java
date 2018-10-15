@@ -3,13 +3,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Contains the deck, traded in cards, and also handles the manipulation of the deck needed for a game of Risk.
+ */
+
 public class deck implements Serializable{
     //Would use a deque, but shuffling is important and Collections.shuffle cannot be used on a Deque
     public List<card> deck = new ArrayList<card>(); //Stores the deck of cards
     public List<card> discarded = new ArrayList<card>(); //Stores the discarded cards traded in
     public int setsTradedIn = 0;
 
-
+    /**
+     * Deck constructor, reads the number of territories and creates a deck of that size. Was initially going to be randomly generated,
+     * but instead had the cards hard-coded in.
+     * @param numOfTerritories The number of territories in the map which will equate to the number of cards in the initial deck
+     */
     public deck(int numOfTerritories){
         //TODO Deck generation based on numOfTerritories + 3 wild cards
         //generates the 3 wild cards
@@ -23,19 +31,29 @@ public class deck implements Serializable{
         Collections.shuffle(deck);
     }//ends constructor
 
-    //returns the number of cards left in the deck
+    /**
+     * Returns the number of cards left in the deck.
+     * @return  the size of the deck list
+     */
     public int cardsInDeck(){
         return this.deck.size();
     }//ends cardsInDeck
 
-    //returns the card in the first position of the deck and removes it
+    /**
+     * Simulates the player drawing the top card of the deck. The top card is drawn and then is removed from the deck list.
+     * @return the top card of the deck
+     */
     public card drawCard(){
         card currentCard  = this.deck.get(0);
         this.deck.remove(0);
         return currentCard;
     }//ends drawCard
 
-    //Accepts a sublist of the players hand as cards traded in and returns the number of armies the player is awarded
+    /**
+     * Accepts a list of cards as cards to be traded in and then returns the number of armies to be received based upon the number of previously traded in sets
+     * @param tradedIn the list of cards to be traded in
+     * @return          number of new armies to be received
+     */
     public int cardsTradedIn(List<card> tradedIn){
         boolean setFound;
         setFound = checkForSet(tradedIn);
@@ -58,7 +76,11 @@ public class deck implements Serializable{
         return 0;
     }
 
-    //Checks cards traded in for complete sets
+    /**
+     * Checks a list of card objects for a complete set of cards with 3 matching designs.
+     * @param tradedIn the list of cards traded in
+     * @return          returns true if a set is found and false if not
+     */
     private boolean checkForSet(List<card> tradedIn){
         int count = 0; //stores the count of the design
         char first = 'n'; // stores the first design of the sublist unless it is a wild card
@@ -82,7 +104,11 @@ public class deck implements Serializable{
             return false;
     }
 
-    //Checks cards traded in for sets of one of each kind
+    /**
+     * Checks the list of card objects for a set of one of each design.
+     * @param tradedIn  the list of cards traded in
+     * @return          returns true if each design is present in the list of cards and false if not
+     */
     private boolean checkForOneEach(List<card> tradedIn){
         int count = 0;
         char first = 'n';
@@ -109,12 +135,17 @@ public class deck implements Serializable{
             return false;
     }
 
-    //Adds a discarded / traded in card to the discarded List
+    /**
+     * Adds a card to the discarded list of card objects.
+     * @param discardedCard card object to be stored in the list of discarded cards
+     */
     public void discardCard(card discardedCard){
         this.discarded.add(discardedCard);
     }//ends discardCard
 
-    //Finishes creating the deck from the offical Risk deck
+    /**
+     * Initializes the deck based upon a deck from the original Risk board game.
+     */
     private void initializeDeck(){
         card af = new card('c', "Afghanistan");
         card al = new card('i', "Alaska");

@@ -109,7 +109,7 @@ public class player implements Serializable, Observer {
 
 	//Handles the Observers being able to see the Observable class updated, or in this instance attacking.
 	public void update(Observable attacker, Object defender){
-		//Checks if the defender's name is the same as this object's
+		//Checks if the defender's name is the same as this object's, if it is, it outputs that they are being attacked.
 		if(this.playerNo == ((Integer)defender)){
 			System.out.println("**ALERT: " + this.getPlayerName() + "is being attacked!!**");
 		}
