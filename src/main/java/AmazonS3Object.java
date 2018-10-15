@@ -28,20 +28,20 @@ public class AmazonS3Object implements Serializable{
 	}
 	  
 	/* UPLOAD CONTENTS OF LOCAL TEXT FILE TO AMAZON S3 */
-	public void uploadtoAmazonS3Bucket(){
+// 	public void uploadtoAmazonS3Bucket(){
 
-		//create Amazon S3 Object		
-		AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();  
+// 		//create Amazon S3 Object		
+// 		AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();  
 
-		// get bucket & its object (the game_replay.txt file)
-		ObjectListing objectListing = s3.listObjects("riskgamebucket");
-		List<S3ObjectSummary> os = objectListing.getObjectSummaries();
+// 		// get bucket & its object (the game_replay.txt file)
+// 		ObjectListing objectListing = s3.listObjects("riskgamebucket");
+// 		List<S3ObjectSummary> os = objectListing.getObjectSummaries();
 
-		// Upload a file as a new object with ContentType and title specified.
-		PutObjectRequest request = new PutObjectRequest("riskgamebucket", os.get(0).getKey(), new File("game_replay.txt"));
-		s3.putObject(request);
+// 		// Upload a file as a new object with ContentType and title specified.
+// 		PutObjectRequest request = new PutObjectRequest("riskgamebucket", os.get(0).getKey(), new File("game_replay.txt"));
+// 		s3.putObject(request);
 
-	}
+// 	}
 	
 	// clear contents of local text file at beginning of game
 	public void clearFileContents() throws FileNotFoundException{

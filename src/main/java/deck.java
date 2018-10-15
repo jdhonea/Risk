@@ -5,9 +5,9 @@ import java.util.List;
 
 public class deck implements Serializable{
     //Would use a deque, but shuffling is important and Collections.shuffle cannot be used on a Deque
-    private List<card> deck = new ArrayList<card>(); //Stores the deck of cards
-    private List<card> discarded = new ArrayList<card>(); //Stores the discarded cards traded in
-    private int setsTradedIn = 0;
+    public List<card> deck = new ArrayList<card>(); //Stores the deck of cards
+    public List<card> discarded = new ArrayList<card>(); //Stores the discarded cards traded in
+    public int setsTradedIn = 0;
 
 
     public deck(int numOfTerritories){

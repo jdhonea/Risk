@@ -137,4 +137,25 @@ public class deckTest {
         }
 
     }
+    
+    @Test
+    public void cardsInDeckTest(){
+        deck deck = new deck(42);
+        assertEquals(deck.cardsInDeck(),45);  
+    }
+    
+    @Test
+    public void drawCardTest(){
+        deck deck = new deck(42);
+        deck.drawCard();
+        assertEquals(deck.cardsInDeck(),44);  
+    }
+
+    @Test
+    public void discardCardTest(){
+        deck deck = new deck(42);
+        card testCard = new card('i',"Egypt");
+        deck.discardCard(testCard);
+        assertEquals(deck.discarded.get(0),testCard);  
+    }
 }
