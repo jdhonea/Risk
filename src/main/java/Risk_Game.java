@@ -27,6 +27,7 @@ public class Risk_Game {
 	//TODO: 2. numOfTerritories should be read from the territories file to allow for using multiple maps
 	public static final int numOfTerritories = 42;
 	public static List<String> playersN = new ArrayList<String>();
+	public static playerNotification notifier = new playerNotification();
 	/**
 	 * @return 
 	 * 			
@@ -273,7 +274,7 @@ public class Risk_Game {
 		for(int p = 0; p < playersN.size(); p++) {
 			pList.get(p).playerName = playersN.get(p);
 		}
-		
+		setObservers(pList, notifier);
 		//FOR REFERENCE
 		System.out.println("\nAll players get " + pList.get(0).getnumofarmies() + " armies.");
 		s3object.writeToFile("game_replay.txt","\nAll players get " + pList.get(0).getnumofarmies() + " armies.");
@@ -405,7 +406,7 @@ public class Risk_Game {
 		return true;
 	}
 
-	//Displays the "Splash Screen and game text"
+	//Displays the "Splash Screen" and game text
 	private static void text() throws Exception{
 		System.out.println("Authors: Derrick Ellis, Jason Honea, Ian Voorhies");
 		System.out.print("\n" +
@@ -436,6 +437,13 @@ public class Risk_Game {
 				"                                      \n" +
 				"                                      \n" +
 				"                                      \n");
+	}
+
+	//Adds each player to the player's observers list
+	private static void setObservers(List <player> pList, playerNotification notifier){
+		for (int n = 0; n < pList.size(); n++){
+			notifier.addObserver(pList.get(n));
+		}
 	}
 
 }

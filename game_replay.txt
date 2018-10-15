@@ -1,21 +1,31 @@
 WELCOME TO RISK! LET'S PLAY!
 How many players? 
-11 is not enough players. Need at least 2.WELCOME TO RISK! LET'S PLAY!
-How many players? 
 2
 All players get 40 armies.
-The order of play is: afwf sfsf 
+The order of play is: afaf wfwfw 
 
 *PLAYERS, CLAIM YOUR TERRITORIES!*
 
 All armies have been placed.
 Now let's begin!
-afwf's turn:
+afaf's turn:
 Your hand is currently: 
-At the beginning of the turn, afwf receives 7 new armies for the territories and continents they control.
-***afwf has FORTIFIED Ontario***
-Quebec now has 1 armies and Ontario has 10 armies.
+At the beginning of the turn, afaf receives 7 new armies for the territories and continents they control.
+***ATTACKING India!!***
+wfwfw, you must DEFEND your territory!
+afaf: [1 3 3 ]
+wfwfw: [1 1 ]
+afaf lost 0 armies.
+wfwfw lost 2 armies.
+***India has been conquered by afaf!!**
+***DRAWING CARD FROM DECK***
+afaf drew the i Alaska card.
+You now have cards: [ i Alaska, ]
+Siam now has 6 armies.
+India now has 3 armies.
+***afaf has FORTIFIED India***
+Siam now has 1 armies and India has 8 armies.
 Undoing current turn...
-afwf's turn:
+afaf's turn:
 Your hand is currently: 
-At the beginning of the turn, afwf receives 7 new armies for the territories and continents they control.
+At the beginning of the turn, afaf receives 7 new armies for the territories and continents they control.

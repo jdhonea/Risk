@@ -1,4 +1,6 @@
-public class credit {
+import java.io.Serializable;
+
+public class credit implements Serializable {
 	
 	int numOfUndoActions;
 	int creditValue;

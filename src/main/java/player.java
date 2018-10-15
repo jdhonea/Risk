@@ -3,17 +3,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
  * 
  * 
  */
-public class player implements Serializable{
+public class player implements Serializable, Observer {
 
 	public int playerNo;
 	public int terrOwned = 0;
@@ -109,6 +106,19 @@ public class player implements Serializable{
 	 * METHODS
 	 * 
 	 */
+
+	//Handles the Observers being able to see the Observable class updated, or in this instance attacking.
+	public void update(Observable attacker, Object defender){
+		//Checks if the defender's name is the same as this object's
+		if(this.playerNo == ((Integer)defender)){
+			System.out.println("**ALERT: " + this.getPlayerName() + "is being attacked!!**");
+		}
+	}
+	//Notifies the observers and passes the defending player object to the update function
+	private static void notifyDefender(int ownedBy){
+		Risk_Game.notifier.notify(ownedBy);
+	}
+
 	public void setBoard(board board){
 		this.board = board;
 	}
@@ -189,6 +199,7 @@ public class player implements Serializable{
 			
 		}
 	}
+
 	public void resetCardsContainedOwnedTerritory(){
 		cardsContainedOwnedTerritory = false;
 	}
@@ -663,6 +674,7 @@ public class player implements Serializable{
 						/* ------------ SET PLAYER STATUS TO ATTACK ------------ */
 										this.setAttackMode(true);
 						/* ------------ TEMPERARY TERRITORY USED FOR THE ROLLDICE() METHOD NEXT ------------ */
+										notifyDefender(tr.isOwnedBy);
 										territory diceTerr = new territory();
 										diceTerr = tList[result-1];
 						/* ------------ ARRAY THAT HOLDS THE DICE ROLL RESULT ------------ */

@@ -24,7 +24,7 @@ public class AmazonS3Object implements Serializable{
 	/* WRITE TO LOCAL TEXT FILE, THEN UPLOAD FILE TO AMAZON S3 SERVICES */
 	public void writeToFile(String FILENAME, String input) throws IOException{
 		Files.write(Paths.get(FILENAME), input.getBytes(), StandardOpenOption.APPEND);
-		uploadtoAmazonS3Bucket();
+		//uploadtoAmazonS3Bucket();
 	}
 	  
 	/* UPLOAD CONTENTS OF LOCAL TEXT FILE TO AMAZON S3 */
