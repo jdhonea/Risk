@@ -6,6 +6,10 @@ import java.util.List;
 import java.io.Serializable;
 import java.util.Scanner;
 
+/**
+ * Keeps track of the current turn order and makes sure that turn order is preserved.
+ */
+
 public class playerTurn implements Serializable{
 	boolean valid = true;
 	public player player;
@@ -13,11 +17,17 @@ public class playerTurn implements Serializable{
 	private board savedBoard;
 	AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
 	/**
-	 * CONSTRUCTOR
+	 * Default constructor
 	 */
 	public playerTurn() {
 
 	}
+
+	/**
+	 * Creates a new turn for the player who's turn it is currently containing the game board.
+	 * @param p the current active player
+	 * @param b	the game board
+	 */
 	public playerTurn(player p, board b){
 		this.player = p;
 		this.board = b;
@@ -25,6 +35,15 @@ public class playerTurn implements Serializable{
 
 	/**
 	 *************** METHODS ***********************
+	 */
+
+	/**
+	 * Progresses the player through their turn, preserving order.
+	 * @param p	current player
+	 * @param tList	the list of territories
+	 * @param players	the list of other players
+	 * @param deck	the list of cards that make up the deck
+	 * @throws IOException
 	 */
 	public void chooseOption (player p, territory[] tList, List<player> players, deck deck) throws IOException{
 		String attack = "";
@@ -53,7 +72,10 @@ public class playerTurn implements Serializable{
 		//END TURN
 	}
 
-	//driver method for the player getting and receiving new armies at the beginning of the turn
+	/**
+	 * The driver method to handle and calculate the player getting and placing new armies received at the beginning of each turn
+	 * @throws IOException
+	 */
 	private void getNewArmies() throws IOException{
 		int newArmies = 0;
 		newArmies += countTerritories();
@@ -79,7 +101,10 @@ public class playerTurn implements Serializable{
 		placeNewArmies(newArmies);
 	}
 
-	//Has the player place the new armies they just received into territories they own, loops until all armies are placed.
+	/**
+	 * Leads the player through placing their new armies received at the beginning of the turn. Continues to loop until all armies are placed.
+	 * @param armies	the number of armies received at the beginning of the turn
+	 */
 	private void placeNewArmies(int armies){
 		//Loops until all new armies are placed
 		while (armies > 0){
@@ -115,8 +140,11 @@ public class playerTurn implements Serializable{
 
 		}
 	}
-	
-	//counts the number of territories and returns the number of armies the player is supposed to receive
+
+	/**
+	 * Counts the number of territories the current player owns and returns the number of armies they are supposed to receive.
+	 * @return	the number of armies the player is to receive
+	 */
 	public int countTerritories(){
 		int armiesReturned = player.getnumofterritories() / 3;
 		if(armiesReturned < 3)
@@ -125,7 +153,10 @@ public class playerTurn implements Serializable{
 			return armiesReturned;
 	}
 
-	//calculate the value of the continents the player owns
+	/**
+	 * Calcuates the value of the continents the current player owns.
+	 * @return the value of the continents owned by the current player
+	 */
 	private int valueOfContinents(){
 		int value = 0;
 		for(int n = 0; n < board.getNumOfContinents(); n++){
@@ -137,5 +168,4 @@ public class playerTurn implements Serializable{
 		return value;
 	}
 
-	//
 }

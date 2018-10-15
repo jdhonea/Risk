@@ -15,19 +15,28 @@ import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
-/* CLASS THAT HANDLES AMAZON S3 OBJECTS */
+/**
+ * Handles the Amazon S3 service. Takes care of writing to file, uploading, etc.
+ */
 public class AmazonS3Object implements Serializable{
 
 	public AmazonS3Object() {
 	}
-	
-	/* WRITE TO LOCAL TEXT FILE, THEN UPLOAD FILE TO AMAZON S3 SERVICES */
+
+	/**
+	 * Writes input to a file and then uploads that file to Amazon S3
+	 * @param FILENAME	The name of the file to be written to.
+	 * @param input	The string of input to be written to the file.
+	 * @throws IOException
+	 */
 	public void writeToFile(String FILENAME, String input) throws IOException{
 		Files.write(Paths.get(FILENAME), input.getBytes(), StandardOpenOption.APPEND);
 		//uploadtoAmazonS3Bucket();
 	}
 	  
-	/* UPLOAD CONTENTS OF LOCAL TEXT FILE TO AMAZON S3 */
+	/**
+	 *  Uploads the content of the file to Amazon S3 service
+	 */
 // 	public void uploadtoAmazonS3Bucket(){
 
 // 		//create Amazon S3 Object		
@@ -42,8 +51,10 @@ public class AmazonS3Object implements Serializable{
 // 		s3.putObject(request);
 
 // 	}
-	
-	// clear contents of local text file at beginning of game
+
+	/**
+	 * Clears contents of local text file at beginning of game.
+	 */
 	public void clearFileContents() throws FileNotFoundException{
 		PrintWriter pw = null;
 		pw = new PrintWriter("game_replay.txt");

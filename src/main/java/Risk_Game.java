@@ -14,13 +14,14 @@ import java.nio.file.StandardOpenOption;
 
 
 /**
- * @author Derrick Ellis, Jason Honea, Ian Voorhies
+ * COSC 4353 Group Risk Project
+ * @author Derrick Ellis, Jason Honea, Brandon Hurrington
  *
  */
 
 
 /**
- * MAIN CLASS
+ * Main Class, handles the initialization of the players, and the game board before behaving as the game engine.
  * 
  */ 
 public class Risk_Game {
@@ -38,8 +39,12 @@ public class Risk_Game {
 	 * 			
 	 * 			
 	 */
-	
-	//Generates the territory array
+
+	/**
+	 * Generates the territory array to be referenced throughout the game.
+	 * @param tList	The territory list to be generated
+	 * @throws Exception
+	 */
 	public static void initializeTerritories(territory[] tList) throws Exception{
 		//AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
 		//TODO: 3. Territories file should have the neighboring territories listed, prevents having to hard-code neighbors, possibly continents too?
@@ -57,7 +62,13 @@ public class Risk_Game {
 		}
 		br.close();
 	}
-	//Handles the entire territory draft
+
+	/**
+	 * Handles the drafting of territories among the players, in play order.
+	 * @param pList	The player list to be read from
+	 * @param tList	The list of territories to be read from
+	 * @param numOfTerritories	The number of territories in the game map
+	 */
 	public static void territoryDraft(List<player> pList, territory[] tList, int numOfTerritories){
 		//AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
 		//TODO: Final build needs to be "De-randombized"
@@ -178,13 +189,10 @@ public class Risk_Game {
 	}
 
 	/**
-	 * METHOD THAT DETERMINES NUMBER OF ARMIES EACH PLAYERS RECEIVES
-	 * AND GIVES THE ARMIES TO EACH PLAYER
+	 * Risk game engine, initializes the game board and players before handling the turns.
+	 * @param args	arguments passed to the program
+	 * @throws Exception
 	 */
-	//public static void newArmies(int players, List<player> pList) {
-		
-	//}
-
 	public static void main(String[] args) throws Exception{
 		//text();
 		//ESTABLISH MAIN VARIABLES
@@ -352,7 +360,11 @@ public class Risk_Game {
 
 	}
 
-	//saves the current board state using serialization
+	/**
+	 * Serealizes the board state and saves it to back up the current board state.
+	 * @param gameBoard the game board to be backed up
+	 * @return	an array of bytes to be stored as a backup state
+	 */
 	private static byte[] saveState(board gameBoard){
 		byte[] boardData;
 		try {
@@ -371,8 +383,12 @@ public class Risk_Game {
 		}
 		return boardData;
 	}
-	//TODO: Looks like the adjacent territories lists do not get updated upon the restore. Needs to be figured out and fixed.
-	//reads the boardData byte array and restores the board state to the previous state.
+
+	/**
+	 * Reads the board data byte array and restores the board state to the previous state.
+	 * @param boardData the byte array that contains the previous board state
+	 * @return	the restored board object
+	 */
 	private static board restoreData(byte[] boardData){
 		board restoredBoard = new board();
 		try {
@@ -389,7 +405,10 @@ public class Risk_Game {
 		return restoredBoard;
 	}
 
-	//Prompts the player to end their turn
+	/**
+	 * Prompts the user if they would like to end their turn or undo the changes made during their turn.
+	 * @return	returns true if that player would like to end their turn and false if they would like to undo.
+	 */
 	private static boolean end(){
 		System.out.println("Would you like to end your turn 'Y' or undo changes 'U'?");
 		Scanner in = new Scanner(System.in);
@@ -406,9 +425,12 @@ public class Risk_Game {
 		return true;
 	}
 
-	//Displays the "Splash Screen" and game text
+	/**
+	 * Displays game splash screen and game text.
+	 * @throws Exception
+	 */
 	private static void text() throws Exception{
-		System.out.println("Authors: Derrick Ellis, Jason Honea, Ian Voorhies");
+		System.out.println("Authors: Derrick Ellis, Jason Honea, Brandon Hurrington");
 		System.out.print("\n" +
 				"                                                                                           \n" +
 				"              ,,                                                                           \n" +
@@ -439,7 +461,11 @@ public class Risk_Game {
 				"                                      \n");
 	}
 
-	//Adds each player to the player's observers list
+	/**
+	 * Adds each player to the observer list of the playerNotification object that updates the player when a player makes an attack.
+	 * @param pList	the list of players
+	 * @param notifier	the playerNotification object to be observed
+	 */
 	private static void setObservers(List <player> pList, playerNotification notifier){
 		for (int n = 0; n < pList.size(); n++){
 			notifier.addObserver(pList.get(n));
