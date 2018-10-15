@@ -19,7 +19,6 @@ public class deck implements Serializable{
      * @param numOfTerritories The number of territories in the map which will equate to the number of cards in the initial deck
      */
     public deck(int numOfTerritories){
-        //TODO Deck generation based on numOfTerritories + 3 wild cards
         //generates the 3 wild cards
         for (int n = 0; n < 3; n++){
             card currentCard = new card('w', "wild");

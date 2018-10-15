@@ -25,7 +25,6 @@ import java.nio.file.StandardOpenOption;
  * 
  */ 
 public class Risk_Game {
-	//TODO: 2. numOfTerritories should be read from the territories file to allow for using multiple maps
 	public static final int numOfTerritories = 42;
 	public static List<String> playersN = new ArrayList<String>();
 	public static playerNotification notifier = new playerNotification();
@@ -47,7 +46,6 @@ public class Risk_Game {
 	 */
 	public static void initializeTerritories(territory[] tList) throws Exception{
 		//AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
-		//TODO: 3. Territories file should have the neighboring territories listed, prevents having to hard-code neighbors, possibly continents too?
 		//READ IN LIST OF TERRITORIES FROM FILE
 		adjacentTerritoriesLists adjTL = new adjacentTerritoriesLists();
 		FileInputStream fstream = new FileInputStream("territory_list.txt");

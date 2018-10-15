@@ -91,7 +91,6 @@ public class playerTurn implements Serializable{
 			if(option.equalsIgnoreCase("N"))
 				break;
 			else{
-				//TODO:Handle the user trading in cards
 				newArmies += player.tradeCards();
 			}
 
