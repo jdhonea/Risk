@@ -133,31 +133,60 @@ public class player implements Serializable, Observer {
 			System.out.println("**ALERT: " + this.getPlayerName() + "is being attacked!!**");
 		}
 	}
-	//Notifies the observers and passes the defending player object to the update function
+
+	/**
+	 * Notifies the observers and passes the defending player object to the update function
+	 * @param ownedBy the defending player's ID number
+	 */
 	private static void notifyDefender(int ownedBy){
 		Risk_Game.notifier.notify(ownedBy);
 	}
 
+	/**
+	 * Set's the game board in the player class.
+	 * @param board the game board
+	 */
 	public void setBoard(board board){
 		this.board = board;
 	}
+
+	/**
+	 * Gets the player's ID number
+	 * @return the ID number of the player
+	 */
 	public int getplayernumber() {
 		return this.playerNo;
 	}
 
+	/**
+	 * Decrements the number of unplaced armies the player owns by 1.
+	 */
 	public void reduceUnplacedArmies(){
 		this.unplacedArmies--;
 	}
 
+	/**
+	 * Gets the number of unplaced armies the player owns.
+	 * @return the number of unplaced armies
+	 */
 	public int getUnplacedArmies(){
 		return this.unplacedArmies;
 	}
-	
+
+	/**
+	 * Gets the name of the player.
+	 * @return the player's name
+	 */
 	public String getPlayerName(){
 		return this.playerName;
 	}
 
 	//territories
+
+	/**
+	 * Sets the number of territories the player owns.
+	 * @param n the number of territories the player owns
+	 */
 	public void setnumofterritories(int n) {
 
 		//CHECK FOR EXCEPTIONS
@@ -172,11 +201,20 @@ public class player implements Serializable, Observer {
 		}
 	}
 
+	/**
+	 * Gets the number of territories the player owns.
+	 * @return the number of territories
+	 */
 	public int getnumofterritories() {
 		return this.territoriesOwned.size();
 	}
 	
 	//dice rolls
+
+	/**
+	 * Sets the number of dice the player will roll.
+	 * @param n the number of dice to be rolled
+	 */
 	public void setnumofdicerolls(int n) {
 
 		//CHECK FOR EXCEPTIONS
@@ -190,27 +228,56 @@ public class player implements Serializable, Observer {
 			System.out.println("\nError: " + e.getMessage());
 		}
 	}
-	
+
+	/**
+	 * Gets the number of dice rolls.
+	 * @return the number of dice to be rolled
+	 */
 	public int getnumofdicerolls() {
 		return this.numOfDiceRolls;
 	}
 	
 	//armies
+
+	/**
+	 * Sets the number of armies the player owns.
+	 * @param n the number of armies the player owns
+	 */
 	public void setnumofarmies(int n) {
 		this.numOfArmies = n;
 	}
+
+	/**
+	 * Returns the number of armies the player owns.
+	 * @return the number of armies
+	 */
 	public int getnumofarmies() {
 		return this.numOfArmies;
 	}
 	
 	//give player a certain number of cards
+
+	/**
+	 * Sets the number of cards the player owns.
+	 * @param n the number of cards
+	 */
 	public void setnumofcards(int n) {
 		this.numOfCards = n;
 	}
+
+	/**
+	 * Returns the number of cards the player owns.
+	 * @return the number of cards
+	 */
 	public int getnumofcards() {
 		return this.numOfCards;
 	}
 	//Displays the players current hand of cards
+
+	/**
+	 * Prints the contents of the players hands, ie the cards they control.
+	 * @throws IOException
+	 */
 	public void printHand() throws IOException{
 		for(int n = 0; n < hand.size(); n++){
 			System.out.println(n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory());
@@ -219,11 +286,19 @@ public class player implements Serializable, Observer {
 		}
 	}
 
+	/**
+	 * Sets the <i>cardsContainedOwnedTerritory</i> flag to false.
+	 */
 	public void resetCardsContainedOwnedTerritory(){
 		cardsContainedOwnedTerritory = false;
 	}
-	//Processes the player input for trading cards and then passes the entries along to processCards to handle calculating the number of armies to return.
-	//Will only be called if the player's hand is already > 3 cards
+
+	/**
+	 * Processes the player input for trading cards and then passes the entries along to processCards to handle calculating the number of armies to return.
+	 * 	Will only be called if the player's hand is already > 3 cards
+	 * @return	the number of armies to be placed
+	 * @throws IOException
+	 */
 	public int tradeCards() throws IOException{
 		int newArmies = 0;
 		boolean cancelled = false;
@@ -263,7 +338,11 @@ public class player implements Serializable, Observer {
 		return newArmies;
 	}
 
-	//Processes the traded in cards and returns the number of new armies the player is supposed to receive
+	/**
+	 * Processes the traded in cards and returns the number of new armies the player is supposed to receive
+	 * @param entries the list of cards to be processed
+	 * @return
+	 */
 	private int processCards(List<Integer> entries) {
 		int newArmies = 0;
 		List<card> cardsToBeProcessed = new ArrayList<>();
@@ -289,19 +368,34 @@ public class player implements Serializable, Observer {
 		newArmies += deck.cardsTradedIn(cardsToBeProcessed);
 		return newArmies;
 	}
-	
-	//set "can trade" status
+
+	/**
+	 * Set "can trade" status.
+	 * @param trade can trade value
+	 */
 	public void setCanTrade(boolean trade) {
 		this.canTrade = trade;
 	}
+
+	/**
+	 * Returns whether the player can trade cards
+	 * @return boolean value whether the player can trade or not
+	 */
 	public boolean canTrade() {
 		return this.canTrade;
 	}
 	
 	//won entire game
+
+	/**
+	 * Sets the current player as the game winner
+	 * @param winner boolean whether the player has won or not.
+	 */
 	public void setWinner(boolean winner) {
 		this.wonWholeGame = winner;
 	}
+
+
 	public boolean getWinner() {
 		return this.wonWholeGame;
 	}
@@ -381,14 +475,23 @@ public class player implements Serializable, Observer {
 		this.terrOwned = terrOwned + 1;
 		choose.setOwner(playerNo);
 	}
-	
-	//ADD ONE TOKEN/ARMY TO TERRITORY
+
+	/**
+	 * Add one army to a specified territory.
+	 * @param t the territory to be added to
+	 */
 	public void addTokenToTerritory(territory t) {
 		t.addTokenToTerritory();
 		t.setOwner(playerNo);
 		t.setTaken(true);
 	}
 	//ADD SPECIFIED # OF TOKENS/ARMIES TO TERRITORY t
+
+	/**
+	 * Add specified number of armies to a specified territory.
+	 * @param t territory to be added to
+	 * @param tokens number of armies to be added
+	 */
 	public void addTokensToTerritory(territory t, int tokens) {
 		t.addTokensToTerritory(tokens);
 		t.setOwner(playerNo);
