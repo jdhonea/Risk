@@ -7,8 +7,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 
- * 
+ * Handles each individual player, player's hand, territories they own, etc.
  */
 public class player implements Serializable, Observer {
 
@@ -48,10 +47,18 @@ public class player implements Serializable, Observer {
 	credit credits = new credit();
 	
 	//////////CONSTRUCTORS//////////////////
+
+	/**
+	 * Default Constructor
+	 */
 	public player() {
 		
 	}
-	
+
+	/**
+	 * Constructor for player.
+	 * @param num the number associated with the player
+	 */
 	public player(int num) {
 
 		//CHECK FOR EXCEPTIONS
@@ -84,6 +91,12 @@ public class player implements Serializable, Observer {
 			new player(this.playerNo);
 		}
     }
+
+	/**
+	 * Constructor for player.
+	 * @param num the number associated with the player
+	 * @param numArmies the number of armies the player begins the game with
+	 */
 	public player(int num, int numArmies) {
         this.playerNo = num;
 		this.numOfArmies = numArmies;
@@ -108,6 +121,12 @@ public class player implements Serializable, Observer {
 	 */
 
 	//Handles the Observers being able to see the Observable class updated, or in this instance attacking.
+
+	/**
+	 * Handles the player observers being able to see the observable class being updated, or in this instance, attacking.
+	 * @param attacker the player attacking
+	 * @param defender the defending player, in this instance accepts an integer value
+	 */
 	public void update(Observable attacker, Object defender){
 		//Checks if the defender's name is the same as this object's, if it is, it outputs that they are being attacked.
 		if(this.playerNo == ((Integer)defender)){
