@@ -37,7 +37,7 @@ public class creditTest {
 		assertEquals(test,1);
 	}
 	@Test
-	public void tradeCreditsTest(){
+	public void transferCreditsTest(){
 		player player1 = new player();
 		player1.credits.setCreditValue(30);
 		player player2 = new player();
