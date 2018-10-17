@@ -129,6 +129,7 @@ public class purchaseCredit implements Serializable{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
 	}
 	
 	public String printCreditOptions() {
