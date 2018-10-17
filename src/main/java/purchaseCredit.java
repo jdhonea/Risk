@@ -99,63 +99,36 @@ public class purchaseCredit implements Serializable{
 		boolean good = true;
 		String answer;
 		BufferedReader creditreader5 = new BufferedReader(new InputStreamReader(System.in));
-		outerloop:
 		while(good) {
 			try {
 				answer = creditreader5.readLine();
 				if(answer.equalsIgnoreCase(players.get(0).playerName)) {
 					p.credits.transferCredits(p, players.get(0), p.credits.creditValue);
 					good = false;
-					break outerloop;
 				}
 				else if(answer.equalsIgnoreCase(players.get(1).playerName)) {
 					p.credits.transferCredits(p, players.get(1), p.credits.creditValue);
 					good = false;
-					break outerloop;
 				}
 				else if(answer.equalsIgnoreCase(players.get(2).playerName)) {
 					p.credits.transferCredits(p, players.get(2), p.credits.creditValue);
 					good = false;
-					break outerloop;
 				}
 				else if(answer.equalsIgnoreCase(players.get(3).playerName)) {
 					p.credits.transferCredits(p, players.get(3), p.credits.creditValue);
 					good = false;
-					break outerloop;
 				}
 				else if(answer.equalsIgnoreCase(players.get(4).playerName)) {
 					p.credits.transferCredits(p, players.get(4), p.credits.creditValue);
 					good = false;
-					break outerloop;
 				}
 				else if(answer.equalsIgnoreCase(players.get(5).playerName)) {
 					p.credits.transferCredits(p, players.get(5), p.credits.creditValue);
 					good = false;
-					break outerloop;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-	}
-	
-	public void creditSwitch() {
-		String answer2;
-		BufferedReader creditreader5 = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			answer2 = creditreader5.readLine();
-			if(answer2.equalsIgnoreCase("I")) {
-				p.credits.exchangeForCard('i', "");
-			}
-			if(answer2.equalsIgnoreCase("A")) {
-				p.credits.exchangeForCard('a', "");
-			}
-			if(answer2.equalsIgnoreCase("C")) {
-				p.credits.exchangeForCard('c', "");
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public String printCreditOptions() {
