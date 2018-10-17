@@ -43,7 +43,7 @@ public class playerTurn implements Serializable{
 	 * @param tList	the list of territories
 	 * @param players	the list of other players
 	 * @param deck	the list of cards that make up the deck
-	 * @throws IOException
+	 * @throws IOException	exception
 	 */
 	public void chooseOption (player p, territory[] tList, List<player> players, deck deck) throws IOException{
 		String attack = "";
@@ -74,7 +74,7 @@ public class playerTurn implements Serializable{
 
 	/**
 	 * The driver method to handle and calculate the player getting and placing new armies received at the beginning of each turn
-	 * @throws IOException
+	 * @throws IOException	exception
 	 */
 	private void getNewArmies() throws IOException{
 		int newArmies = 0;
@@ -108,9 +108,6 @@ public class playerTurn implements Serializable{
 		//Loops until all new armies are placed
 		while (armies > 0){
 			player.printTerritories();
-//			for(territory n: player.territoriesOwned){
-//				System.out.println("[" + n.territoryNumber + "] " + n.getnameofterritory() + " (Currently " + n.getnumofarmies() + " armies here.)");
-//			}
 			boolean valid = false;
 			while(!valid) {
 				System.out.print("Please choose a territory you control: ");

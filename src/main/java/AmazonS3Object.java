@@ -27,7 +27,7 @@ public class AmazonS3Object implements Serializable{
 	 * Writes input to a file and then uploads that file to Amazon S3
 	 * @param FILENAME	The name of the file to be written to.
 	 * @param input	The string of input to be written to the file.
-	 * @throws IOException
+	 * @throws IOException	exception
 	 */
 	public void writeToFile(String FILENAME, String input) throws IOException{
 		Files.write(Paths.get(FILENAME), input.getBytes(), StandardOpenOption.APPEND);
@@ -54,6 +54,7 @@ public class AmazonS3Object implements Serializable{
 
 	/**
 	 * Clears contents of local text file at beginning of game.
+	 * @throws FileNotFoundException	exception
 	 */
 	public void clearFileContents() throws FileNotFoundException{
 		PrintWriter pw = null;

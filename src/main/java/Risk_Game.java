@@ -28,21 +28,11 @@ public class Risk_Game {
 	public static final int numOfTerritories = 42;
 	public static List<String> playersN = new ArrayList<String>();
 	public static playerNotification notifier = new playerNotification();
-	/**
-	 * @return 
-	 * 			
-	 * @param 
-	 * @param  		
-	 * @param 
-	 * @throws
-	 * 			
-	 * 			
-	 */
 
 	/**
 	 * Generates the territory array to be referenced throughout the game.
 	 * @param tList	The territory list to be generated
-	 * @throws Exception
+	 * @throws Exception exception
 	 */
 	public static void initializeTerritories(territory[] tList) throws Exception{
 		//AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
@@ -189,7 +179,7 @@ public class Risk_Game {
 	/**
 	 * Risk game engine, initializes the game board and players before handling the turns.
 	 * @param args	arguments passed to the program
-	 * @throws Exception
+	 * @throws Exception exception
 	 */
 	public static void main(String[] args) throws Exception{
 		//text();
@@ -425,7 +415,7 @@ public class Risk_Game {
 
 	/**
 	 * Displays game splash screen and game text.
-	 * @throws Exception
+	 * @throws Exception exception
 	 */
 	private static void text() throws Exception{
 		System.out.println("Authors: Derrick Ellis, Jason Honea, Brandon Hurrington");

@@ -2,16 +2,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
-/**
- * @date 8/31/2018
- * 
- **/
 public class Dice {
 
 	private int roll;
 	private int[] diceArray;
     private Random die;
 
+	/**
+	 * Default constructor for dice.
+	 */
     public Dice() {
 	
     }
@@ -21,6 +20,8 @@ public class Dice {
      * outcome of rolling the dice.  The number of values in the array should be
      * between 1 and 3, depending on the number of dice rolled by the player.  The 
      * number of dice rolled by the player is specified by the argument numberOfDice
+	 * @param numberOfDice the number of dice to be rolled
+	 * @return the values of the dice
      **/
     public int[] roll(int numberOfDice) {
 	

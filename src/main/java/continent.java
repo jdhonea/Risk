@@ -11,9 +11,20 @@ public class continent implements Serializable {
 	
 	
 	//CONSTRUCTORS
+
+	/**
+	 * Continent constructor.
+	 * @param name name of the continent
+	 */
 	public continent(String name) {
 		this.name = name;
 	}
+
+	/**
+	 * Continent constructor.
+	 * @param name name of the continent
+	 * @param has list of territories under the continent
+	 */
 	public continent(String name, List<territory> has) {
 		this.name = name;
 		this.has = has;
@@ -23,7 +34,7 @@ public class continent implements Serializable {
 	
 	/**
 	 * ADDS A LIST OF TERRITORIES TO THE CONTINENT
-	 * 
+	 * @param list list of territories to be added
 	 */ 
 	public void setTerritories(List<territory> list) {
 		this.has = list;
@@ -31,11 +42,16 @@ public class continent implements Serializable {
 	
 	/**
 	 * ADDS VALUE TO THE CONTINENT
-	 * 
+	 * @param val value to be added
 	 */ 
 	public void setContinentValue(int val) {
 		this.contVal = val;
 	}
+
+	/**
+	 * Returns the continent value.
+	 * @return continent value
+	 */
 	public int getContinentValue() {
 		return this.contVal;
 	}
@@ -54,11 +70,16 @@ public class continent implements Serializable {
 	
 	/**
 	 * GETS THE LIST OF TERRITORIES OF THE CONTINENT
-	 * 
+	 * @return	the list of territories under the continent
 	 */
 	public List<territory> getTerritories(){
 		return this.has;
 	}
+
+	/**
+	 * Gets and returns the owner of the continent's name.
+	 * @return owner's name
+	 */
 	public String getOwner(){
 		String owner = has.get(0).getOwnerName();
 		for (int n = 1; n < has.size(); n++){

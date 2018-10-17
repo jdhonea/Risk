@@ -276,7 +276,7 @@ public class player implements Serializable, Observer {
 
 	/**
 	 * Prints the contents of the players hands, ie the cards they control.
-	 * @throws IOException
+	 * @throws IOException	exception
 	 */
 	public void printHand() throws IOException{
 		for(int n = 0; n < hand.size(); n++){
@@ -295,9 +295,9 @@ public class player implements Serializable, Observer {
 
 	/**
 	 * Processes the player input for trading cards and then passes the entries along to processCards to handle calculating the number of armies to return.
-	 * 	Will only be called if the player's hand is already > 3 cards
+	 * 	Will only be called if the player's hand is already greater than 3 cards
 	 * @return	the number of armies to be placed
-	 * @throws IOException
+	 * @throws IOException	exception
 	 */
 	public int tradeCards() throws IOException{
 		int newArmies = 0;
@@ -341,7 +341,7 @@ public class player implements Serializable, Observer {
 	/**
 	 * Processes the traded in cards and returns the number of new armies the player is supposed to receive
 	 * @param entries the list of cards to be processed
-	 * @return
+	 * @return	the number of armies to be awarded to the player
 	 */
 	private int processCards(List<Integer> entries) {
 		int newArmies = 0;
@@ -395,33 +395,56 @@ public class player implements Serializable, Observer {
 		this.wonWholeGame = winner;
 	}
 
-
+	/**
+	 * Returns whether this player won the entire game or not.
+	 * @return boolean value if the player won the game
+	 */
 	public boolean getWinner() {
 		return this.wonWholeGame;
 	}
-	
-	//when player is eliminated from game
-	public void eliminate() {
-		
-	}
+
 	
 	//win battle
+
+	/**
+	 * Sets the flag if the player won the current battle.
+	 * @param outcome the result of the battle
+	 */
 	public void setwinnerofbattle(boolean outcome) {
 		this.win = outcome;
 	}
+
+	/**
+	 * Returns the winner flag of the battle.
+	 * @return boolean value if the player won the battle
+	 */
 	public boolean getwinnerofbattle() {
 		return this.win;
 	}
-	
-	//lose battle
+
+	/**
+	 * Sets the boolean flag if the player lost the current battle.
+	 * @param outcome the boolean flag
+	 */
 	public void setloserofbattle(boolean outcome) {
 		this.lose = outcome;
 	}
+
+	/**
+	 * Returns the boolean flag whether or not the player lost the current battle.
+	 * @return the flag stating the player lost the battle
+	 */
 	public boolean getloserofbattle() {
 		return this.lose;
 	}
 
 	//own this territory?
+
+	/**
+	 * Returns a boolean value whether the player owns the territory or not.
+	 * @param terr the territory in question
+	 * @return boolean vlaue whether the player owns the territory
+	 */
 	public boolean ownthisterritory(territory terr) {
 		if(terr.isOwnedBy == this.playerNo) {
 			return true;
@@ -430,22 +453,32 @@ public class player implements Serializable, Observer {
 	
 	//if adjacent territory can be attacked.
 	//(it might be better to move this method to territory class)
+
+	/**
+	 * Determines if the adjacent territory can be attacked.
+	 * @param terr territory in question
+	 */
 	public void canAttack(territory terr) {
 		if(terr.isOwnedBy != this.playerNo) {
 			this.canAttack = true;
 		} else this.canAttack = false;
 	}
 	
-	//withdraw from a battle
-	public void withdraw() {
-		
-	}
-	
 	//status of player: 'Attacking' or 'not attacking/defending'
+
+	/**
+	 * Sets the status of the player as 'Attacking' or 'not attacking/defending'
+	 * @param mode boolean value if the player is attacking and reverses for the player defending
+	 */
 	public void setAttackMode(boolean mode) {
 		this.isAttacking = mode;
 		this.isDefending = !mode;
 	}
+
+	/**
+	 * Gets the isAttacking flag
+	 * @return isAttacking flag
+	 */
 	public boolean isAttacking() {
 		if(isDefending) {
 			isAttacking = false;
@@ -454,22 +487,40 @@ public class player implements Serializable, Observer {
 	}
 
 	//isDefending
+
+	/**
+	 * Sets the player in defense.
+	 * @param mode true for defense, false otherwise
+	 */
 	public void setDefenseMode(boolean mode) {
 		this.isAttacking = !mode;
 		this.isDefending = mode;
 	}
+
+	/**
+	 * Returns the isDefending flag
+	 * @return the isDefending flag
+	 */
 	public boolean isDefending() {
 		if(isAttacking) {
 			isDefending = false;
 		} else isDefending = true;
 		return this.isDefending;
 	}
-	
+
+	/**
+	 * Sets the flag to let the player continue attacking.
+	 */
 	public void continueAttacking() {
 		this.isAttacking = true;
 	}
 	
 	//CHOOSE TERRITORY
+
+	/**
+	 * Claims a territory by the player and places it in their territories owned list.
+	 * @param choose the territory to be claimed
+	 */
 	public void chooseTerritory(territory choose) {
 		this.territoriesOwned.add(choose);
 		this.terrOwned = terrOwned + 1;
@@ -498,6 +549,9 @@ public class player implements Serializable, Observer {
 		t.setTaken(true);
 	}
 
+	/**
+	 * Prints the territories the player owns with the number of armies present.
+	 */
 	public void printTerritories(){
 		System.out.println("\n"+playerName+" owns: ");
 		for(int x = 0; x < territoriesOwned.size(); x++) {
@@ -507,6 +561,9 @@ public class player implements Serializable, Observer {
 		}
 	}
 
+	/**
+	 * Prints the territories the player owns, with the number of armies in each territory and the territories adjacent to it.
+	 */
 	//PRINT TERRITORIES AND ADJACENT TERRITORIES THAT THE PLAYER OWNS
 	public void printTerritoriesAndAdjacencies() {
 		System.out.println("\n"+playerName+" owns: ");
@@ -521,17 +578,20 @@ public class player implements Serializable, Observer {
 	}
 
 	//PRINT TERRITORIES AND ADJACENT TERRITORIES THAT THE PLAYER OWNS
+
+	/**
+	 * Print territories and adjacent territories that the player owns.
+	 */
 	public void printTerritoriesOwned() {
 		System.out.println("\n"+playerName+" owns: ");
 		for(int x = 0; x < territoriesOwned.size(); x++) {
 			System.out.println("[" + territoriesOwned.get(x).territoryNumber + "]\t"+ territoriesOwned.get(x).name+" (has "+territoriesOwned.get(x).getnumofarmies()+" armies.)");
 		}
 	}
-
-		public void endturn() {
 		/**
-		 * If player decides to end turn
-		 */
+	 	* Message if the player decides to end turn.
+	 	*/
+		public void endturn() {
 		System.out.println(this.playerName+"'s turn is over. NEXT PLAYER...\n");
 	}
 	
@@ -540,6 +600,8 @@ public class player implements Serializable, Observer {
      * outcome of rolling the dice.  The number of values in the array should be
      * between 1 and 3, depending on the number of dice rolled by the player.  The 
      * number of dice rolled by the player is determined by the argument diceDeterminant
+	 *
+	 * @param diceDeterminant the number of dice rolled by the player.
      **/
 	public int[] rolldice(int diceDeterminant) {
 		String input = null;
@@ -598,20 +660,27 @@ public class player implements Serializable, Observer {
 		System.out.print("]");
 		return playerDice;
 	}
-	
-	
-	public void placeArmy() {
-		
-	}
+
 
 	//Player draws top card of deck
+
+	/**
+	 * Player draws the top card of the deck.
+	 * @param deck the game deck to be drawn from
+	 */
 		public void drawCard(deck deck) {
 			hand.add(deck.drawCard());
 		}
-	
+
 	/**
-	 * Updating number of armies on each territory after battle
-	 * 
+	 * Updates number of armies on each territory after battle
+	 * @param attackingFrom territory the attacking player attacked from
+	 * @param attackerLost number of armies attacker lost
+	 * @param defendingFrom the territory of the defending player
+	 * @param defenderLost the number of armies the defender lost
+	 * @param advanceNum
+	 * @param deck the game deck
+	 * @throws IOException	exception
 	 */
 	public void updateTerritoriesAfterBattle(territory attackingFrom, int attackerLost, territory defendingFrom, int defenderLost, int advanceNum, deck deck) throws IOException{
 		attackingFrom.setnumberofarmies(attackingFrom.getnumofarmies()-attackerLost);
@@ -648,6 +717,15 @@ public class player implements Serializable, Observer {
 	 * Comparing dice rolls to determine outcome of battle
 	 * RETURNS INT[] CONTAINING NUMBER OF ARMIES LOST FOR EACH PLAYER'S TERRITORY
 	 * RETURN int[] outcome[numberOfArmiesLostByAttacker, numberOfArmiesLostByDefender]
+	 */
+	/**
+	 * Compares the dice rolled by the players to determine the outcome of the battle.
+	 * @param p1 the current player
+	 * @param p1Dice the dice results for player 1
+	 * @param p2 the defending player
+	 * @param p2Dice the dice results for player 2
+	 * @return the losses faced by both armies
+	 * @throws IOException	exception
 	 */
 	public int[] compareDiceRolls(player p1,int[] p1Dice,player p2,int[] p2Dice) throws IOException{
 		int[] outcome = new int[3];
@@ -712,8 +790,11 @@ public class player implements Serializable, Observer {
 
 	}
 
-		/**
-	 * ATTACK METHOD
+	/**
+	 * The attack role in the player's turn.
+	 * @param tList the list of territories
+	 * @param players the list of players
+	 * @param deck the game deck
 	 */
 	public void attack(territory[] tList, List<player> players,deck deck) {
 
@@ -862,6 +943,13 @@ public class player implements Serializable, Observer {
 	}
 
 	//ADVANCE TROOPS AFTER CONQUERING A TERRITORY
+
+	/**
+	 * Allows the player to move armies into a newly captured territory.
+	 * @param t1 the territory to have units moved from
+	 * @param t the territory units are moving to
+	 * @param advanceNum the number of units to be moved
+	 */
 	public void advance(territory t1,territory t, int advanceNum) {
 		String input = "";
 		int advance = 0;
@@ -880,7 +968,17 @@ public class player implements Serializable, Observer {
 			t.addTokensToTerritory(advance);
 			t1.numofArmiesHere = t1.numofArmiesHere - advance;
 	}
-	
+
+	/**
+	 * Handles the player being attacked.
+	 * @param t the current territory under dispute
+	 * @param players the list of players
+	 * @param tr territory
+	 * @param next next
+	 * @param attackingP integer array
+	 * @param deck the game deck
+	 * @throws IOException ioexception
+	 */
 	public void defend(territory t, List<player> players, territory tr, int next, int[] attackingP,deck deck) throws IOException{
 		int[] defendingP = players.get(next).rolldice(tr.getnumofarmies());
 
@@ -895,12 +993,11 @@ public class player implements Serializable, Observer {
 		s3object.writeToFile("game_replay.txt",tr.name+" now has "+tr.getnumofarmies()+" armies.\n");
 	}
 
-	/*public void reinforce(int numOfArmies) {
-		System.out.println("\n"+this.getPlayerName()+", let's REINFORCE your territories!\n");
-		//TODO; COMPLETE THIS!!!
-	}*/
-
-		private int readInputToInt() {
+	/**
+	 * Reads the input for the number of armies to advance to the next territory.
+	 * @return the number of armies to advance
+	 */
+	private int readInputToInt() {
 		String input = "";
 		int advance = 0;
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -913,7 +1010,12 @@ public class player implements Serializable, Observer {
 		advance = Integer.parseInt(input);
 		return advance;
 	}
-	
+
+	/**
+	 * Get's the name of the territory the player is choosing to fortify from and returns a formatted string of the data.
+	 * @param advance the territory number of the territory armies are being moved from
+	 * @return the formatted string
+	 */
 	private String getTerritoriesToFortifyFrom(int advance) {
 		String output = "";
 		/* -------- LOOP THROUGH OWNED TERRITORIES LIST... -------- */
@@ -933,7 +1035,12 @@ public class player implements Serializable, Observer {
 		}
 		return output;
 	}
-	
+
+	/**
+	 * Handles the fortify step of the player's turn.
+	 * @param tList the list of territories
+	 * @throws IOException	exception
+	 */
 	public void fortify(territory[] tList) throws IOException{
 		
 	/* method variables */
