@@ -32,12 +32,13 @@ public class credit implements Serializable {
 		return this.numOfUndoActions;
 	}
 	
-	public int[] tradeCredits(player player1,player player2,int numOfcredits) {
+	public int[] transferCredits(player player1,player player2,int numOfcredits) {
 		int[] output = new int[2];
 		int val1 = player1.credits.creditValue - numOfcredits;
 		int val2 = player2.credits.creditValue + numOfcredits;
 		output[0] = val1;
 		output[1] = val2;
+		System.out.println(player1.playerName+" transferred "+numOfcredits+" credits to "+player2.playerName+"\n");
 		return output; 
 	}
 }
