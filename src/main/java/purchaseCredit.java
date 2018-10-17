@@ -132,6 +132,25 @@ public class purchaseCredit implements Serializable{
 		}
 	}
 	
+	public void creditSwitch() {
+		String answer2;
+		BufferedReader creditreader5 = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			answer2 = creditreader5.readLine();
+			if(answer2.equalsIgnoreCase("I")) {
+				p.credits.exchangeForCard('i', "");
+			}
+			if(answer2.equalsIgnoreCase("A")) {
+				p.credits.exchangeForCard('a', "");
+			}
+			if(answer2.equalsIgnoreCase("C")) {
+				p.credits.exchangeForCard('c', "");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public String printCreditOptions() {
 		String output = "\nC - exchange for card\nU - exchange for Undo\nT - transfer credits to another player\n";
 		return output;
