@@ -45,6 +45,7 @@ public class player implements Serializable, Observer {
 	public List<territory> territoriesOwned = new ArrayList<territory>();
 	
 	credit credits = new credit();
+	int undoActions;
 	
 	//////////CONSTRUCTORS//////////////////
 
