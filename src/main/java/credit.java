@@ -23,6 +23,7 @@ public class credit implements Serializable {
 		char cardDesign = design;
 		String cardTerritory = territory;
 		card cardChosen = new card(cardDesign,cardTerritory);
+		//TODO:ADD CARD TO PLAYER HAND
 		return cardChosen; 
 	}
 	
