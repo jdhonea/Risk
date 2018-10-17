@@ -43,7 +43,7 @@ public class creditTest {
 		player player2 = new player();
 		player2.credits.setCreditValue(5);
 		credit testCredit = new credit();
-		int[] output = testCredit.tradeCredits(player1, player2, 15);
+		int[] output = testCredit.transferCredits(player1, player2, 15);
 		player1.credits.setCreditValue(output[0]);
 		player2.credits.setCreditValue(output[1]);
 		assertEquals(player1.credits.creditValue,15);
