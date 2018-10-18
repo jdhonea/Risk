@@ -59,7 +59,21 @@ public class purchaseCredit implements Serializable{
 	 * Begin credit process
 	 * Prompts user to choose an option for credit use
 	 */	
-	public void useCredits() throws IOException { }
+	public void useCredits() throws IOException {
+		BufferedReader creditreader3 = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			useCredits = creditreader3.readLine();
+			if(useCredits.equalsIgnoreCase("Y")) {
+				System.out.println("\nWhich would you like to do? (ENTER LETTER)");
+				String options = this.printCreditOptions();
+				System.out.print(options);
+				this.chooseCredit();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Reads user input choice for credit use
