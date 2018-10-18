@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * PURCHASE CREDIT CLASS
+ */	
 public class purchaseCredit implements Serializable{
 
 	String credit = "";
@@ -19,13 +22,19 @@ public class purchaseCredit implements Serializable{
 		this.players = players;
 	}
 
-	public void begin() {
+	/**
+	 * Begin process of credit use
+	 */	
+	public void begin() throws IOException {
 		System.out.println("\n"+p.getPlayerName()+", would you like to purchase credit? (Y or N)");
 		this.creditReader();
 		System.out.println("\nwould you like to use credits now? (*Y or N)");
 		this.useCredits();
 	}
 	
+	/**
+	 * Player purchases credit
+	 */	
 	public void creditReader() {
 		BufferedReader creditreader = new BufferedReader(new InputStreamReader(System.in));
 		try {
@@ -33,40 +42,28 @@ public class purchaseCredit implements Serializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		try {
-			credit = creditreader.readLine();
-			if(credit.equalsIgnoreCase("Y")) {
-				System.out.println("\nHow many credits would you like to purchase? (ENTER NUMBER)");
-				BufferedReader creditreader2 = new BufferedReader(new InputStreamReader(System.in));
-				try {
-					amount = Integer.parseInt(creditreader2.readLine());
+		if(credit.equalsIgnoreCase("Y")) {
+			System.out.println("\nHow many credits would you like to purchase? (ENTER NUMBER)");
+			BufferedReader creditreader2 = new BufferedReader(new InputStreamReader(System.in));
+			try {
+				amount = Integer.parseInt(creditreader2.readLine());
 
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				p.credits.setCreditValue(amount);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+			p.credits.setCreditValue(amount);
 		}
 	}
 	
-	public void useCredits() {
-		BufferedReader creditreader3 = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			useCredits = creditreader3.readLine();
-			if(useCredits.equalsIgnoreCase("Y")) {
-				System.out.println("\nWhich would you like to do? (ENTER LETTER)");
-				String options = this.printCreditOptions();
-				System.out.print(options);
-				this.chooseCredit();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	/**
+	 * Begin credit process
+	 * Prompts user to choose an option for credit use
+	 */	
+	public void useCredits() throws IOException { }
 	
+	/**
+	 * Reads user input choice for credit use
+	 */	
 	public void chooseCredit() {
 		BufferedReader creditreader4 = new BufferedReader(new InputStreamReader(System.in));
 		try {
@@ -84,18 +81,21 @@ public class purchaseCredit implements Serializable{
 				p.undoActions = undos;
 			}
 			if(answer.equalsIgnoreCase("T")) {
-				//TODO: trade with another player
+				// transfer to another player
 				System.out.println("\nTransfer to WHOM? (ENTER *NAME)");
 				String tradeWithWhom = printPlayers();
 				System.out.print(tradeWithWhom);
-				this.tradeCreditSwitch();
+				this.transferCreditSwitch();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void tradeCreditSwitch() throws IOException {
+	/**
+	 * Allows current player to transfer credit to specified player
+	 */	
+	public void transferCreditSwitch() throws IOException {
 		boolean good = true;
 		String answer;
 		BufferedReader creditreader5 = new BufferedReader(new InputStreamReader(System.in));
@@ -128,35 +128,60 @@ public class purchaseCredit implements Serializable{
 		}
 	}
 	
+	/**
+	 * Allows player to purchase specific type of card
+	 */	
 	public void creditSwitch() {
 		String answer2;
+		card chosen;
 		BufferedReader creditreader5 = new BufferedReader(new InputStreamReader(System.in));
 		try {
 			answer2 = creditreader5.readLine();
 			if(answer2.equalsIgnoreCase("I")) {
-				p.credits.exchangeForCard('i', "");
+				chosen = p.credits.exchangeForCard('i', "");
+				drawCardWithDesign(chosen);
 			}
 			if(answer2.equalsIgnoreCase("A")) {
-				p.credits.exchangeForCard('a', "");
+				chosen = p.credits.exchangeForCard('a', "");
+				drawCardWithDesign(chosen);
 			}
 			if(answer2.equalsIgnoreCase("C")) {
-				p.credits.exchangeForCard('c', "");
+				chosen = p.credits.exchangeForCard('c', "");
+				drawCardWithDesign(chosen);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Player draws specific card from deck
+	 */	
+	public void drawCardWithDesign(card chosen) {
+		chosen.territory = "*ANY Territory*";
+			p.hand.add(chosen);
+
+	}
+	
+	/**
+	 * Print out options for credit use
+	 */	
 	public String printCreditOptions() {
 		String output = "\nC - exchange for card\nU - exchange for Undo\nT - transfer credits to another player\n";
 		return output;
 	}
 	
+	/**
+	 * Display card options for credit use
+	 */	
 	public String printCardOptions() {
 		String output = "\nI - Infantry card\nA - Artillary card\nC - Calvary card\n";
 		return output;
 	}
 	
+	/**
+	 * Display other Player names so current player can choose which player to transfer credit to
+	 */	
 	public String printPlayers() {
 		String output = "";
 		for(String s : Risk_Game.playersN) {
