@@ -280,6 +280,7 @@ public class player implements Serializable, Observer {
 	 * @throws IOException	exception
 	 */
 	public void printHand() throws IOException{
+		System.out.print("Hand is currently:\n");
 		for(int n = 0; n < hand.size(); n++){
 			System.out.println(n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory());
 			s3object.writeToFile("game_replay.txt",n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory()); 
