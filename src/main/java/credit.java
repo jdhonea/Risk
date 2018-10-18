@@ -1,5 +1,9 @@
 import java.io.Serializable;
 
+/**
+ * 
+ * CREDIT CLASS
+ */
 public class credit implements Serializable {
 	
 	int numOfUndoActions;
@@ -19,19 +23,27 @@ public class credit implements Serializable {
 		return this.creditValue;
 	}
 	
+	/**
+	 * EXCHANGE CREDIT FOR A SPECIFIC TYPE OF CARD
+	 */	
 	public card exchangeForCard(char design,String territory) {
 		char cardDesign = design;
 		String cardTerritory = territory;
 		card cardChosen = new card(cardDesign,cardTerritory);
-		//TODO:ADD CARD TO PLAYER HAND
 		return cardChosen; 
 	}
 	
+	/**
+	 * EXCHANGE CREDIT FOR UNDO
+	 */	
 	public int exchangeForUndo() {
 		this.numOfUndoActions++;
 		return this.numOfUndoActions;
 	}
 	
+	/**
+	 * TRANSFER CREDIT TO ANOTHER PLAYER
+	 */	
 	public int[] transferCredits(player player1,player player2,int numOfcredits) {
 		int[] output = new int[2];
 		int val1 = player1.credits.creditValue - numOfcredits;
