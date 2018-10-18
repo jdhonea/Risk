@@ -53,6 +53,8 @@ public class deck implements Serializable{
      * @param tradedIn the list of cards to be traded in
      * @return          number of new armies to be received
      */
+    //TODO: CHECK/ACCOUNT FOR THE CARD DRAWN VIA CREDIT,
+    //		BECAUSE IT CAN BE USED WITH *ANY TERRITORY*
     public int cardsTradedIn(List<card> tradedIn){
         boolean setFound;
         setFound = checkForSet(tradedIn);
@@ -80,6 +82,8 @@ public class deck implements Serializable{
      * @param tradedIn the list of cards traded in
      * @return          returns true if a set is found and false if not
      */
+    //TODO: CHECK/ACCOUNT FOR THE CARD DRAWN VIA CREDIT,
+    //		BECAUSE IT CAN BE USED WITH *ANY TERRITORY*
     private boolean checkForSet(List<card> tradedIn){
         int count = 0; //stores the count of the design
         char first = 'n'; // stores the first design of the sublist unless it is a wild card
@@ -108,6 +112,8 @@ public class deck implements Serializable{
      * @param tradedIn  the list of cards traded in
      * @return          returns true if each design is present in the list of cards and false if not
      */
+    //TODO: CHECK/ACCOUNT FOR THE CARD DRAWN VIA CREDIT,
+    //		BECAUSE IT CAN BE USED WITH *ANY TERRITORY*
     private boolean checkForOneEach(List<card> tradedIn){
         int count = 0;
         char first = 'n';
