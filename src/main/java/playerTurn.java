@@ -54,6 +54,7 @@ public class playerTurn implements Serializable{
 		//STEP 1 REINFORCE
 		getNewArmies();
 		/////////////////STEP 1.5 PURCHASE CREDIT/////////////////////
+		System.out.println(p.playerName+", you have "+p.credits.creditValue+" credits.");
 		purchaseCredit pC = new purchaseCredit(p,players);
 		pC.begin();
 		//STEP 2 ATTACK (IF DESIRED)
