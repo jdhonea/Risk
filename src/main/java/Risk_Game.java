@@ -28,6 +28,7 @@ public class Risk_Game {
 	public static final int numOfTerritories = 42;
 	public static List<String> playersN = new ArrayList<String>();
 	public static playerNotification notifier = new playerNotification();
+	public static deck deck;
 
 	/**
 	 * Generates the territory array to be referenced throughout the game.
@@ -233,7 +234,7 @@ public class Risk_Game {
 		initializeTerritories(tList);
 
 		//INITIALIZE GAME BOARD
-		deck deck = new deck(42);
+		deck = new deck(42);
 		@SuppressWarnings("unused")
 		board gameBoard = new board(tList, deck);
 
