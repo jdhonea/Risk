@@ -597,8 +597,13 @@ public class player implements Serializable, Observer {
 	 	*/
 		public void endturn()
 		{
-			twitter.sendTweet(this.playerName + " has " + this.territoryNumber + " territories.");
-			System.out.println(this.playerName+"'s turn is over. NEXT PLAYER...\n");
+			try {
+			twitter.sendTweet(this.playerName + " has " + this.getnumofterritories() + " territories.");
+			System.out.println(this.playerName + "'s turn is over. NEXT PLAYER...\n");
+			}
+			catch(Exception e){
+
+			}
 		}
 	
 	/**

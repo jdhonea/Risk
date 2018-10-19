@@ -2,46 +2,12 @@ WELCOME TO RISK! LET'S PLAY!
 How many players? 
 2
 All players get 40 armies.
-The order of play is: afaf wfwf 
+The order of play is: affa wfwf 
 
 *PLAYERS, CLAIM YOUR TERRITORIES!*
 
 All armies have been placed.
 Now let's begin!
-afaf's turn:
+affa's turn:
 Your hand is currently: 
-At the beginning of the turn, afaf receives 7 new armies for the territories and continents they control.
-***ATTACKING Mongolia!!***
-wfwf, you must DEFEND your territory!
-afaf: [2 3 5 ]
-wfwf: [3 5 ]
-afaf lost 2 armies.
-wfwf lost 0 armies.
-Japan now has 9 armies.
-Mongolia now has 2 armies.
-***ATTACKING Mongolia!!***
-wfwf, you must DEFEND your territory!
-afaf: [2 3 4 ]
-wfwf: [3 4 ]
-afaf lost 2 armies.
-wfwf lost 0 armies.
-Japan now has 7 armies.
-Mongolia now has 2 armies.
-***ATTACKING Mongolia!!***
-wfwf, you must DEFEND your territory!
-afaf: [3 4 5 ]
-wfwf: [3 4 ]
-afaf lost 0 armies.
-wfwf lost 2 armies.
-***Mongolia has been conquered by afaf!!**
-***DRAWING CARD FROM DECK***
-afaf drew the a Great Britain card.
-You now have cards: [ a Great Britain, ]
-Japan now has 4 armies.
-Mongolia now has 3 armies.
-***afaf has FORTIFIED Mongolia***
-China now has 1 armies and Mongolia has 4 armies.
-Undoing current turn...
-afaf's turn:
-Your hand is currently: 
-At the beginning of the turn, afaf receives 7 new armies for the territories and continents they control.
+At the beginning of the turn, affa receives 7 new armies for the territories and continents they control.
