@@ -10,9 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-
-
-
 /**
  * COSC 4353 Group Risk Project
  * @author Derrick Ellis, Jason Honea, Brandon Hurrington
@@ -29,6 +26,7 @@ public class Risk_Game {
 	public static List<String> playersN = new ArrayList<String>();
 	public static playerNotification notifier = new playerNotification();
 	public static deck deck;
+	public TwitterAPI twitter = new TwitterAPI();
 
 	/**
 	 * Generates the territory array to be referenced throughout the game.

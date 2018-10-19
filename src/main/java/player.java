@@ -36,6 +36,8 @@ public class player implements Serializable, Observer {
 	boolean conquered = false; //variable to check & see if player can pull a card
 	
 	AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
+
+	public TwitterAPI twitter;
 	
 	String[][] playerOptions = new String[3][2];
 	//List<territory> adjTerr = new ArrayList<territory>();
@@ -593,9 +595,11 @@ public class player implements Serializable, Observer {
 		/**
 	 	* Message if the player decides to end turn.
 	 	*/
-		public void endturn() {
-		System.out.println(this.playerName+"'s turn is over. NEXT PLAYER...\n");
-	}
+		public void endturn()
+		{
+			twitter.sendTweet(this.playerName + " has " + this.territoryNumber + " territories.");
+			System.out.println(this.playerName+"'s turn is over. NEXT PLAYER...\n");
+		}
 	
 	/**
      * Returns an integer array of values between 1 and 6 representing the
@@ -1097,4 +1101,5 @@ public class player implements Serializable, Observer {
 /* ------------------------------------------------------------------- */
 		
 	}
+
 }
