@@ -11,7 +11,7 @@ public class GameTimer {
     	String[] output = new String[2];
     	reader = new BufferedReader(new InputStreamReader(System.in));
 		try {
-			int x = 13; // wait 5 seconds at most
+			int x = 30; // wait 30 seconds at most
 			long startTime = System.currentTimeMillis();
 			while ((System.currentTimeMillis() - startTime) < x * 1000
 			        && !reader.ready()) {
