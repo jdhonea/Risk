@@ -398,16 +398,24 @@ public class Risk_Game {
 	 */
 	private static boolean end(){
 		System.out.println("Would you like to end your turn 'Y' or undo changes 'U'?");
-		Scanner in = new Scanner(System.in);
+		String option = "";
+		BufferedReader in = null;
+		GameTimer gTimer = new GameTimer();
+		String[] input = gTimer.GameTimerTask(in, option);
 		boolean valid = false;
 		while(!valid) {
-			String option = in.next();
-			if (option.equalsIgnoreCase("Y"))
-				return true;
-			else if (option.equalsIgnoreCase("U"))
-				return false;
-			else
-				System.out.println("Not a correct option.");
+			if(input[0].equalsIgnoreCase("-1")) {
+				if (input[1].equalsIgnoreCase("Y")) {
+					return true;
+				}
+				else if (input[1].equalsIgnoreCase("U")) {
+					return false;
+				}
+				else {
+					System.out.println("Not a correct option.");
+					return true;
+				}
+			} else valid = true;
 		}
 		return true;
 	}
