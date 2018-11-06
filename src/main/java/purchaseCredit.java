@@ -16,6 +16,7 @@ public class purchaseCredit implements Serializable{
 	String answer = "";
 	player p = new player();
 	List<player> players = new ArrayList<player>();
+	GameTimer gTime;
 	
 	public purchaseCredit(player thisPlayer,List<player> players) {
 		this.p = thisPlayer;
@@ -25,24 +26,25 @@ public class purchaseCredit implements Serializable{
 	/**
 	 * Begin process of credit use
 	 */	
-	public void begin() throws IOException {
+		public String begin() throws IOException {
 		System.out.println("\n"+p.getPlayerName()+", would you like to purchase credit? (Y or N)");
-		this.creditReader();
-		System.out.println("\nwould you like to use credits now? (*Y or N)");
-		this.useCredits();
+		//gTime = new GameTimer(p,players,5);
+		int thread = this.creditReader();
+		if(thread == 0) {
+			System.out.println("\nwould you like to use credits now? (*Y or N)");
+			this.useCredits();
+			return "yes";
+		} else return "no";
 	}
-	
+
 	/**
 	 * Player purchases credit
 	 */	
-	public void creditReader() {
-		BufferedReader creditreader = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			credit = creditreader.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		if(credit.equalsIgnoreCase("Y")) {
+	public int creditReader() {
+		BufferedReader creditreader = null;
+		GameTimer gTimer = new GameTimer();
+		String[] input = gTimer.GameTimerTask(creditreader, credit);
+		if(input[1].equalsIgnoreCase("Y")) {
 			System.out.println("\nHow many credits would you like to purchase? (ENTER NUMBER)");
 			BufferedReader creditreader2 = new BufferedReader(new InputStreamReader(System.in));
 			try {
@@ -52,7 +54,9 @@ public class purchaseCredit implements Serializable{
 				e.printStackTrace();
 			}
 			p.credits.setCreditValue(amount);
+			return 0;
 		}
+		return -1;
 	}
 	
 	/**
