@@ -56,21 +56,23 @@ public class playerTurn implements Serializable{
 		/////////////////STEP 1.5 PURCHASE CREDIT/////////////////////
 		System.out.println(p.playerName+", you have "+p.credits.creditValue+" credits.");
 		purchaseCredit pC = new purchaseCredit(p,players);
-		pC.begin();
+		String completed = pC.begin();
+		if(completed.equalsIgnoreCase("no")) {
+			return;
+		}
 		//STEP 2 ATTACK (IF DESIRED)
 		System.out.println("\n"+p.getPlayerName()+", would you like to attack a territory? (Y or N)");
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			attack = reader.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		BufferedReader reader = null;
+		GameTimer gTimer = new GameTimer();
+		String[] input = gTimer.GameTimerTask(reader, attack);
+		if(input[0].equalsIgnoreCase("0")) {
+			return;
 		}
-		if(attack.equalsIgnoreCase("Y")) {
+		if(input[1].equalsIgnoreCase("Y")) {
 			p.attack(tList,players,deck);
 		}
 		//STEP 3
-		p.fortify(tList);
+		p.fortify(tList); 
 		//END TURN
 	}
 
@@ -106,34 +108,46 @@ public class playerTurn implements Serializable{
 	 * Leads the player through placing their new armies received at the beginning of the turn. Continues to loop until all armies are placed.
 	 * @param armies	the number of armies received at the beginning of the turn
 	 */
-	private void placeNewArmies(int armies){
+	private void placeNewArmies(int armies) throws IOException{
+		String str = "";
 		//Loops until all new armies are placed
 		while (armies > 0){
 			player.printTerritories();
 			boolean valid = false;
 			while(!valid) {
 				System.out.print("Please choose a territory you control: ");
-				Scanner input = new Scanner(System.in);
-				int option = input.nextInt();
-				for (territory n : player.territoriesOwned) {
-					if (option == n.getTerritoryNumber()){
-						System.out.println("\n[" + n.territoryNumber + "] " + n.getnameofterritory() + " (Currently " + n.getnumofarmies() + " armies here.)");
-						System.out.println("You currently have " + armies + " to place. Choose a number from 1 to " + armies + " to place that many armies here or 0 to choose another territory.");
-						option = input.nextInt();
-						if(option > armies){
-							valid = false;
-							break;
+				//Scanner input = new Scanner(System.in);
+				BufferedReader reader = null;
+				GameTimer gTimer = new GameTimer();
+				String[] input = gTimer.GameTimerTask(reader, str);
+				if(input[0] == "-1") {
+					String option = input[1];
+					for (territory n : player.territoriesOwned) {
+						if (Integer.parseInt(option) == n.getTerritoryNumber()){
+							System.out.println("\n[" + n.territoryNumber + "] " + n.getnameofterritory() + " (Currently " + n.getnumofarmies() + " armies here.)");
+							System.out.println("You currently have " + armies + " to place. Choose a number from 1 to " + armies + " to place that many armies here or 0 to choose another territory.");
+							BufferedReader reader2 = null;
+							GameTimer gTimer2 = new GameTimer();
+							String[] input2 = gTimer2.GameTimerTask(reader2, str);
+							option = input2[1];
+							if(!input2[0].equalsIgnoreCase("0")) {
+								if(Integer.parseInt(option) > armies){
+									valid = false;
+									break;
+								}
+								armies = armies - Integer.parseInt(option);
+								n.addTokensToTerritory(Integer.parseInt(option));
+								s3object.writeToFile("game_replay.txt","\n"+player.getPlayerName()+" placed "+option+" armies on "+n.getnameofterritory()); 
+								valid = true;
+							} else return;
 						}
-						armies = armies - option;
-						n.addTokensToTerritory(option);
-
-						valid = true;
+					}
+					if(!valid) {
+						System.out.println("\nNot a valid input. Try again...");
+						player.printTerritories();
 					}
 				}
-				if(!valid) {
-					System.out.println("\nNot a valid input. Try again...");
-					player.printTerritories();
-				}
+				else return;
 			}
 
 		}
