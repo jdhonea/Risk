@@ -1011,14 +1011,12 @@ public class player implements Serializable, Observer {
 	private int readInputToInt() {
 		String input = "";
 		int advance = 0;
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			input = reader.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		advance = Integer.parseInt(input);
+		BufferedReader reader = null;
+		GameTimer gTimer = new GameTimer();
+		String[] output = gTimer.GameTimerTask(reader, input);
+		if(output[0].equalsIgnoreCase("-1")) {
+			advance = Integer.parseInt(output[1]);
+		} 
 		return advance;
 	}
 
@@ -1066,7 +1064,9 @@ public class player implements Serializable, Observer {
 			this.printTerritoriesOwned();
 			System.out.println("\nWhich territory would you like to fortify? **CHOOSE NUMBER**");
 			advance = readInputToInt();
-
+			if(advance == 0) {
+				return;
+			}
 			output = getTerritoriesToFortifyFrom(advance);
 			
 /* -------- IF OUTPUT IS EMPTY, THEN THERE ARE NO ADJACENT TERRITORIES THAT PLAYER CAN MOVE ARMIES FROM -------- */
