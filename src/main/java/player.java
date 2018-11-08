@@ -814,7 +814,8 @@ public class player implements Serializable, Observer {
 		String keepGoing = "";
 		boolean repeat = true;
 
-/* ------------ WHILE USER WANTS TO KEEP ATTACKING, DO SO ------------ */		
+/* ------------ WHILE USER WANTS TO KEEP ATTACKING, DO SO ------------ */
+		outer:
 		while(repeat) {
 			System.out.println("FROM which territory would you like to attack? *CHOOSE NUMBER*");
 			 /* DISPLAY TERRITORIES USER CAN CHOOSE TO ATTACK FROM */
@@ -929,7 +930,7 @@ public class player implements Serializable, Observer {
 										} 
 										else if (keepGoing.equalsIgnoreCase("N")){
 											repeat = false;
-											break;
+											break outer;
 										}
 /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */	
 										
