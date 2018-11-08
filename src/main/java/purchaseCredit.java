@@ -56,6 +56,9 @@ public class purchaseCredit implements Serializable{
 			p.credits.setCreditValue(amount);
 			return 0;
 		}
+		if(input[1].equalsIgnoreCase("N")) {
+			return 0;
+		}
 		return -1;
 	}
 	
