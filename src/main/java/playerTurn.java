@@ -52,11 +52,18 @@ public class playerTurn implements Serializable{
 		s3object.writeToFile("game_replay.txt",p.getPlayerName() + "'s turn:\n"); //write output to file & to Amazon S3 bucket
 
 		//STEP 1 REINFORCE
-		getNewArmies();
+		int didItRun = getNewArmies();
+		//check for user input timeout; 
+		//if user doesn't enter anything within 30 secs, skip to next player
+		if(didItRun == 0) {
+			return;
+		}
 		/////////////////STEP 1.5 PURCHASE CREDIT/////////////////////
 		System.out.println(p.playerName+", you have "+p.credits.creditValue+" credits.");
 		purchaseCredit pC = new purchaseCredit(p,players);
 		String completed = pC.begin();
+		//check for user input timeout; 
+		//if user doesn't enter anything within 30 secs, skip to next player
 		if(completed.equalsIgnoreCase("no")) {
 			return;
 		}
@@ -65,6 +72,8 @@ public class playerTurn implements Serializable{
 		BufferedReader reader = null;
 		GameTimer gTimer = new GameTimer();
 		String[] input = gTimer.GameTimerTask(reader, attack);
+		//check for user input timeout; 
+		//if user doesn't enter anything within 30 secs, skip to next player
 		if(input[0].equalsIgnoreCase("0")) {
 			return;
 		}
@@ -80,7 +89,7 @@ public class playerTurn implements Serializable{
 	 * The driver method to handle and calculate the player getting and placing new armies received at the beginning of each turn
 	 * @throws IOException	exception
 	 */
-	private void getNewArmies() throws IOException{
+	private int getNewArmies() throws IOException{
 		int newArmies = 0;
 		newArmies += countTerritories();
 		newArmies+= valueOfContinents();
@@ -101,14 +110,18 @@ public class playerTurn implements Serializable{
 		}
 		System.out.print("\nAt the beginning of the turn, " + player.getPlayerName() + " receives " + newArmies + " new armies for the territories and continents they control.");
 		s3object.writeToFile("game_replay.txt","\nAt the beginning of the turn, " + player.getPlayerName() + " receives " + newArmies + " new armies for the territories and continents they control.\n"); 
-		placeNewArmies(newArmies);
+		int completed = placeNewArmies(newArmies);
+		if(completed == -1) {
+			return 1;
+		}
+		return 0;
 	}
 
 	/**
 	 * Leads the player through placing their new armies received at the beginning of the turn. Continues to loop until all armies are placed.
 	 * @param armies	the number of armies received at the beginning of the turn
 	 */
-	private void placeNewArmies(int armies) throws IOException{
+	private int placeNewArmies(int armies) throws IOException{
 		String str = "";
 		//Loops until all new armies are placed
 		while (armies > 0){
@@ -139,7 +152,8 @@ public class playerTurn implements Serializable{
 								n.addTokensToTerritory(Integer.parseInt(option));
 								s3object.writeToFile("game_replay.txt","\n"+player.getPlayerName()+" placed "+option+" armies on "+n.getnameofterritory()); 
 								valid = true;
-							} else return;
+								return -1;
+							} else return 0;
 						}
 					}
 					if(!valid) {
@@ -147,10 +161,10 @@ public class playerTurn implements Serializable{
 						player.printTerritories();
 					}
 				}
-				else return;
+				return 0;
 			}
-
 		}
+		return 0;
 	}
 
 	/**
