@@ -12,21 +12,17 @@ public class TelegramBot extends TelegramLongPollingBot {
     private  String RISKBOT_TOKEN;
     private  String RISKBOT_TOKEN_SECRET;
     private boolean gameInSession = false;
-    private String text = null;
-    private long chatID;
     private HashMap<Long, String> storedCommands = new HashMap();
 
     public void onUpdateReceived(Update update) {
         System.out.println(update.getMessage().getText());
-        text = update.getMessage().getText();
-        chatID = update.getMessage().getChatId();
+        String text = update.getMessage().getText();
+        long chatID = update.getMessage().getChatId();
         //String userName = update.getMessage().getFrom().getUserName();
         if(text.equals("/start") && !gameInSession){
             gameInSession = true;
             send("Please give a 4-digit game ID number:", chatID);
             storedCommands.put(chatID, "/start");
-            text = null;
-            chatID = -1;
         }
         else if(text.equals("/join")){
             if(gameInSession){
@@ -36,8 +32,6 @@ public class TelegramBot extends TelegramLongPollingBot {
             else{
                 send("There is not a game currently in session. Type /start to create a new game.", chatID);
             }
-            text = null;
-            chatID = -1;
         }
         else{
             /*
