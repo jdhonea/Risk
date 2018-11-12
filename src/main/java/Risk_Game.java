@@ -1,4 +1,8 @@
 //package com.risktakers.Risk;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,10 +27,14 @@ import java.nio.file.StandardOpenOption;
  */ 
 public class Risk_Game {
 	public static final int numOfTerritories = 42;
+	public static final int NUMBEROFPLAYERS = 2;
 	public static List<String> playersN = new ArrayList<String>();
 	public static playerNotification notifier = new playerNotification();
 	public static deck deck;
 	public TwitterAPI twitter = new TwitterAPI();
+	public static TelegramBot telebot;
+	public static int gameID = 0;
+
 
 	/**
 	 * Generates the territory array to be referenced throughout the game.
@@ -186,7 +194,18 @@ public class Risk_Game {
 		
 		AmazonS3Object s3object = new AmazonS3Object(); //create AmazonS3Object
 		s3object.clearFileContents(); //make sure file contents are cleared
-		
+
+		//*******************************TELEGRAM BOT INIT******************************
+		ApiContextInitializer.init();
+		TelegramBotsApi telegramBot = new TelegramBotsApi();
+		telebot = new TelegramBot();
+		try {
+			telegramBot.registerBot(telebot);
+
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
+		}
+		//*******************************************************************************
 		//ESTABLISH MAIN VARIABLES
 		String numOfPlayers;
 		int players = 0;
@@ -200,6 +219,7 @@ public class Risk_Game {
 		while(valid) {
 			String welcome = "WELCOME TO RISK! LET'S PLAY!\n";
 			System.out.println(welcome);
+			//telebot.receive(1);
 			s3object.writeToFile("game_replay.txt",welcome); //write output to file & to Amazon S3 bucket
 			String howmany = "How many players? \n";
 			System.out.print(howmany);
@@ -228,7 +248,9 @@ public class Risk_Game {
 				s3object.writeToFile("game_replay.txt","");
 			}
 		}
-
+		/*while (pList.size() < NUMBEROFPLAYERS || gameID == 0){
+			Thread.sleep(1000);
+		}*/
 		initializeTerritories(tList);
 
 		//INITIALIZE GAME BOARD
