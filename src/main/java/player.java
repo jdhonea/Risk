@@ -19,6 +19,7 @@ public class player implements Serializable, Observer {
 	int numOfArmies;
 	int numOfCards;
 	board board;
+	long chatID;
 
 	boolean cardsContainedOwnedTerritory;
 	boolean canTrade;
@@ -94,6 +95,9 @@ public class player implements Serializable, Observer {
 			new player(this.playerNo);
 		}
     }
+    public player(long chatID){
+		this.chatID = chatID;
+	}
 
 	/**
 	 * Constructor for player.
@@ -144,7 +148,9 @@ public class player implements Serializable, Observer {
 	private static void notifyDefender(int ownedBy){
 		Risk_Game.notifier.notify(ownedBy);
 	}
-
+	public long getChatID(){
+		return chatID;
+	}
 	/**
 	 * Set's the game board in the player class.
 	 * @param board the game board
@@ -160,7 +166,9 @@ public class player implements Serializable, Observer {
 	public int getplayernumber() {
 		return this.playerNo;
 	}
-
+	public void setPlayerNo(int n){
+		this.playerNo = n;
+	}
 	/**
 	 * Decrements the number of unplaced armies the player owns by 1.
 	 */

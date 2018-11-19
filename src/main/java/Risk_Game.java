@@ -34,7 +34,7 @@ public class Risk_Game {
 	public TwitterAPI twitter = new TwitterAPI();
 	public static TelegramBot telebot;
 	public static int gameID = 0;
-
+	public static board gameBoard;
 
 	/**
 	 * Generates the territory array to be referenced throughout the game.
@@ -216,7 +216,8 @@ public class Risk_Game {
 		// CALLING METHOD THAT PUTS THE PLAYERS INTO A STRING ARRAY.
 		List<player> pList = new ArrayList<player>(players);
 		//*****************START GAME. PROMPT USER FOR NUMBER OF PLAYERS***************
-		while(valid) {
+
+		/*while(valid) {
 			String welcome = "WELCOME TO RISK! LET'S PLAY!\n";
 			System.out.println(welcome);
 			//telebot.receive(1);
@@ -247,53 +248,55 @@ public class Risk_Game {
 				System.out.println("");
 				s3object.writeToFile("game_replay.txt","");
 			}
-		}
-		/*while (pList.size() < NUMBEROFPLAYERS || gameID == 0){
-			Thread.sleep(1000);
 		}*/
 		initializeTerritories(tList);
 
 		//INITIALIZE GAME BOARD
 		deck = new deck(42);
-		@SuppressWarnings("unused")
-		board gameBoard = new board(tList, deck);
-
+		gameBoard = new board(tList, deck);
+		gameBoard.setPlayerList(new ArrayList());
+		newGame();
+		pList = gameBoard.getPlayerList();
 		//GIVE OUT ARMIES BASED ON NUMBER OF PLAYERS
-		//newArmies(players,pList);
-		if(players == 2) {
-			for(int x = 1; x <= players; x++) {
-				pList.add(new player(x,40));
+		if(NUMBEROFPLAYERS == 2) {
+			for(int n = 0; n < pList.size(); n++) {
+				pList.get(n).setnumofarmies(40);
+				pList.get(n).setPlayerNo(n);
 			}
 		}
-		else if(players == 3) {
-			for(int x = 1; x <= players; x++) {
-				pList.add(new player(x,35));
+		else if(NUMBEROFPLAYERS == 3) {
+			for(int n = 0; n < pList.size(); n++) {
+				pList.get(n).setnumofarmies(35);
+				pList.get(n).setPlayerNo(n);
 			}
 		}
-		else if(players == 4) {
-			for(int x = 1; x <= players; x++) {
-				pList.add(new player(x,30));
+		else if(NUMBEROFPLAYERS == 4) {
+			for(int n = 0; n < pList.size(); n++) {
+				pList.get(n).setnumofarmies(30);
+				pList.get(n).setPlayerNo(n);
 			}
 		}
-		else if(players == 5) {
-			for(int x = 1; x <= players; x++) {
-				pList.add(new player(x,25));
+		else if(NUMBEROFPLAYERS == 5) {
+			for(int n = 0; n < pList.size(); n++) {
+				pList.get(n).setnumofarmies(25);
+				pList.get(n).setPlayerNo(n);
 			}
 		}
-		else if(players == 6) {
-			for(int x = 1; x <= players; x++) {
-				pList.add(new player(x,20));
+		else if(NUMBEROFPLAYERS == 6) {
+			for(int n = 0; n < pList.size(); n++) {
+				pList.get(n).setnumofarmies(20);
+				pList.get(n).setPlayerNo(n);
 			}
 		}
 		
 		
 		//Update pList after entering names
-		for(int p = 0; p < playersN.size(); p++) {
+		/*for(int p = 0; p < playersN.size(); p++) {
 			pList.get(p).playerName = playersN.get(p);
-		}
+		}*/
 		setObservers(pList, notifier);
 		//FOR REFERENCE
-		System.out.println("\nAll players get " + pList.get(0).getnumofarmies() + " armies.");
+		telebot.sendAll("\nAll players get " + pList.get(0).getnumofarmies() + " armies.");
 		s3object.writeToFile("game_replay.txt","\nAll players get " + pList.get(0).getnumofarmies() + " armies.");
 
 		//DETERMINE THE ORDER OF PLAY
@@ -487,6 +490,16 @@ public class Risk_Game {
 		for (int n = 0; n < pList.size(); n++){
 			notifier.addObserver(pList.get(n));
 		}
+	}
+	public static int newGame() throws InterruptedException {
+		List<player> pList = gameBoard.getPlayerList();
+		while(pList.size() < NUMBEROFPLAYERS){
+			//do nothing
+			System.out.println(pList.size());
+			TimeUnit.SECONDS.sleep(1);
+		}
+		telebot.sendAll("Game #" + gameID + " is now starting!");
+		return 0;
 	}
 
 }

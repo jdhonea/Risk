@@ -18,12 +18,13 @@ public class TelegramBot extends TelegramLongPollingBot {
         System.out.println(update.getMessage().getText());
         String text = update.getMessage().getText();
         long chatID = update.getMessage().getChatId();
-        //String userName = update.getMessage().getFrom().getUserName();
+        //Handles the /start command
         if(text.equals("/start") && !gameInSession){
             gameInSession = true;
             send("Please give a 4-digit game ID number:", chatID);
             storedCommands.put(chatID, "/start");
         }
+        //Handles the /join command
         else if(text.equals("/join")){
             if(gameInSession){
                 send("Please enter the 4-digit game ID number:", chatID);
@@ -43,9 +44,15 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (selector == 1){
                 send("Game number: " + text + " created. Waiting for more players...", chatID);
                 Risk_Game.gameID = Integer.parseInt(text);
+                List<player> pList = Risk_Game.gameBoard.getPlayerList();
+                pList.add(new player(chatID));
+                //System.out.println(pList.size());
+
             }
             else if(selector == 2){
                 send("Joining game number " + text + ".", chatID);
+                if(Integer.parseInt(text) == Risk_Game.gameID)
+                    newPlayer(chatID);
             }
             else if(selector == 0){
 
@@ -99,6 +106,20 @@ public class TelegramBot extends TelegramLongPollingBot {
         return 0;
     }
 
+    public int sendAll(String text){
+        for (player n : Risk_Game.gameBoard.getPlayerList()){
+            SendMessage message = new SendMessage().setChatId(n.getChatID()).setText(text);
+            try {
+                execute(message);
+            }
+            catch (TelegramApiException e) {
+                e.printStackTrace();
+                return -1;
+            }
+        }
+        return 0;
+    }
+
     // "secrets_RISK_TAKERS.prop"
     private void loadPropertyFile( String filename ) {
         BufferedReader input = null;
@@ -129,5 +150,17 @@ public class TelegramBot extends TelegramLongPollingBot {
                 }
             }
         }
+    }
+    private  int newPlayer(long chatID){
+        List<player> pList = Risk_Game.gameBoard.getPlayerList();
+        System.out.println(pList.size());
+		/*for(player n : pList){
+			if(chatID == n.getChatID()){
+				send("You are already in this game.", chatID);
+				return -1;
+			}
+		}*/
+        pList.add(new player(chatID));
+        return 0;
     }
 }
