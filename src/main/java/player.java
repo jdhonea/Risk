@@ -95,8 +95,9 @@ public class player implements Serializable, Observer {
 			new player(this.playerNo);
 		}
     }
-    public player(long chatID){
+    public player(long chatID, String playerName){
 		this.chatID = chatID;
+		this.playerName = playerName;
 	}
 
 	/**
@@ -182,6 +183,14 @@ public class player implements Serializable, Observer {
 	 */
 	public int getUnplacedArmies(){
 		return this.unplacedArmies;
+	}
+
+	/**
+	 * Sets the number of unplaced armies the player controls
+	 * @param numOfArmies The number of armies unplaced by the player
+	 */
+	public void setUnplacedArmies(int numOfArmies){
+		this.unplacedArmies = numOfArmies;
 	}
 
 	/**

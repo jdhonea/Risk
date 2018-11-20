@@ -80,15 +80,19 @@ public class Risk_Game {
 
 		while(territoriesClaimed < numOfTerritories){
 			System.out.print("\n" + pList.get(currentPlayer).getPlayerName() +":\n");
+			String listOfTerritories= "Choose a territory:\n";
 			//s3object.writeToFile("game_replay.txt","\n" + pList.get(currentPlayer).getPlayerName() +":\n");
 			for(int n = 0; n < numOfTerritories; n++){
 				if(!tList[n].isTaken()){
 					System.out.printf("%-4s", n+1 + ": ");
 					//s3object.writeToFile("game_replay.txt","%-4s"+ n+1 + ": ");
 					System.out.print(tList[n].getnameofterritory() + "\n");
+					listOfTerritories = listOfTerritories + (n+1) + ": " + tList[n].getnameofterritory() + "\n";
+					//telebot.send(n+1 + ": " + tList[n].getnameofterritory(), pList.get(currentPlayer).getChatID());
 					//s3object.writeToFile("game_replay.txt",tList[n].getnameofterritory() + "\n");
 				}
 			}
+			telebot.send(listOfTerritories, pList.get(currentPlayer).getChatID());
 			System.out.print("\nPlease choose a territory: (number or name) ");
 			//s3object.writeToFile("game_replay.txt","\nPlease choose a territory: (number or name) ");
 			boolean noTerritorySelected = true;
@@ -112,6 +116,7 @@ public class Risk_Game {
 						pList.get(currentPlayer).chooseTerritory(tList[n]);
 						noTerritorySelected = false;
 						pList.get(currentPlayer).reduceUnplacedArmies();
+						telebot.sendToOthers(pList.get(currentPlayer).getPlayerName() + " has drafted " + tList[n].getnameofterritory(), pList.get(currentPlayer).getChatID());
 						break;
 					}
 				}
@@ -262,24 +267,28 @@ public class Risk_Game {
 			for(int n = 0; n < pList.size(); n++) {
 				pList.get(n).setnumofarmies(40);
 				pList.get(n).setPlayerNo(n);
+				pList.get(n).setUnplacedArmies(40);
 			}
 		}
 		else if(NUMBEROFPLAYERS == 3) {
 			for(int n = 0; n < pList.size(); n++) {
 				pList.get(n).setnumofarmies(35);
 				pList.get(n).setPlayerNo(n);
+				pList.get(n).setUnplacedArmies(35);
 			}
 		}
 		else if(NUMBEROFPLAYERS == 4) {
 			for(int n = 0; n < pList.size(); n++) {
 				pList.get(n).setnumofarmies(30);
 				pList.get(n).setPlayerNo(n);
+				pList.get(n).setUnplacedArmies(30);
 			}
 		}
 		else if(NUMBEROFPLAYERS == 5) {
 			for(int n = 0; n < pList.size(); n++) {
 				pList.get(n).setnumofarmies(25);
 				pList.get(n).setPlayerNo(n);
+				pList.get(n).setUnplacedArmies(25);
 			}
 		}
 		else if(NUMBEROFPLAYERS == 6) {
@@ -328,7 +337,7 @@ public class Risk_Game {
 		System.out.println("*PLAYERS, CLAIM YOUR TERRITORIES!*");
 		s3object.writeToFile("game_replay.txt","\n*PLAYERS, CLAIM YOUR TERRITORIES!*");
 		//************************TERRITORY DRAFT BEGIN***************
-		/*****************************KNOWN ISSUES!!!!!
+		/*****************************KNOWN ISSUES!!!!!************************************************
 		 * During Draft phase, empty strings throws an exception at the parseInt
 		 */
 		territoryDraft(pList, tList, numOfTerritories);

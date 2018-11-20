@@ -20,7 +20,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         long chatID = update.getMessage().getChatId();
         //Handles the /start command
         if(text.equals("/start") && !gameInSession){
-            gameInSession = true;
             send("Please give a 4-digit game ID number:", chatID);
             storedCommands.put(chatID, "/start");
         }
@@ -44,8 +43,10 @@ public class TelegramBot extends TelegramLongPollingBot {
             if (selector == 1){
                 send("Game number: " + text + " created. Waiting for more players...", chatID);
                 Risk_Game.gameID = Integer.parseInt(text);
+                gameInSession = true;
                 List<player> pList = Risk_Game.gameBoard.getPlayerList();
-                pList.add(new player(chatID));
+                pList.add(new player(chatID, "Player " + (pList.size() + 1)));
+                send("You are player " + (pList.size()), chatID);
                 //System.out.println(pList.size());
 
             }
@@ -106,6 +107,11 @@ public class TelegramBot extends TelegramLongPollingBot {
         return 0;
     }
 
+    /**
+     * Sends a message to all active users.
+     * @param text String to be sent to all players
+     * @return returns -1 if failed, 0 if successful
+     */
     public int sendAll(String text){
         for (player n : Risk_Game.gameBoard.getPlayerList()){
             SendMessage message = new SendMessage().setChatId(n.getChatID()).setText(text);
@@ -116,6 +122,20 @@ public class TelegramBot extends TelegramLongPollingBot {
                 e.printStackTrace();
                 return -1;
             }
+        }
+        return 0;
+    }
+
+    /**
+     * Sends a message to every player except the player with the corresponding chat ID.
+     * @param text Message to be sent
+     * @param chatID chat ID of the 1 player to be ignored
+     * @return 0 if successful
+     */
+    public int sendToOthers(String text, long chatID){
+        for (player n : Risk_Game.gameBoard.getPlayerList()){
+            if (n.getChatID() != chatID)
+                send(text, n.getChatID());
         }
         return 0;
     }
@@ -160,7 +180,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 				return -1;
 			}
 		}*/
-        pList.add(new player(chatID));
+        pList.add(new player(chatID, "Player " + (pList.size()+1)));
+		send("You are player " + (pList.size()), chatID);
         return 0;
     }
 }
