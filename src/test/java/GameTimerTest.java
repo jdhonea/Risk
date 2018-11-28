@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class GameTimerTest {
 
 	@Test
-	public void GameTimer() {
+	public void GameTimerTest() {
 		BufferedReader reader = null;
 		String[] checker = {"0",""};
 		String testStr = "";
