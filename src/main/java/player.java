@@ -11,6 +11,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class player implements Serializable, Observer {
 
+	/** variables for testing purposes **/
+	String cardTest = "";
+	
+	/************************************/
 	public int playerNo;
 	public int terrOwned = 0;
 	String playerName = new String("");
