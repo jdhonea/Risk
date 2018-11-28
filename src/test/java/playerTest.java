@@ -404,4 +404,92 @@ public class playerTest {
 		assertEquals(testTerritory.isOwnedBy,5);
 		assertEquals(testTerritory.isTaken,true);
 	}
+	
+	@Test
+	public void printHandTest() throws IOException{
+		player testPlayer = new player();
+		List<card> hand = new ArrayList<card>();
+		testPlayer.hand = hand;
+		card testCard = new card('i', "testTerritory");
+		hand.add(testCard); 
+		testPlayer.printHand();
+		assertEquals(testPlayer.cardTest,"1	i	testTerritory\n");
+		assertEquals(testPlayer.printHand(),true);
+	}
+	
+	@Test
+	public void endturnTest(){
+		player testPlayer = new player();
+		assertEquals(testPlayer.endturn(),false);
+	}
+	
+	@Test
+	public void drawCardTest(){
+		deck deck = new deck(42);
+		player testPlayer = new player();
+		List<card> hand = new ArrayList<card>();
+		testPlayer.hand = hand;
+		testPlayer.drawCard(deck);
+		assertEquals(testPlayer.hand.size(),1);
+	}
+	
+	@Test
+	public void compareDiceRollsTest() throws IOException{
+		player testPlayer1 = new player();
+		testPlayer1.playerName = "p1";
+		player testPlayer2 = new player();
+		testPlayer2.playerName = "p2";
+		int[] p1Dice = {1,2,3};
+		int[] p2Dice = {2,3}; 
+		int[] output = testPlayer1.compareDiceRolls(testPlayer1,p1Dice,testPlayer2,p2Dice);
+		assertEquals(output[0],2);
+	} 
+	
+	@Test
+	public void compareDiceRolls2Test() throws IOException{
+		player testPlayer1 = new player();
+		testPlayer1.playerName = "p1";
+		player testPlayer2 = new player();
+		testPlayer2.playerName = "p2";
+		int[] p1Dice = {3};
+		int[] p2Dice = {3}; 
+		int[] output = testPlayer1.compareDiceRolls(testPlayer1,p1Dice,testPlayer2,p2Dice);
+		assertEquals(output[0],1);
+	} 
+	
+	@Test
+	public void compareDiceRolls3Test() throws IOException{
+		player testPlayer1 = new player();
+		testPlayer1.playerName = "p1";
+		player testPlayer2 = new player();
+		testPlayer2.playerName = "p2";
+		int[] p1Dice = {5};
+		int[] p2Dice = {3}; 
+		int[] output = testPlayer1.compareDiceRolls(testPlayer1,p1Dice,testPlayer2,p2Dice);
+		assertEquals(output[0],0);
+	} 
+	
+	@Test
+	public void compareDiceRolls4Test() throws IOException{
+		player testPlayer1 = new player();
+		testPlayer1.playerName = "p1";
+		player testPlayer2 = new player();
+		testPlayer2.playerName = "p2";
+		int[] p1Dice = {4,5};
+		int[] p2Dice = {3,4}; 
+		int[] output = testPlayer1.compareDiceRolls(testPlayer1,p1Dice,testPlayer2,p2Dice);
+		assertEquals(output[0],0);
+	} 
+	
+	@Test
+	public void compareDiceRolls5Test() throws IOException{
+		player testPlayer1 = new player();
+		testPlayer1.playerName = "p1";
+		player testPlayer2 = new player();
+		testPlayer2.playerName = "p2";
+		int[] p1Dice = {3,4,5};
+		int[] p2Dice = {1,2}; 
+		int[] output = testPlayer1.compareDiceRolls(testPlayer1,p1Dice,testPlayer2,p2Dice);
+		assertEquals(output[0],0);
+	} 
 }
