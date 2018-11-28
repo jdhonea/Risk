@@ -285,13 +285,15 @@ public class player implements Serializable, Observer {
 	 * Prints the contents of the players hands, ie the cards they control.
 	 * @throws IOException	exception
 	 */
-	public void printHand() throws IOException{
+	public boolean printHand() throws IOException{
 		System.out.print("Hand is currently:\n");
 		for(int n = 0; n < hand.size(); n++){
-			System.out.println(n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory());
-			s3object.writeToFile("game_replay.txt",n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory()); 
-			
+			cardTest += n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory() + "\n";
+			//System.out.println(n+1 + "\t" + hand.get(n).getDesign() + "\t" + hand.get(n).getTerritory());
+			s3object.writeToFile("game_replay.txt",cardTest); 
 		}
+		System.out.println(cardTest);
+		return true;
 	}
 
 	/**
