@@ -174,7 +174,8 @@ public class TelegramBot extends TelegramLongPollingBot {
     private  int newPlayer(long chatID){
         List<player> pList = Risk_Game.gameBoard.getPlayerList();
         System.out.println(pList.size());
-		/*for(player n : pList){
+		//Checks for duplicate chatIDs
+        /*for(player n : pList){
 			if(chatID == n.getChatID()){
 				send("You are already in this game.", chatID);
 				return -1;

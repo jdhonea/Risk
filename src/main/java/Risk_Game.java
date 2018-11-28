@@ -27,7 +27,7 @@ import java.nio.file.StandardOpenOption;
  */ 
 public class Risk_Game {
 	public static final int numOfTerritories = 42;
-	public static final int NUMBEROFPLAYERS = 2;
+	public static final int NUMBEROFPLAYERS = 2	;
 	public static List<String> playersN = new ArrayList<String>();
 	public static playerNotification notifier = new playerNotification();
 	public static deck deck;
@@ -386,7 +386,7 @@ public class Risk_Game {
 	 * @param gameBoard the game board to be backed up
 	 * @return	an array of bytes to be stored as a backup state
 	 */
-	private static byte[] saveState(board gameBoard){
+	public static byte[] saveState(board gameBoard){
 		byte[] boardData;
 		try {
 			//Breaks down the object gameBoard into an array of bytes, stores it in the boardData array and returns it.
@@ -410,7 +410,7 @@ public class Risk_Game {
 	 * @param boardData the byte array that contains the previous board state
 	 * @return	the restored board object
 	 */
-	private static board restoreData(byte[] boardData){
+	public static board restoreData(byte[] boardData){
 		board restoredBoard = new board();
 		try {
 			ByteArrayInputStream input = new ByteArrayInputStream(boardData);
