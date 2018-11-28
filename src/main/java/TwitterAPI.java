@@ -8,13 +8,13 @@ import java.util.*;
 public class TwitterAPI
 {
     // the object that holds the loaded properties
-    private Properties prop = new Properties();
+    public Properties prop = new Properties();
 
     // properties expected to be in the file
-    private final String CONSUMER_KEY = "you-key";
-    private final String CONSUMER_SECRET = "secret";
-    private final String ACCESS_TOKEN = "token";
-    private final String ACCESS_TOKEN_SECRET = "token-secret";
+    public final String CONSUMER_KEY = "you-key";
+    public final String CONSUMER_SECRET = "secret";
+    public final String ACCESS_TOKEN = "token";
+    public final String ACCESS_TOKEN_SECRET = "token-secret";
 
     // the singleton instance used for sending tweets
     Twitter twitter = null;
