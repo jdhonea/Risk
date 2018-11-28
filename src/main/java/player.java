@@ -601,15 +601,16 @@ public class player implements Serializable, Observer {
 		/**
 	 	* Message if the player decides to end turn.
 	 	*/
-		public void endturn()
+		public boolean endturn()
 		{
 			try {
-			twitter.sendTweet(this.playerName + " has " + this.getnumofterritories() + " territories.");
+			//twitter.sendTweet(this.playerName + " has " + this.getnumofterritories() + " territories.");
 			System.out.println(this.playerName + "'s turn is over. NEXT PLAYER...\n");
 			}
 			catch(Exception e){
-
+ 
 			}
+			return false;
 		}
 	
 	/**
