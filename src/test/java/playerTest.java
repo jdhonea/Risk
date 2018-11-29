@@ -493,4 +493,31 @@ public class playerTest {
 		int[] output = testPlayer1.compareDiceRolls(testPlayer1,p1Dice,testPlayer2,p2Dice);
 		assertEquals(output[0],0);
 	} 
+	
+	@Test
+	public void processCardsTest(){
+		board board = new board();
+		deck deck = new deck(42);
+		board.setDeck(deck);
+		List<Integer> entries = new ArrayList<Integer>();
+		entries.add(2);		
+		player testPlayer = new player();
+		testPlayer.playerNo = 1;
+		testPlayer.setBoard(board);
+		card card1 = new card('i',"territory1");
+		card card2 = new card('a',"territory2");
+		card card3 = new card('c',"territory3");
+		List<card> hand = new ArrayList<card>();
+		hand.add(card1);
+		hand.add(card2);
+		hand.add(card3);
+		testPlayer.hand = hand;
+		assertEquals(testPlayer.processCards(entries),0);
+	}
+	
+	@Test
+	public void getTerritoriesToFortifyFromTest() {
+		player testPlayer = new player();
+		assertEquals(testPlayer.getTerritoriesToFortifyFrom(0),"");
+	} 
 }
