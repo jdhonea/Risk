@@ -520,4 +520,11 @@ public class playerTest {
 		player testPlayer = new player();
 		assertEquals(testPlayer.getTerritoriesToFortifyFrom(0),"");
 	} 
+	
+	@Test
+	public void readInputToIntTest() {
+		player testPlayer = new player();
+		int output = testPlayer.readInputToInt();
+		assertEquals(output,0); 
+	}
 }
