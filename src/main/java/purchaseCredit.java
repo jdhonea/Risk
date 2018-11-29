@@ -117,35 +117,48 @@ public class purchaseCredit implements Serializable{
 	 * Allows current player to transfer credit to specified player
 	 */	
 	public void transferCreditSwitch() throws IOException {
+		int[] creditArray = new int[2];
 		boolean good = true;
 		String answer;
 		BufferedReader creditreader5 = new BufferedReader(new InputStreamReader(System.in));
 		while(good) {
-				answer = creditreader5.readLine();
-				if(answer.equalsIgnoreCase(players.get(0).playerName)) {
-					p.credits.transferCredits(p, players.get(0), p.credits.creditValue);
-					good = false;
-				}
-				else if(answer.equalsIgnoreCase(players.get(1).playerName)) {
-					p.credits.transferCredits(p, players.get(1), p.credits.creditValue);
-					good = false;
-				}
-				else if(answer.equalsIgnoreCase(players.get(2).playerName)) {
-					p.credits.transferCredits(p, players.get(2), p.credits.creditValue);
-					good = false;
-				}
-				else if(answer.equalsIgnoreCase(players.get(3).playerName)) {
-					p.credits.transferCredits(p, players.get(3), p.credits.creditValue);
-					good = false;
-				}
-				else if(answer.equalsIgnoreCase(players.get(4).playerName)) {
-					p.credits.transferCredits(p, players.get(4), p.credits.creditValue);
-					good = false;
-				}
-				else if(answer.equalsIgnoreCase(players.get(5).playerName)) {
-					p.credits.transferCredits(p, players.get(5), p.credits.creditValue);
-					good = false;
-				}
+			answer = creditreader5.readLine();
+			if(answer.equalsIgnoreCase(players.get(0).playerName)) {
+				creditArray = p.credits.transferCredits(p, players.get(0), p.credits.creditValue);
+				p.credits.creditValue = creditArray[0];
+				players.get(0).credits.creditValue = creditArray[1];
+				good = false;
+			}
+			else if(answer.equalsIgnoreCase(players.get(1).playerName)) {
+				creditArray = p.credits.transferCredits(p, players.get(1), p.credits.creditValue);
+				p.credits.creditValue = creditArray[0];
+				players.get(1).credits.creditValue = creditArray[1];
+				good = false;
+			}
+			else if(answer.equalsIgnoreCase(players.get(2).playerName)) {
+				creditArray = p.credits.transferCredits(p, players.get(2), p.credits.creditValue);
+				p.credits.creditValue = creditArray[0];
+				players.get(2).credits.creditValue = creditArray[1];
+				good = false;
+			}
+			else if(answer.equalsIgnoreCase(players.get(3).playerName)) {
+				creditArray = p.credits.transferCredits(p, players.get(3), p.credits.creditValue);
+				p.credits.creditValue = creditArray[0];
+				players.get(3).credits.creditValue = creditArray[1];
+				good = false;
+			}
+			else if(answer.equalsIgnoreCase(players.get(4).playerName)) {
+				creditArray = p.credits.transferCredits(p, players.get(4), p.credits.creditValue);
+				p.credits.creditValue = creditArray[0];
+				players.get(4).credits.creditValue = creditArray[1];
+				good = false;
+			}
+			else if(answer.equalsIgnoreCase(players.get(5).playerName)) {
+				creditArray = p.credits.transferCredits(p, players.get(5), p.credits.creditValue);
+				p.credits.creditValue = creditArray[0];
+				players.get(5).credits.creditValue = creditArray[1];
+				good = false;
+			}
 		}
 	}
 	
