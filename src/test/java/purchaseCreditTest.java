@@ -91,5 +91,18 @@ public class purchaseCreditTest {
 		purchaseCredit pc = new purchaseCredit(player1,playerList);
 		String test = pc.printPlayers();
 		assertEquals(test,"one two three "); 
-	}	
+	}
+	
+	@Test
+	public void beginTest() throws IOException{ 
+		player player1 = new player();
+		player player2 = new player();
+		player player3 = new player();
+		List<player> playerList = new ArrayList<player>();
+		playerList.add(player1);
+		playerList.add(player2);
+		playerList.add(player3);
+		purchaseCredit pc = new purchaseCredit(player1,playerList);
+		assertEquals(pc.begin(),"no");
+	} 
 }
