@@ -31,26 +31,26 @@ public class AmazonS3Object implements Serializable{
 	 */
 	public void writeToFile(String FILENAME, String input) throws IOException{
 		Files.write(Paths.get(FILENAME), input.getBytes(), StandardOpenOption.APPEND);
-		//uploadtoAmazonS3Bucket();
+		uploadtoAmazonS3Bucket();
 	}
 	  
 	/**
 	 *  Uploads the content of the file to Amazon S3 service
 	 */
-// 	public void uploadtoAmazonS3Bucket(){
+ 	public void uploadtoAmazonS3Bucket(){
 
-// 		//create Amazon S3 Object		
-// 		AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();  
+ 		//create Amazon S3 Object		
+ 		AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();  
 
-// 		// get bucket & its object (the game_replay.txt file)
-// 		ObjectListing objectListing = s3.listObjects("riskgamebucket");
-// 		List<S3ObjectSummary> os = objectListing.getObjectSummaries();
+ 		// get bucket & its object (the game_replay.txt file)
+ 		ObjectListing objectListing = s3.listObjects("riskgamebucket");
+ 		List<S3ObjectSummary> os = objectListing.getObjectSummaries();
 
-// 		// Upload a file as a new object with ContentType and title specified.
-// 		PutObjectRequest request = new PutObjectRequest("riskgamebucket", os.get(0).getKey(), new File("game_replay.txt"));
-// 		s3.putObject(request);
+ 		// Upload a file as a new object with ContentType and title specified.
+ 		PutObjectRequest request = new PutObjectRequest("riskgamebucket", os.get(0).getKey(), new File("game_replay.txt"));
+ 		s3.putObject(request);
 
-// 	}
+ 	}
 
 	/**
 	 * Clears contents of local text file at beginning of game.
