@@ -353,7 +353,7 @@ public class player implements Serializable, Observer {
 	 * @param entries the list of cards to be processed
 	 * @return	the number of armies to be awarded to the player
 	 */
-	private int processCards(List<Integer> entries) {
+	public int processCards(List<Integer> entries) {
 		int newArmies = 0;
 		List<card> cardsToBeProcessed = new ArrayList<>();
 		for (int n : entries) {
@@ -1016,7 +1016,7 @@ public class player implements Serializable, Observer {
 	 * Reads the input for the number of armies to advance to the next territory.
 	 * @return the number of armies to advance
 	 */
-	private int readInputToInt() {
+	public int readInputToInt() {
 		String input = "";
 		int advance = 0;
 		BufferedReader reader = null;
@@ -1033,7 +1033,7 @@ public class player implements Serializable, Observer {
 	 * @param advance the territory number of the territory armies are being moved from
 	 * @return the formatted string
 	 */
-	private String getTerritoriesToFortifyFrom(int advance) {
+	public String getTerritoriesToFortifyFrom(int advance) {
 		String output = "";
 		/* -------- LOOP THROUGH OWNED TERRITORIES LIST... -------- */
 		for(territory t : this.territoriesOwned) {
