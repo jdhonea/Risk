@@ -45,7 +45,7 @@ public class playerTurn implements Serializable{
 	 * @param deck	the list of cards that make up the deck
 	 * @throws IOException	exception
 	 */
-	public void chooseOption (player p, territory[] tList, List<player> players, deck deck) throws IOException{
+	public int chooseOption (player p, territory[] tList, List<player> players, deck deck) throws IOException{
 		String attack = "";
 		player.resetCardsContainedOwnedTerritory();
 		System.out.println(p.getPlayerName() + "'s turn:");
