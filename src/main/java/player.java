@@ -1073,7 +1073,7 @@ public class player implements Serializable, Observer {
 			System.out.println("\nWhich territory would you like to fortify? **CHOOSE NUMBER**");
 			advance = readInputToInt();
 			if(advance == 0) {
-				return;
+				return -1;
 			}
 			output = getTerritoriesToFortifyFrom(advance);
 			
