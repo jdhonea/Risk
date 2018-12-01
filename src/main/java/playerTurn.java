@@ -56,7 +56,7 @@ public class playerTurn implements Serializable{
 		//check for user input timeout; 
 		//if user doesn't enter anything within 30 secs, skip to next player
 		if(didItRun == 0) {
-			return;
+			return -1;
 		}
 		/////////////////STEP 1.5 PURCHASE CREDIT/////////////////////
 		System.out.println(p.playerName+", you have "+p.credits.creditValue+" credits.");
@@ -65,7 +65,7 @@ public class playerTurn implements Serializable{
 		//check for user input timeout; 
 		//if user doesn't enter anything within 30 secs, skip to next player
 		if(completed.equalsIgnoreCase("no")) {
-			return;
+			return -1;
 		}
 		//STEP 2 ATTACK (IF DESIRED)
 		System.out.println("\n"+p.getPlayerName()+", would you like to attack a territory? (Y or N)");
@@ -83,8 +83,14 @@ public class playerTurn implements Serializable{
 			attackProcess.attack();
 		}
 		//STEP 3
-		p.fortify(tList); 
+		int done = p.fortify(tList);
+		//check for user input timeout; 
+		//if user doesn't enter anything within 30 secs, skip to next player
+		if(done == -1) {
+			return -1;
+		}
 		//END TURN
+		return 0;
 	}
 
 	/**
