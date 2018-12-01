@@ -31,7 +31,7 @@ public class AmazonS3Object implements Serializable{
 	 */
 	public void writeToFile(String FILENAME, String input) throws IOException{
 		Files.write(Paths.get(FILENAME), input.getBytes(), StandardOpenOption.APPEND);
-		uploadtoAmazonS3Bucket();
+		//uploadtoAmazonS3Bucket();
 	}
 	  
 	/**
