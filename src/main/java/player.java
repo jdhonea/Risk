@@ -145,7 +145,7 @@ public class player implements Serializable, Observer {
 	 * Notifies the observers and passes the defending player object to the update function
 	 * @param ownedBy the defending player's ID number
 	 */
-	private static void notifyDefender(int ownedBy){
+	public void notifyDefender(int ownedBy){
 		Risk_Game.notifier.notify(ownedBy);
 	}
 
@@ -808,158 +808,158 @@ public class player implements Serializable, Observer {
 
 	}
 
-	/**
-	 * The attack role in the player's turn.
-	 * @param tList the list of territories
-	 * @param players the list of players
-	 * @param deck the game deck
-	 */
-	public void attack(territory[] tList, List<player> players,deck deck) {
+// 	/**
+// 	 * The attack role in the player's turn.
+// 	 * @param tList the list of territories
+// 	 * @param players the list of players
+// 	 * @param deck the game deck
+// 	 */
+// 	public void attack(territory[] tList, List<player> players,deck deck) {
 
-/* ------------ METHOD VARIABLES ------------ */		
-		String from;
-		String keepGoing = "";
-		boolean repeat = true;
+// /* ------------ METHOD VARIABLES ------------ */		
+// 		String from;
+// 		String keepGoing = "";
+// 		boolean repeat = true;
 
-/* ------------ WHILE USER WANTS TO KEEP ATTACKING, DO SO ------------ */
-		outer:
-		while(repeat) {
-			System.out.println("FROM which territory would you like to attack? *CHOOSE NUMBER*");
-			 /* DISPLAY TERRITORIES USER CAN CHOOSE TO ATTACK FROM */
-			this.printTerritoriesAndAdjacencies();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			try {
-				/* READ USER INPUT */
-				from = reader.readLine();
-				int result = Integer.parseInt(from);
+// /* ------------ WHILE USER WANTS TO KEEP ATTACKING, DO SO ------------ */
+// 		outer:
+// 		while(repeat) {
+// 			System.out.println("FROM which territory would you like to attack? *CHOOSE NUMBER*");
+// 			 /* DISPLAY TERRITORIES USER CAN CHOOSE TO ATTACK FROM */
+// 			this.printTerritoriesAndAdjacencies();
+// 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+// 			try {
+// 				/* READ USER INPUT */
+// 				from = reader.readLine();
+// 				int result = Integer.parseInt(from);
 				
-			/* LOOP THROUGH TERRITORY[]... */
-				for(territory t : tList) {
+// 			/* LOOP THROUGH TERRITORY[]... */
+// 				for(territory t : tList) {
 					
-				/* ...AND IF TERRITORY IS OWNED BY THIS PLAYER... */
-					if(t.isOwnedBy == this.playerNo && t.territoryNumber == result) {
-						/* SET TERRITORY OWNER TO THIS PLAYER (BECAUSE IT WASN'T DONE EARLIER, I GUESS) */
-						t.setOwnerName(this.playerName);
+// 				/* ...AND IF TERRITORY IS OWNED BY THIS PLAYER... */
+// 					if(t.isOwnedBy == this.playerNo && t.territoryNumber == result) {
+// 						/* SET TERRITORY OWNER TO THIS PLAYER (BECAUSE IT WASN'T DONE EARLIER, I GUESS) */
+// 						t.setOwnerName(this.playerName);
 						
-					/* ...if territory has at least 2 armies on it.. */
-						if(t.numofArmiesHere > 1) {
-							String to;
-							System.out.println("Which territory would you like to attack? *CHOOSE NUMBER*");
-							int count = 0;
+// 					/* ...if territory has at least 2 armies on it.. */
+// 						if(t.numofArmiesHere > 1) {
+// 							String to;
+// 							System.out.println("Which territory would you like to attack? *CHOOSE NUMBER*");
+// 							int count = 0;
 						
-						/* DISPLAY ADJACENT TERRITORIES THAT PLAYER CAN ATTACK (ONLY TERRITORIES THAT
-						 * PLAYER DOES NOT OWN).
-						 */
-							while(count < t.adj_territories.size()) {
+// 						/* DISPLAY ADJACENT TERRITORIES THAT PLAYER CAN ATTACK (ONLY TERRITORIES THAT
+// 						 * PLAYER DOES NOT OWN).
+// 						 */
+// 							while(count < t.adj_territories.size()) {
 								
-								/* GET TERRITORY FROM ADJACENT TERRITORIES LIST... */
-								territory nameCheck = new territory();
-								for(territory n : tList) {
-									if(t.adj_territories.get(count).name.equals(n.name)) {
-										nameCheck = n;
-										break;
-									}
-								}
-						/* ...AND IF THAT TERRITORY IS *NOT* OWNED BY THIS PLAYER, DISPLAY THE
-						* TERRITORY NUMBER, NAME AND HOW MANY ARMIES THERE FOR THE PLAYER
-						* TO SEE
-						*/
-								if(this.getplayernumber() != nameCheck.isOwnedBy) {
-									System.out.printf("%-5s %-23s", "["+t.adj_territories.get(count).territoryNumber+"] ",t.adj_territories.get(count).name );
-									System.out.print("(There are ");
+// 								/* GET TERRITORY FROM ADJACENT TERRITORIES LIST... */
+// 								territory nameCheck = new territory();
+// 								for(territory n : tList) {
+// 									if(t.adj_territories.get(count).name.equals(n.name)) {
+// 										nameCheck = n;
+// 										break;
+// 									}
+// 								}
+// 						/* ...AND IF THAT TERRITORY IS *NOT* OWNED BY THIS PLAYER, DISPLAY THE
+// 						* TERRITORY NUMBER, NAME AND HOW MANY ARMIES THERE FOR THE PLAYER
+// 						* TO SEE
+// 						*/
+// 								if(this.getplayernumber() != nameCheck.isOwnedBy) {
+// 									System.out.printf("%-5s %-23s", "["+t.adj_territories.get(count).territoryNumber+"] ",t.adj_territories.get(count).name );
+// 									System.out.print("(There are ");
 
-									for(territory r : tList) {
-										if(r.territoryNumber == t.adj_territories.get(count).territoryNumber) {
-											System.out.print(r.numofArmiesHere);
-											break;
-										}
-									}
-									System.out.println(" armies here.)");
-								}
-								count++;
-							}
-						/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+// 									for(territory r : tList) {
+// 										if(r.territoryNumber == t.adj_territories.get(count).territoryNumber) {
+// 											System.out.print(r.numofArmiesHere);
+// 											break;
+// 										}
+// 									}
+// 									System.out.println(" armies here.)");
+// 								}
+// 								count++;
+// 							}
+// 						/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 							
 							
-		/* ------------- NOW, READ IN WHICH TERRITORY PLAYER CHOOSES TO ATTACK ------------- */
-							BufferedReader reader2 = new BufferedReader(new InputStreamReader(System.in));
-							try {
-								to = reader2.readLine();
-								int result2 = Integer.parseInt(to);	
+// 		/* ------------- NOW, READ IN WHICH TERRITORY PLAYER CHOOSES TO ATTACK ------------- */
+// 							BufferedReader reader2 = new BufferedReader(new InputStreamReader(System.in));
+// 							try {
+// 								to = reader2.readLine();
+// 								int result2 = Integer.parseInt(to);	
 								
-					/* ...LOOP THROUGH TERRITORY[]... */
-								for(territory tr : tList) {
+// 					/* ...LOOP THROUGH TERRITORY[]... */
+// 								for(territory tr : tList) {
 									
-				/* ------------ ...AND FOR THE TERRITORY THAT PLAYER CHOOSES TO ATTACK... ------------ */
-							//TODO: THROW EXCEPTION IF INPUT IS INVALID & PROMPT FOR ANOTHER CHOICE
-									if(tr.territoryNumber == result2 && this.playerNo != tr.isOwnedBy) {
-						/* ------------ SET PLAYER STATUS TO ATTACK ------------ */
-										this.setAttackMode(true);
-						/* ------------ TEMPERARY TERRITORY USED FOR THE ROLLDICE() METHOD NEXT ------------ */
-										notifyDefender(tr.isOwnedBy);
-										territory diceTerr = new territory();
-										diceTerr = tList[result-1];
-						/* ------------ ARRAY THAT HOLDS THE DICE ROLL RESULT ------------ */
-										int[] attackingP = this.rolldice(diceTerr.getnumofarmies());
-										System.out.println("\n\n***ATTACKING "+tr.name+"!!***\n");
-										s3object.writeToFile("game_replay.txt","***ATTACKING "+tr.name+"!!***\n");
-										boolean tryagain = true;
-										int next = 0;
-						/* ------------ SET TERRITORY OWNER TO THIS PLAYER (THIS MAY BE REDUNDANT) ------------ */
-										tr.setOwnerName(players.get(next).playerName);
+// 				/* ------------ ...AND FOR THE TERRITORY THAT PLAYER CHOOSES TO ATTACK... ------------ */
+// 							//TODO: THROW EXCEPTION IF INPUT IS INVALID & PROMPT FOR ANOTHER CHOICE
+// 									if(tr.territoryNumber == result2 && this.playerNo != tr.isOwnedBy) {
+// 						/* ------------ SET PLAYER STATUS TO ATTACK ------------ */
+// 										this.setAttackMode(true);
+// 						/* ------------ TEMPERARY TERRITORY USED FOR THE ROLLDICE() METHOD NEXT ------------ */
+// 										notifyDefender(tr.isOwnedBy);
+// 										territory diceTerr = new territory();
+// 										diceTerr = tList[result-1];
+// 						/* ------------ ARRAY THAT HOLDS THE DICE ROLL RESULT ------------ */
+// 										int[] attackingP = this.rolldice(diceTerr.getnumofarmies());
+// 										System.out.println("\n\n***ATTACKING "+tr.name+"!!***\n");
+// 										s3object.writeToFile("game_replay.txt","***ATTACKING "+tr.name+"!!***\n");
+// 										boolean tryagain = true;
+// 										int next = 0;
+// 						/* ------------ SET TERRITORY OWNER TO THIS PLAYER (THIS MAY BE REDUNDANT) ------------ */
+// 										tr.setOwnerName(players.get(next).playerName);
 
-						/* ------------ WHOMEVER OWNS THE DEFENDING TERRITORY, NOTIFY THEM... ------------ */
-										while(tryagain) {
-											if(tr.isOwnedBy == players.get(next).playerNo) {
-												System.out.println(players.get(next).playerName+", you must DEFEND your territory!");
-												s3object.writeToFile("game_replay.txt",players.get(next).playerName+", you must DEFEND your territory!\n");
-												players.get(next).setDefenseMode(true);
-												tryagain = false;
-												break;
-											}
-											next++;
-										}
-						/* ------------ ALLOW PLAYER TO DEFEND THEIR TERRITORY ------------*/
-										defend(t,players,tr,next,attackingP,deck);
+// 						/* ------------ WHOMEVER OWNS THE DEFENDING TERRITORY, NOTIFY THEM... ------------ */
+// 										while(tryagain) {
+// 											if(tr.isOwnedBy == players.get(next).playerNo) {
+// 												System.out.println(players.get(next).playerName+", you must DEFEND your territory!");
+// 												s3object.writeToFile("game_replay.txt",players.get(next).playerName+", you must DEFEND your territory!\n");
+// 												players.get(next).setDefenseMode(true);
+// 												tryagain = false;
+// 												break;
+// 											}
+// 											next++;
+// 										}
+// 						/* ------------ ALLOW PLAYER TO DEFEND THEIR TERRITORY ------------*/
+// 										defend(t,players,tr,next,attackingP,deck);
 										
-/* ------------ PROMPT USER TO CONTINUE ATTACKING OR NOT ------------ */
-										System.out.println("Do you want to CONTINUE attacking? *(Y or N)*");
-										BufferedReader keepAttacking = new BufferedReader(new InputStreamReader(System.in));
-										try {
-											keepGoing = keepAttacking.readLine();
-										} catch (IOException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-/* ------------ IF USER ENTERS "Y" PERFORM ATTACK METHOD AGAIN, IF USER ENETERS "N" THEN END THE ATTACK METHOD ------------ */
-										if(keepGoing.equalsIgnoreCase("Y")) {
-											repeat = true;
-										} 
-										else if (keepGoing.equalsIgnoreCase("N")){
-											repeat = false;
-											break outer;
-										}
-/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */	
+// /* ------------ PROMPT USER TO CONTINUE ATTACKING OR NOT ------------ */
+// 										System.out.println("Do you want to CONTINUE attacking? *(Y or N)*");
+// 										BufferedReader keepAttacking = new BufferedReader(new InputStreamReader(System.in));
+// 										try {
+// 											keepGoing = keepAttacking.readLine();
+// 										} catch (IOException e) {
+// 											// TODO Auto-generated catch block
+// 											e.printStackTrace();
+// 										}
+// /* ------------ IF USER ENTERS "Y" PERFORM ATTACK METHOD AGAIN, IF USER ENETERS "N" THEN END THE ATTACK METHOD ------------ */
+// 										if(keepGoing.equalsIgnoreCase("Y")) {
+// 											repeat = true;
+// 										} 
+// 										else if (keepGoing.equalsIgnoreCase("N")){
+// 											repeat = false;
+// 											break outer;
+// 										}
+// /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */	
 										
-									}
-								}
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						} else {
-							System.out.println("You don't have enough armies to attack from this territory.");
-							attack(tList,players,deck);
-						}
-						break;
-					}
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+// 									}
+// 								}
+// 							} catch (IOException e) {
+// 								// TODO Auto-generated catch block
+// 								e.printStackTrace();
+// 							}
+// 						} else {
+// 							System.out.println("You don't have enough armies to attack from this territory.");
+// 							attack(tList,players,deck);
+// 						}
+// 						break;
+// 					}
+// 				}
+// 			} catch (IOException e) {
+// 				// TODO Auto-generated catch block
+// 				e.printStackTrace();
+// 			}
+// 		}
+// 	}
 
 	//ADVANCE TROOPS AFTER CONQUERING A TERRITORY
 
@@ -1058,7 +1058,7 @@ public class player implements Serializable, Observer {
 	 * @param tList the list of territories
 	 * @throws IOException	exception
 	 */
-	public void fortify(territory[] tList) throws IOException{
+	public int fortify(territory[] tList) throws IOException{
 		
 	/* method variables */
 		int advance = 0;
@@ -1112,7 +1112,7 @@ public class player implements Serializable, Observer {
 // 			e.printStackTrace();
 // 		}
 /* ------------------------------------------------------------------- */
-		
+	return 0;	
 	}
 
 }
