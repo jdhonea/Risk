@@ -75,10 +75,12 @@ public class playerTurn implements Serializable{
 		//check for user input timeout; 
 		//if user doesn't enter anything within 30 secs, skip to next player
 		if(input[0].equalsIgnoreCase("0")) {
-			return;
+			return -1;
 		}
 		if(input[1].equalsIgnoreCase("Y")) {
-			p.attack(tList,players,deck);
+			AttackProcess attackProcess = new AttackProcess(p,tList,players,deck);
+			//p.attack(tList,players,deck);
+			attackProcess.attack();
 		}
 		//STEP 3
 		p.fortify(tList); 
