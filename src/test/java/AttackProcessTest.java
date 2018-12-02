@@ -42,39 +42,39 @@ public class AttackProcessTest {
 		assertEquals(attackTest.continueAttacking(repeat,"N"),false);
 	} 
 	
-	/**
-	 * @throws Exception 
-	 * 
-	 */
-	@Test
-	public void attackCheck2Test() throws Exception{ 
-		player p = new player();
-		p.playerNo = 1;
-		p.playerName = "testPlayer";
-		player p2 = new player();
-		p2.playerNo = 1;
-		p2.playerName = "testPlayer2";
-		player p3 = new player();
-		p3.playerNo = 1;
-		p3.playerName = "testPlayer3";
-		territory[] tList = new territory[42];
-		Risk_Game.initializeTerritories(tList);
-		List<player> players = new ArrayList<player>();
-		players.add(p);
-		players.add(p2);
-		players.add(p3);
-		deck deck = new deck(42);
-		boolean repeat = false;
-		territory tr = tList[1];
-		territory t = tList[1];
-		tr.isOwnedBy = 1;
-		tr.territoryNumber = 1;
-		tr.numofArmiesHere = 3;
-		players.get(0).chooseTerritory(tr);
-		AttackProcess attackTest = new AttackProcess(players.get(0), tList, players, deck);	
-		attackTest.players = players;
-		assertEquals(attackTest.attackCheck2(tr,1,repeat,t),false);
-	} 
+//	/**
+//	 * @throws Exception 
+//	 * 
+//	 */
+//	@Test
+//	public void attackCheck2Test() throws Exception{ 
+//		player p = new player();
+//		p.playerNo = 1;
+//		p.playerName = "testPlayer";
+//		player p2 = new player();
+//		p2.playerNo = 1;
+//		p2.playerName = "testPlayer2";
+//		player p3 = new player();
+//		p3.playerNo = 1;
+//		p3.playerName = "testPlayer3";
+//		territory[] tList = new territory[42];
+//		Risk_Game.initializeTerritories(tList);
+//		List<player> players = new ArrayList<player>();
+//		players.add(p);
+//		players.add(p2);
+//		players.add(p3);
+//		deck deck = new deck(42);
+//		boolean repeat = false;
+//		territory tr = tList[1];
+//		territory t = tList[1];
+//		tr.isOwnedBy = 1;
+//		tr.territoryNumber = 1;
+//		tr.numofArmiesHere = 3;
+//		players.get(0).chooseTerritory(tr);
+//		AttackProcess attackTest = new AttackProcess(players.get(0), tList, players, deck);	
+//		attackTest.players = players;
+//		assertEquals(attackTest.attackCheck2(tr,1,repeat,t),false);
+//	} 
 
 	/**
 	 * @throws Exception 
@@ -341,58 +341,58 @@ public class AttackProcessTest {
 		tList[19].numofArmiesHere = 5;
 		assertEquals(attackTest.attackTerritory(tList[19],19),true);
 	}
-	
-	/**
-	 * @throws Exception 
-	 * 
-	 */
-	@Test
-	public void attackFromTest() throws Exception{ 
-		player p = new player();
-		p.playerNo = 1;
-		p.playerName = "testPlayer";
-		player p2 = new player();
-		p2.playerNo = 2;
-		p2.playerName = "testPlayer2";
-		player p3 = new player();
-		p3.playerNo = 3;
-		p3.playerName = "testPlayer3";
-		territory[] tList = new territory[42];
-		Risk_Game.initializeTerritories(tList);
-		List<player> players = new ArrayList<player>();
-		players.add(p);
-		players.add(p2);
-		players.add(p3);
-		deck deck = new deck(42);
-		AttackProcess attackTest = new AttackProcess(p, tList, players, deck);
-		assertEquals(attackTest.attackFrom(),true);
-	} 
-	
-	/**
-	 * @throws Exception 
-	 * 
-	 */
-	@Test
-	public void AttackingTest() throws Exception{ 
-		player p = new player();
-		p.playerNo = 1;
-		p.playerName = "testPlayer";
-		player p2 = new player();
-		p2.playerNo = 2;
-		p2.playerName = "testPlayer2";
-		player p3 = new player();
-		p3.playerNo = 3;
-		p3.playerName = "testPlayer3";
-		territory[] tList = new territory[42];
-		Risk_Game.initializeTerritories(tList);
-		List<player> players = new ArrayList<player>();
-		players.add(p);
-		players.add(p2);
-		players.add(p3);
-		deck deck = new deck(42);
-		AttackProcess attackTest = new AttackProcess(p, tList, players, deck);
-		assertEquals(attackTest.Attacking(),true);
-	} 
+//	
+//	/**
+//	 * @throws Exception 
+//	 * 
+//	 */
+//	@Test
+//	public void attackFromTest() throws Exception{ 
+//		player p = new player();
+//		p.playerNo = 1;
+//		p.playerName = "testPlayer";
+//		player p2 = new player();
+//		p2.playerNo = 2;
+//		p2.playerName = "testPlayer2";
+//		player p3 = new player();
+//		p3.playerNo = 3;
+//		p3.playerName = "testPlayer3";
+//		territory[] tList = new territory[42];
+//		Risk_Game.initializeTerritories(tList);
+//		List<player> players = new ArrayList<player>();
+//		players.add(p);
+//		players.add(p2);
+//		players.add(p3);
+//		deck deck = new deck(42);
+//		AttackProcess attackTest = new AttackProcess(p, tList, players, deck);
+//		assertEquals(attackTest.attackFrom(),true);
+//	} 
+//	
+//	/**
+//	 * @throws Exception 
+//	 * 
+//	 */
+//	@Test
+//	public void AttackingTest() throws Exception{ 
+//		player p = new player();
+//		p.playerNo = 1;
+//		p.playerName = "testPlayer";
+//		player p2 = new player();
+//		p2.playerNo = 2;
+//		p2.playerName = "testPlayer2";
+//		player p3 = new player();
+//		p3.playerNo = 3;
+//		p3.playerName = "testPlayer3";
+//		territory[] tList = new territory[42];
+//		Risk_Game.initializeTerritories(tList);
+//		List<player> players = new ArrayList<player>();
+//		players.add(p);
+//		players.add(p2);
+//		players.add(p3);
+//		deck deck = new deck(42);
+//		AttackProcess attackTest = new AttackProcess(p, tList, players, deck);
+//		assertEquals(attackTest.Attacking(),true);
+//	} 
 	
 //	/**
 //	 * @throws Exception 
