@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * 
- * CREDIT CLASS
+ * AttackProcess CLASS
  */
 public class AttackProcess implements Serializable {
 	
@@ -57,8 +57,8 @@ public class AttackProcess implements Serializable {
 		String from;
 		boolean repeat = true;
 		/* READ USER INPUT */
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		from = reader.readLine();
+		//BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		from = buffReader();
 		int result = Integer.parseInt(from);
 		
 	/* LOOP THROUGH TERRITORY[]... */
@@ -70,81 +70,129 @@ public class AttackProcess implements Serializable {
 	return repeat;
 	}
 	
+	public String buffReader() throws IOException {
+		String output = "";
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		output = reader.readLine();
+		return output;
+	}
+	
 	
 	public boolean attackTerritory(territory t, int result) throws IOException {
 		
 		boolean repeat = true;
 		/* ...AND IF TERRITORY IS OWNED BY THIS PLAYER... */
 			if(t.isOwnedBy == this.p.playerNo && t.territoryNumber == result) {
-				/* SET TERRITORY OWNER TO THIS PLAYER (BECAUSE IT WASN'T DONE EARLIER, I GUESS) */
-				t.setOwnerName(this.p.playerName);
-				
-			/* ...if territory has at least 2 armies on it.. */
-				if(t.numofArmiesHere > 1) {
-				
-					System.out.println("Which territory would you like to attack? *CHOOSE NUMBER*");
-					int count = 0;
-				
-				/* DISPLAY ADJACENT TERRITORIES THAT PLAYER CAN ATTACK (ONLY TERRITORIES THAT
-				 * PLAYER DOES NOT OWN).
-				 */
-					while(count < t.adj_territories.size()) {
-						
-						/* GET TERRITORY FROM ADJACENT TERRITORIES LIST... */
-						territory nameCheck = new territory();
-						for(territory n : tList) {
-							if(t.adj_territories.get(count).name.equals(n.name)) {
-								nameCheck = n;
-								break;
-							}
-						}
-				/* ...AND IF THAT TERRITORY IS *NOT* OWNED BY THIS PLAYER, DISPLAY THE
-				* TERRITORY NUMBER, NAME AND HOW MANY ARMIES THERE FOR THE PLAYER
-				* TO SEE
-				*/
-						if(this.p.getplayernumber() != nameCheck.isOwnedBy) {
-							System.out.printf("%-5s %-23s", "["+t.adj_territories.get(count).territoryNumber+"] ",t.adj_territories.get(count).name );
-							System.out.print("(There are ");
-
-							for(territory r : tList) {
-								if(r.territoryNumber == t.adj_territories.get(count).territoryNumber) {
-									System.out.print(r.numofArmiesHere);
-									break;
-								}
-							}
-							System.out.println(" armies here.)");
-						}
-						count++;
-					}
-				/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
-					
-					
-/* ------------- NOW, READ IN WHICH TERRITORY PLAYER CHOOSES TO ATTACK ------------- */
-					BufferedReader reader2 = new BufferedReader(new InputStreamReader(System.in));
-					try {
-						String to = reader2.readLine();
-						repeat = attackChosenTerritory(to,t,repeat,result);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				} else {
-					System.out.println("You don't have enough armies to attack from this territory.");
-					attack();
-				}
-				//break;
+				repeat = attackStepOne(t,repeat,result);
 			}
-			return repeat;
+		return repeat;
 	}
 
 
+	public boolean attackStepOne(territory t, boolean repeat, int result) {
+
+		/* SET TERRITORY OWNER TO THIS PLAYER (BECAUSE IT WASN'T DONE EARLIER, I GUESS) */
+		t.setOwnerName(this.p.playerName);
+
+		/* ...if territory has at least 2 armies on it.. */
+		if(t.numofArmiesHere > 1) {
+
+			System.out.println("Which territory would you like to attack? *CHOOSE NUMBER*");
+			int count = 0;
+
+			/* DISPLAY ADJACENT TERRITORIES THAT PLAYER CAN ATTACK (ONLY TERRITORIES THAT
+			 * PLAYER DOES NOT OWN).
+			 */
+			while(count < t.adj_territories.size()) {
+				decipherTerritories(t,count);
+				count++;
+			}
+
+			/* ------------- NOW, READ IN WHICH TERRITORY PLAYER CHOOSES TO ATTACK ------------- */
+			//BufferedReader reader2 = new BufferedReader(new InputStreamReader(System.in));
+			try {
+				String to = buffReader();
+				repeat = attackChosenTerritory(to,t,repeat,result);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("You don't have enough armies to attack from this territory.");
+			attack();
+		}
+		return repeat;
+	}
+
+	
+	public boolean decipherTerritories(territory t,int count) {
+		boolean output = false;
+		/* GET TERRITORY FROM ADJACENT TERRITORIES LIST... */
+		territory nameCheck = new territory();
+		for(territory n : tList) {
+			boolean match = checkTerritoryName(t,n,nameCheck,count);
+			if(match) {
+				nameCheck = n;
+				output = true;
+				break;
+			}
+			//nameCheck = n;
+		}
+		/* ...AND IF THAT TERRITORY IS *NOT* OWNED BY THIS PLAYER, DISPLAY THE
+		 * TERRITORY NUMBER, NAME AND HOW MANY ARMIES THERE FOR THE PLAYER
+		 * TO SEE
+		 */
+		if(this.p.getplayernumber() != nameCheck.isOwnedBy) {
+			checkAdjTerr(t,count);
+		}
+		return output;
+	}
+	
+	public boolean checkAdjTerr(territory t, int count) {
+		boolean output = false;
+		System.out.printf("%-5s %-23s", "["+t.adj_territories.get(count).territoryNumber+"] ",t.adj_territories.get(count).name );
+		System.out.print("(There are ");
+		for(territory r : tList) {
+			boolean match = printTerritoryArmies(r,t,count);
+			if(match) {
+				output = true;
+				break;
+			}
+		}
+		System.out.println(" armies here.)");
+		return output;
+	}
+	
+	public boolean printTerritoryArmies(territory r, territory t, int count) {
+		if(r.territoryNumber == t.adj_territories.get(count).territoryNumber) {
+			System.out.print(r.numofArmiesHere);
+			return true;
+		}	
+		return false;
+	}
+	
+	public boolean checkTerritoryName(territory t, territory n, territory nameCheck, int count) {
+		boolean match;
+		if(t.adj_territories.get(count).name.equals(n.name)) {
+			nameCheck = n;
+			match = true;
+			return match;
+		}
+		match = false;
+		return match;
+	}
+	
+	
 	public boolean attackChosenTerritory(String to, territory t, boolean repeat, int result) throws IOException{
 		
 		int result2 = Integer.parseInt(to);
 
 		/* ...LOOP THROUGH TERRITORY[]... */
 		for(territory tr : tList) {
-			repeat = attackCheck(tr,result,result2,repeat,t);
+			if(repeat) {
+				repeat = attackCheck(tr,result,result2,repeat,t);
+				//return repeat;
+			}
 		}
 		return repeat;
 	}
@@ -165,7 +213,7 @@ public class AttackProcess implements Serializable {
 		/* ------------ TEMPERARY TERRITORY USED FOR THE ROLLDICE() METHOD NEXT ------------ */
 		this.p.notifyDefender(tr.isOwnedBy);
 		territory diceTerr = new territory(); 
-		diceTerr = tList[result-1];
+		diceTerr = tList[result-1]; 
 		/* ------------ ARRAY THAT HOLDS THE DICE ROLL RESULT ------------ */
 		int[] attackingP = this.p.rolldice(diceTerr.getnumofarmies());
 		System.out.println("\n\n***ATTACKING "+tr.name+"!!***\n");
@@ -191,19 +239,21 @@ public class AttackProcess implements Serializable {
 
 		/* ------------ PROMPT USER TO CONTINUE ATTACKING OR NOT ------------ */
 		System.out.println("Do you want to CONTINUE attacking? *(Y or N)*");
-		BufferedReader keepAttacking = new BufferedReader(new InputStreamReader(System.in));
+		//BufferedReader keepAttacking = new BufferedReader(new InputStreamReader(System.in));
 		try {
-			String keepGoing = keepAttacking.readLine();
+			String keepGoing = buffReader();
 			repeat = continueAttacking(repeat,keepGoing);
-			if(repeat) {
+			if(repeat == true) {
 				Attacking(); 
+			}
+			else {
+				return false;
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return repeat; 
-	
+		return repeat;
 	}
 	
 	
