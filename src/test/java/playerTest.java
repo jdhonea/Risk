@@ -4,8 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 
+import static org.junit.Assert.*;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
+
+import org.junit.Test;
+
 /** 
- * CLASS TO TEST ALL METHODS OF THE PLAYER OBJECT
+ * 
  */
 public class playerTest {
 
@@ -96,14 +106,14 @@ public class playerTest {
 	}
 
 	@Test
-	public void playerTooManyTest(){
+	public void playerTooManyTest() throws IOException{
 		int num = 7;
 		player testPlayer = new player(num);
 		assertEquals(testPlayer.playerNo,0);
 	}
 	
 	@Test
-	public void playerTooFewTest(){
+	public void playerTooFewTest() throws IOException{
 		int num = 1;
 		player testPlayer = new player(num);
 		assertEquals(testPlayer.playerNo,0);
@@ -141,7 +151,7 @@ public class playerTest {
 		testPlayer.reduceUnplacedArmies();
 		assertEquals(testPlayer.unplacedArmies,9);
 	}
-
+	/////////////////////////////////////
 	@Test
 	public void getUnplacedArmiesTest() {
 		player testPlayer = new player();
@@ -183,7 +193,7 @@ public class playerTest {
 		testPlayer.numOfCards = 3;
 		assertEquals(testPlayer.getnumofcards(),3);
 	}
-	
+	///////////////////////////////////////////
 	@Test
 	public void getNumberofTerritoriesTest() {
 		player testPlayer = new player();
@@ -204,7 +214,7 @@ public class playerTest {
 		testPlayer.resetCardsContainedOwnedTerritory();
 		assertEquals(testPlayer.cardsContainedOwnedTerritory,false);
 	}
-	
+////////////////////////////////////
 	@Test
 	public void canTradeTest() {
 		player testPlayer = new player();
@@ -373,7 +383,7 @@ public class playerTest {
 		testPlayer.setDefenseMode(true);
 		assertEquals(testPlayer.isDefending(),true);
 	}
-	
+
 	@Test
 	public void continueAttackingTest() {
 		player testPlayer = new player();
@@ -405,19 +415,7 @@ public class playerTest {
 		assertEquals(testTerritory.isOwnedBy,5);
 		assertEquals(testTerritory.isTaken,true);
 	}
-	
-	@Test
-	public void printHandTest() throws IOException{
-		player testPlayer = new player();
-		List<card> hand = new ArrayList<card>();
-		testPlayer.hand = hand;
-		card testCard = new card('i', "testTerritory");
-		hand.add(testCard); 
-		testPlayer.printHand();
-		assertEquals(testPlayer.cardTest,"1	i	testTerritory\n");
-		assertEquals(testPlayer.printHand(),true);
-	}
-	
+
 	@Test
 	public void endturnTest(){
 		player testPlayer = new player();
@@ -433,67 +431,7 @@ public class playerTest {
 		testPlayer.drawCard(deck);
 		assertEquals(testPlayer.hand.size(),1);
 	}
-	
-	@Test
-	public void compareDiceRollsTest() throws IOException{
-		player testPlayer1 = new player();
-		testPlayer1.playerName = "p1";
-		player testPlayer2 = new player();
-		testPlayer2.playerName = "p2";
-		int[] p1Dice = {1,2,3};
-		int[] p2Dice = {2,3}; 
-		int[] output = testPlayer1.compareDiceRolls(testPlayer1,p1Dice,testPlayer2,p2Dice);
-		assertEquals(output[0],2);
-	} 
-	
-	@Test
-	public void compareDiceRolls2Test() throws IOException{
-		player testPlayer1 = new player();
-		testPlayer1.playerName = "p1";
-		player testPlayer2 = new player();
-		testPlayer2.playerName = "p2";
-		int[] p1Dice = {3};
-		int[] p2Dice = {3}; 
-		int[] output = testPlayer1.compareDiceRolls(testPlayer1,p1Dice,testPlayer2,p2Dice);
-		assertEquals(output[0],1);
-	} 
-	
-	@Test
-	public void compareDiceRolls3Test() throws IOException{
-		player testPlayer1 = new player();
-		testPlayer1.playerName = "p1";
-		player testPlayer2 = new player();
-		testPlayer2.playerName = "p2";
-		int[] p1Dice = {5};
-		int[] p2Dice = {3}; 
-		int[] output = testPlayer1.compareDiceRolls(testPlayer1,p1Dice,testPlayer2,p2Dice);
-		assertEquals(output[0],0);
-	} 
-	
-	@Test
-	public void compareDiceRolls4Test() throws IOException{
-		player testPlayer1 = new player();
-		testPlayer1.playerName = "p1";
-		player testPlayer2 = new player();
-		testPlayer2.playerName = "p2";
-		int[] p1Dice = {4,5};
-		int[] p2Dice = {3,4}; 
-		int[] output = testPlayer1.compareDiceRolls(testPlayer1,p1Dice,testPlayer2,p2Dice);
-		assertEquals(output[0],0);
-	} 
-	
-	@Test
-	public void compareDiceRolls5Test() throws IOException{
-		player testPlayer1 = new player();
-		testPlayer1.playerName = "p1";
-		player testPlayer2 = new player();
-		testPlayer2.playerName = "p2";
-		int[] p1Dice = {3,4,5};
-		int[] p2Dice = {1,2}; 
-		int[] output = testPlayer1.compareDiceRolls(testPlayer1,p1Dice,testPlayer2,p2Dice);
-		assertEquals(output[0],0);
-	} 
-	
+	///////////////////////////////////////////////////////////
 	@Test
 	public void processCardsTest(){
 		board board = new board();
@@ -521,4 +459,97 @@ public class playerTest {
 		assertEquals(testPlayer.getTerritoriesToFortifyFrom(0),"");
 	} 
 	
+	@Test
+	public void inputNameTest() throws IOException {
+		player testPlayer = new player();
+		testPlayer.inputName();
+		assertEquals(Risk_Game.playersN.size(),1);
+	} 
+	
+	@Test
+	public void inputNameDuplicateTest() throws IOException {
+		Risk_Game.playersN.add("test");
+		player testPlayer = new player();
+		testPlayer.playerName = "test";
+		testPlayer.inputName();
+		assertEquals(Risk_Game.playersN.size(),2);
+	} 
+	
+	@Test
+	public void printHandTest() throws IOException {
+		player testPlayer = new player();
+		card card1 = new card('i', "test1");
+		card card2 = new card('a', "test2");
+		testPlayer.hand.add(card1);
+		testPlayer.hand.add(card2);
+		assertEquals(testPlayer.printHand(),true);
+	} 
+	
+	@Test
+	public void chooseTerritoryTest() {
+		player testPlayer = new player();
+		testPlayer.playerNo = 2;
+		territory terr = new territory("test");
+		testPlayer.chooseTerritory(terr);
+		assertEquals(terr.getOwner(),2);
+	} 
+	
+	@Test
+	public void printTerritoriesTest() {
+		player testPlayer = new player();
+		testPlayer.playerNo = 2;
+		territory terr = new territory("test");
+		testPlayer.chooseTerritory(terr);
+		testPlayer.territoriesOwned.add(terr);
+		assertEquals(testPlayer.printTerritories(),true);
+	} 
+	
+	@Test
+	public void printTerritoriesAndAdjacenciesTest() throws Exception {
+		territory[] tList = new territory[42];
+		Risk_Game.initializeTerritories(tList);
+		player testPlayer = new player();
+		testPlayer.playerNo = 2;
+		testPlayer.chooseTerritory(tList[2]);
+		testPlayer.territoriesOwned.add(tList[2]);
+		assertEquals(testPlayer.printTerritoriesAndAdjacencies(),true);
+	} 
+	
+	@Test
+	public void printTerritoriesOwnedTest() throws Exception {
+		territory[] tList = new territory[42];
+		Risk_Game.initializeTerritories(tList);
+		player testPlayer = new player();
+		testPlayer.playerNo = 2;
+		testPlayer.chooseTerritory(tList[2]);
+		testPlayer.territoriesOwned.add(tList[2]);
+		assertEquals(testPlayer.printTerritoriesOwned(),true);
+	} 
+	
+	@Test
+	public void updateTerritoriesAfterBattleTest() throws Exception {
+		territory[] tList = new territory[42];
+		Risk_Game.initializeTerritories(tList);
+		tList[2].numofArmiesHere = 5;
+		tList[3].numofArmiesHere = 2;
+		
+		deck deckTest = new deck(42);
+
+		player testPlayer = new player();
+		testPlayer.playerNo = 1;
+		testPlayer.chooseTerritory(tList[2]);
+		testPlayer.territoriesOwned.add(tList[2]);
+		
+		player testPlayer2 = new player();
+		testPlayer2.playerNo = 2;
+		testPlayer2.chooseTerritory(tList[3]);
+		testPlayer2.territoriesOwned.add(tList[3]);
+		
+		int attackerLost = 0;
+		int defenderLost = 2;
+		int advanceNum = 1;
+		testPlayer.updateTerritoriesAfterBattle(tList[2],attackerLost,tList[3],defenderLost,advanceNum,deckTest);
+		assertEquals(testPlayer.cardAlreadyPicked,true);
+	} 
+	 
 }
